@@ -1,3 +1,6 @@
+# Author : Srikanth Ande
+#Project Created on : 7th July 2016
+
 # SmartSchoolProject
 Test project for a prototype project
 
