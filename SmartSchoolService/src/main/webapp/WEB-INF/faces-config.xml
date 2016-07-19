@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<faces-config
+    xmlns="http://java.sun.com/xml/ns/javaee"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/javaee 
+    http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd"
+    version="2.0">
+  
+	 	 <!-- Below is the way of registering a Resource Bundle at the application level. You can load the resource bundle in a specific page also using the code :  <f:loadBundle basename="com.smartSchoolService.resourceBundle.InfoMessages" var="InfoMsgBundle"/>    .. For more info, look at  https://www.mkyong.com/jsf2/jsf-2-0-and-resource-bundles-example/-->
+	 <application>
+	  <resource-bundle>
+		<base-name>com.smartSchoolService.resourceBundle.ErrorMessages</base-name>
+		<var>ErrorMsgBundle</var>
+	   </resource-bundle>
+	   <resource-bundle>
+		<base-name>com.smartSchoolService.resourceBundle.InfoMessages</base-name>
+		<var>InfoMsgBundle</var>
+	   </resource-bundle>
+     </application>
+</faces-config>
