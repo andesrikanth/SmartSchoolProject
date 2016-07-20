@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<faces-config
+    xmlns="http://java.sun.com/xml/ns/javaee"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/javaee 
+    http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd"
+    version="2.0">
+    
+    <!-- Bean can be initialized in 2 ways. One is the below XML code and the other way is to keep @ManagedBean annotation for the bean pojo class. Look at http://docs.oracle.com/javaee/6/tutorial/doc/girch.html for more info -->
+	 <managed-bean>
+		<managed-bean-name>testServiceBean</managed-bean-name>
+		<managed-bean-class>com.smartSchoolService.bean.TestPojo</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+	</managed-bean> 
+	
+</faces-config>
