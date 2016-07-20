@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pageflow:Pageflow xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:pageflow="http://www.sybase.com/suade/pageflow" id="pf14689818649974" configfile="/SmartSchool/WebContent/WEB-INF/config/home-navigation.xml">
+  <nodes xsi:type="pageflow:PFPage" name="home.xhtml" id="pf146899687445121" referenceLink="//@navigationRule.2/@navigationCase.0/@toViewId|" outlinks="pf146899687445222" inlinks="pf146899701094226" path="/home.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="/Test.xhtml" id="pf146899687445223" referenceLink="//@navigationRule.2/@fromViewId|" outlinks="pf146899687445224" inlinks="pf146899687445222" path="/Test.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="/Test2.xhtml" id="pf146899687445225" referenceLink="//@navigationRule.2/@fromViewId|" outlinks="pf146899701094226" inlinks="pf146899687445224" path="/Test2.xhtml"/>
+  <links id="pf146899687445222" target="pf146899687445223" source="pf146899687445121" outcome="page1" redirect="true"/>
+  <links id="pf146899687445224" target="pf146899687445225" source="pf146899687445223" outcome="page2" redirect="true"/>
+  <links id="pf146899701094226" target="pf146899687445121" source="pf146899687445225" outcome="Home" redirect="true"/>
+</pageflow:Pageflow>

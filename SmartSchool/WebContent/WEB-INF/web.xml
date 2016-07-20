@@ -51,7 +51,7 @@
   <!--  Look at this doc for more details on config files : http://docs.oracle.com/javaee/6/tutorial/doc/bnawp.html -->
   <context-param>
     <param-name>javax.faces.CONFIG_FILES</param-name>
-    <param-value>WEB-INF/config/managed-beans.xml</param-value>
+    <param-value>WEB-INF/config/managed-beans.xml,WEB-INF/config/home-navigation.xml</param-value>
     <!-- A context initialization parameter, javax.faces.application.CONFIG_FILES, in your web deployment descriptor file that specifies one or more (comma-delimited) paths to multiple configuration files for your web application. This method is most often used for enterprise-scale applications that delegate to separate groups the responsibility for maintaining the file for each portion of a big application. -->
   </context-param>
   <context-param>

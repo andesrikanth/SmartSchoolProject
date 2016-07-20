@@ -5,12 +5,18 @@
       xmlns:f="http://java.sun.com/jsf/core"      
       xmlns:h="http://java.sun.com/jsf/html">
  <!-- Test URL : http://localhost:8080/SmartSchool/home.jsf -->
+ <f:view>
     <h:body>
     	<h3>Testing</h3>
     	 <h:outputText value="#{ErrorMsgBundle.loginFailedMsg}" />  
     	<h:form>
 		<h:outputText id="name" value="#{testBean.name}"></h:outputText>
 		
+    	   <h:commandButton action="page1" value="Test"  />
+    	   
+    	   <h:form>
+   
+</h:form>
     	  <!--  <h:inputText id="name" value="#{helloBean.name}"></h:inputText>
     	   <h:commandButton value="Welcome Me">
     		 <f:ajax execute="name" render="output" />
@@ -20,4 +26,5 @@
     	</h:form>
  
     </h:body>
+    </f:view>
 </html>
