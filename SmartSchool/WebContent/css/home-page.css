@@ -10,46 +10,7 @@
 	color:#ffa500;
 }
 
-/* 
-.notif-table table {
-  font-family: 'Verdana';
-  margin: 25px auto;
-  border-collapse: separate;
-border-spacing: 3px;
-  border: 1px solid #eee;
-  box-shadow:0px 0px 20px #808080;
-text-align:center;
-border-radius:10px;
-}
 
-.notif-table td:hover {
-  color: #555;
-background: #f1f1f1;
-text-decoration: underline;
-}
-.notif-table th, td {
-  color: #999;
-  border: 1px solid #eee;
-  padding: 5px 5px;
-}
-.notif-table th {
-  background: #0088cc;
-  color: #fff;
-  text-transform: uppercase;
-  font-size: 12px;
-border-radius: 5px;
-}
-.notif-table tr, td {
-transition: all 1s;
-border-radius: 5px;
-box-shadow: 3px 3px #808080;
-}
-
-
-
-
-
- */
 
 
 #box-table-a {
@@ -93,10 +54,6 @@ table, tbody, td, tfoot, th, thead, tr{
     padding: 8px;
 }
 
-
-
-/* Custom Ends -- Srikanth */
-
 body {
 	/* background: #f8f8f8 url(../img/pattern.jpg); */
 	background: white;
@@ -104,9 +61,104 @@ body {
 	font-family: 'PT Sans', Helvetica, Arial, sans-serif;
 	font-size: 16px;
 	font-weight: 400;
-	color: #555;
+	/* color: #555; */
 	text-align: left;
 }
+
+
+.button {
+	display: inline-block;
+	zoom: 1;
+	line-height: normal;
+	white-space: nowrap;
+	vertical-align: middle;
+	text-align: center;
+	cursor: pointer;
+	-webkit-user-drag: none;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box
+}
+
+.button::-moz-focus-inner {
+	padding: 0;
+	border: 0
+}
+
+.button {
+	font-family: inherit;
+	font-size: 100%;
+	padding: .5em 1em;
+	color: #444;
+	color: rgba(0, 0, 0, .8);
+	border: 1px solid #999;
+	border: 0 rgba(0, 0, 0, 0);
+	background-color: #E6E6E6;
+	text-decoration: none;
+	border-radius: 2px
+}
+
+.button-hover, .button:hover, .button:focus {
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00000000',
+		endColorstr='#1a000000', GradientType=0);
+	background-image: -webkit-gradient(linear, 0 0, 0 100%, from(transparent),
+		color-stop(40%, rgba(0, 0, 0, .05)), to(rgba(0, 0, 0, .1)));
+	background-image: -webkit-linear-gradient(transparent, rgba(0, 0, 0, .05)
+		40%, rgba(0, 0, 0, .1));
+	background-image: -moz-linear-gradient(top, rgba(0, 0, 0, .05) 0,
+		rgba(0, 0, 0, .1));
+	background-image: -o-linear-gradient(transparent, rgba(0, 0, 0, .05) 40%,
+		rgba(0, 0, 0, .1));
+	background-image: linear-gradient(transparent, rgba(0, 0, 0, .05) 40%,
+		rgba(0, 0, 0, .1))
+}
+
+.button:focus {
+	outline: 0
+}
+
+.button-active, .button:active {
+	box-shadow: 0 0 0 1px rgba(0, 0, 0, .15) inset, 0 0 6px
+		rgba(0, 0, 0, .2) inset;
+	border-color: #000\9
+}
+
+.button[disabled], .button-disabled, .button-disabled:hover,
+	.button-disabled:focus, .button-disabled:active {
+	border: 0;
+	background-image: none;
+	filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
+	filter: alpha(opacity = 40);
+	-khtml-opacity: .4;
+	-moz-opacity: .4;
+	opacity: .4;
+	cursor: not-allowed;
+	box-shadow: none
+}
+
+
+.button-hidden {
+	display: none
+}
+
+.button::-moz-focus-inner {
+	padding: 0;
+	border: 0
+}
+
+.submit-btn
+	{
+	background-color: #0078e7;
+	color: #fff
+}
+
+
+/* Custom Ends -- Srikanth */
+
 
 strong {
 	font-weight: 700;
@@ -336,6 +388,7 @@ a:hover {
 /***** Content *****/
 .features_2 {
 	margin-top: 40px;
+	margin-left: -60px
 }
 
 .features_2 h3 {
@@ -354,7 +407,7 @@ a:hover {
 .features_2 .single-feature {
 	width: 190px;
 	margin-bottom: 15px;
-	margin-left: 60px;
+	margin-left: 60px; 
 }
 
 .features_2 .single-feature-bottom {
@@ -362,7 +415,7 @@ a:hover {
 }
 
 .features_2 .features-left-span {
-	margin-left: 60px;
+	/* margin-left: 60px; */
 }
 
 .features_2 .single-feature:hover i {
