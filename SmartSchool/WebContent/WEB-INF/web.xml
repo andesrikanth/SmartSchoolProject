@@ -24,10 +24,7 @@
 		<url-pattern>/SmartSchoolRest/*</url-pattern>
 	</servlet-mapping>
 
-   <servlet-mapping>
-      <servlet-name>Faces Servlet</servlet-name>
-      <url-pattern>/faces/*</url-pattern>
-   </servlet-mapping>
+   
 	
    <servlet-mapping>
       <servlet-name>Faces Servlet</servlet-name>
@@ -43,6 +40,12 @@
       <servlet-name>Faces Servlet</servlet-name>
       <url-pattern>*.xhtml</url-pattern>
    </servlet-mapping>
+   
+   <servlet-mapping>
+      <servlet-name>Faces Servlet</servlet-name>
+      <url-pattern>/faces/*</url-pattern>
+   </servlet-mapping>
+  
     <!-- Change to "Production" when you are ready to deploy -->
   <context-param>
     <param-name>javax.faces.PROJECT_STAGE</param-name>

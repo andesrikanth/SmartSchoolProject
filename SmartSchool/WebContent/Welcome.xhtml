@@ -5,8 +5,9 @@
       xmlns:f="http://java.sun.com/jsf/core"      
       xmlns:h="http://java.sun.com/jsf/html">
     <head>
-    <!-- below javascript file contains all the necessary default variables for loading on the UI. This js must load first.-->
+    	<!-- below javascript file contains all the necessary default variables for loading on the UI. This js must load first.-->
         <script type="text/javascript" src="js/initialize-script-home.js"></script>
+        
         <!-- The below javascript file is specific to loading dynamic menu dropdown items on the UI. -->
 		<script type="text/javascript" src="js/mm_menu.js"></script>
 		
@@ -22,29 +23,32 @@
         <!-- <link rel="stylesheet" href="css/font.css"></link> -->
         <link rel="stylesheet" href="css/home-page.css"></link>
 
-
-
     </head>
-
+    
+	<f:metadata>
+	<!--     <f:viewParam name="paramName" value="#{bean.paramName}" /> -->
+	    <f:viewAction action="#{commonBean.sessionStatusCheck}" />
+	</f:metadata>
+	
     <body onload="setStaticValues()">
-<script language="JavaScript1.2">mmLoadMenus();</script>
-<!-- <script language="JavaScript1.2">window.onload = setStaticValues();</script> -->
+		<script language="JavaScript1.2">mmLoadMenus();</script>
         <!-- Header -->
         
         <div class="container">
             <div class="header row">
                 <div class="span4">
-                    <h2><img src="img/SchoolLogo1.png" id="schoolLogo" align="middle" alt="Boston Schools" style="width:80px;height:70px;margin-left:-80px;"/><a href="ProdTest.jsf" id="schoolName" style="padding-left: 10px;">Dummy</a></h2>
+                    <h2><img src="img/SchoolLogo1.png" id="schoolLogo" align="middle" alt="Boston Schools" style="width:80px;height:70px;margin-left:-80px;"/><a href="Welcome.jsf" id="schoolName" style="padding-left: 10px;">Dummy</a></h2>
                 </div>
                 <div class="tel-skype span8">
                     <p>
                     <h:form style="text-align: end;">
 				        
-	                    <a href="Welcome.jsf" class ="menu-item" name="home" id="home" >Home</a>
+	                    <a href="Welcome.jsf" class ="menu-item" name="home" id="home" onmouseover="hideActiveMenus();">Home</a>
 	                    <a href="#" class ="menu-item" name="menu1" id="menu1" onmouseover="MM_showMenu(menu1_values,0,20,null,'menu1')" onmouseout="MM_startTimeout();" >Dummy</a>
 	                    <a href="#" class ="menu-item"  name="menu2" id="menu2" onmouseover="MM_showMenu(menu2_values,0,20,null,'menu2')" onmouseout="MM_startTimeout();"  >Dummy</a>
-	                    <a href="home.jsf" class ="menu-item" name="contactUs" id="contactUs" >Contact Us</a>
-	                     <a><b><h:outputText value="Welcome Srikanth!" /></b></a> 
+	                    <h:link id="admin" rendered="#{cur_user_role_type == 'Admin'}"> <a href="#" class ="menu-item" name="menu3" id="menu3" onmouseover="MM_showMenu(menu3_values,0,20,null,'menu3')" onmouseout="MM_startTimeout();" >Dummy</a></h:link>
+	                    <h:commandLink id="logout" action="logout" actionListener="#{loginBean.logout}" class ="menu-item"  value="Logout"  onmouseover="hideActiveMenus();"> </h:commandLink>
+	                    <a><b><h:outputText value="Welcome #{cur_user_display_name}!" /></b></a> 
 			        </h:form>
                     
                      </p>
@@ -52,7 +56,7 @@
             </div>
         </div>
 
-        <!-- Product Showcase -->
+        <!-- Images Showcase -->
         <div class="product-showcase">
             <div class="product-showcase-pattern">
                 <div class="container">
@@ -312,10 +316,10 @@
                 <div class="row">
                      <div class="span4 testimonials" style="width:500px">
                         <h3>Head Office</h3>
-                        <p>2300 Washington Street</p>
-                        <p>Roxbury, MA 02119</p>
-                        <p>Phone : 617-635-9000</p>
-                        <p>Fax : 617-635-9059</p>
+                       <p id="OfficeAddress1">Dummy</p>
+                        <p id="OfficeAddress2">Dummy</p>
+                        <p id="OfficePhone">Dummy</p>
+                        <p id="OfficeFax">Dummy</p>
                     </div>
                     <div class="span4 contact-us">
                         <h3>Contact Us</h3>

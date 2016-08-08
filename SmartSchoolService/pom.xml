@@ -40,7 +40,24 @@
     <artifactId>jstl</artifactId>
     <version>1.2</version>
 </dependency>
-   
+  <dependency>
+    <groupId>org.postgresql</groupId>
+    <artifactId>postgresql</artifactId>
+    <version>9.4-1202-jdbc42</version>
+     <scope>compile</scope>
+</dependency>
+
+<dependency>
+    <groupId>org.richfaces.ui</groupId>
+    <artifactId>richfaces-components-ui</artifactId>
+    <version>4.3.7.Final</version>
+</dependency>
+<dependency>
+    <groupId>org.richfaces.core</groupId>
+    <artifactId>richfaces-core-impl</artifactId>
+    <version>4.3.7.Final</version>
+</dependency>
+
   </dependencies>
   <build>
     <finalName>SmartSchoolService</finalName>

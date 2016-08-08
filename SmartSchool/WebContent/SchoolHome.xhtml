@@ -34,16 +34,17 @@
         <div class="container">
             <div class="header row">
                 <div class="span4">
-                    <h2><img src="img/SchoolLogo1.png" id="schoolLogo" align="middle" alt="Boston Schools" style="width:80px;height:70px;margin-left:-80px;"/><a href="ProdTest.jsf" id="schoolName" style="padding-left: 10px;">Dummy</a></h2>
+                    <h2><img src="img/SchoolLogo1.png" id="schoolLogo" align="middle" alt="Boston Schools" style="width:80px;height:70px;margin-left:-80px;"/><a href="SchoolHome.jsf" id="schoolName" style="padding-left: 10px;">Dummy</a></h2>
                 </div>
                 <div class="tel-skype span8">
                     <p>
                     <h:form style="text-align: end;">
 				        
-	                    <a href="Home.jsf" class ="menu-item" name="home" id="home" >Home</a>
+	                    <a href="SchoolHome.jsf" class ="menu-item" name="home" id="home" onmouseover="hideActiveMenus();">Home</a>
 	                    <a href="#" class ="menu-item" name="menu1" id="menu1" onmouseover="MM_showMenu(menu1_values,0,20,null,'menu1')" onmouseout="MM_startTimeout();" >Dummy</a>
 	                    <a href="#" class ="menu-item"  name="menu2" id="menu2" onmouseover="MM_showMenu(menu2_values,0,20,null,'menu2')" onmouseout="MM_startTimeout();"  >Dummy</a>
-	                     <h:commandLink class ="menu-item" value="Login" action="#{commonBean.loginNavigation}" />	
+						<h:commandLink class ="menu-item" value="Register" action="register" onmouseover="hideActiveMenus();" />	
+	                     <h:commandLink class ="menu-item" value="Login" action="login" onmouseover="hideActiveMenus();" />	
 			        </h:form>
                     
                      </p>
@@ -311,10 +312,10 @@
                 <div class="row">
                      <div class="span4 testimonials" style="width:500px">
                         <h3>Head Office</h3>
-                        <p>2300 Washington Street</p>
-                        <p>Roxbury, MA 02119</p>
-                        <p>Phone : 617-635-9000</p>
-                        <p>Fax : 617-635-9059</p>
+                        <p id="OfficeAddress1">Dummy</p>
+                        <p id="OfficeAddress2">Dummy</p>
+                        <p id="OfficePhone">Dummy</p>
+                        <p id="OfficeFax">Dummy</p>
                     </div>
                     <div class="span4 contact-us">
                         <h3>Contact Us</h3>

@@ -26,6 +26,11 @@
 
 
     </head>
+    
+	<f:metadata>
+	<!--     <f:viewParam name="paramName" value="#{bean.paramName}" /> -->
+	    <f:viewAction action="#{commonBean.sessionStatusCheck}" />
+	</f:metadata>
 
     <body onload="setStaticValues()">
 <script language="JavaScript1.2">mmLoadMenus();</script>
@@ -33,12 +38,12 @@
         <div class="container">
             <div class="header row">
                 <div class="span4">
-                    <h2><img src="img/SchoolLogo1.png" id="schoolLogo" align="middle" alt="Boston Schools" style="width:80px;height:70px;margin-left:-80px;"/><a href="SchoolHome.jsf" id="schoolName" style="padding-left: 10px;">Dummy</a></h2>
+                    <h2><img src="img/SchoolLogo1.png" id="schoolLogo" align="middle" alt="Boston Schools" style="width:80px;height:70px;margin-left:-80px;"/><a href="Welcome.jsf" id="schoolName" style="padding-left: 10px;">Dummy</a></h2>
                 </div>
                 <div class="tel-skype span8">
                     <p>
                     <h:form style="text-align: end;">
-	                    <a href="SchoolHome.jsf" class ="menu-item" name="home" id="home" onmouseover="hideActiveMenus();">Home</a>
+	                    <a href="Welcome.jsf" class ="menu-item" name="home" id="home" onmouseover="hideActiveMenus();">Home</a>
 	                    <a href="#" class ="menu-item" name="menu1" id="menu1" onmouseover="MM_showMenu(menu1_values,0,20,null,'menu1')" onmouseout="MM_startTimeout();" >Dummy</a>
 	                    <a href="#" class ="menu-item"  name="menu2" id="menu2" onmouseover="MM_showMenu(menu2_values,0,20,null,'menu2')" onmouseout="MM_startTimeout();"  >Dummy</a>
 			        </h:form>
@@ -50,17 +55,21 @@
         <br></br>
         <br></br>
         <center>
-	        <div class="span4" style="margin-left:30%;" >
-	        	<h4>Login</h4>
-	        	 <br></br>  
-	        	<h:form style="text-align: center;">
-	        	<p><h:inputText id="username" name="username" value="#{loginBean.userName}"   requiredMessage="Please enter the username." required="true" a:placeholder="Enter Username"/></p>
-	             <p><h:inputSecret  id="pwd" name="pwd"  value="#{loginBean.password}"  requiredMessage="Please enter the password." required="true" a:placeholder="Enter Password"/></p>
-	             <p><h:commandButton class="button submit-btn" action="#{loginBean.LoginAuthenticationStatus}" actionListener="#{loginBean.SubmitLogin}" value="Submit"  /></p>
-	        	</h:form>                        
-	                <br></br>                    
-	                                    
-	         </div>
+	     
+	     
+	     
+	    
+	    
+	    
+	     <!-- Add the content here -->   
+		
+		
+		
+		
+		
+		
+		
+		
 		</center>
        <!-- features -->
             <div class="row">

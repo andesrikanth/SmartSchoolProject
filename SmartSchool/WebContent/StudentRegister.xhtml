@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"      
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:tr="http://myfaces.apache.org/trinidad">
+	<head></head> 
+    
+    <body>
+    
+	    <ui:composition template="MainTemplate.xhtml">
+				
+			<ui:define name="custom-body">
+				<h4>Please enter the Student details below :</h4>
+				<br></br>
+				
+				<h:form style="text-align: center;">
+		        	<p><h:inputText id="StudentFirstName" maxlength="63" name="StudentFirstName" value="#{registerBean.studentFirstName}"   requiredMessage="Please enter the Student First Name" required="true" a:placeholder="Student First Name"/></p>
+		        	<p><h:inputText id="StudentMiddleName" maxlength="63" name="StudentMiddleName" value="#{registerBean.studentMiddleName}"   requiredMessage="Please enter the Student Middle Name"  a:placeholder="Student Middle Name"/></p>
+		        	<p><h:inputText id="StudentLastName" maxlength="63" name="StudentLastName" value="#{registerBean.studentLastName}"   requiredMessage="Please enter the Student Last Name"  a:placeholder="Student Last Name"/></p>
+		             <p><h:inputText id="Description" maxlength="255" name="Description"  value="#{registerBean.standardDesc}"  requiredMessage="Please enter the Description" required="true" a:placeholder="Enter Description"/></p>
+					<!-- <tr:inputDate columns="30" label="Date" required="#{true}" showRequired="#{true}">
+  <f:facet name="help">
+    <tr:outputText value="Please select" />
+  </f:facet>   
+</tr:inputDate>
+					<tr:inputDate id="mdf2" label="Short Date" simple="false">
+                
+            		</tr:inputDate>
+					<tr:chooseDate id="cd1"
+               minValue="2004-07-01"
+               maxValue="2014-12-31"/> -->
+                	<!--  <a4j:outputPanel id="calendar" layout="block">
+                    <rich:calendar value="#{registerBean.dateOfBirth}"
+                         cellWidth="24px" cellHeight="22px" style="width:200px"/>
+            </a4j:outputPanel> -->
+             
+		             <p><h:commandButton class="button submit-btn" actionListener="#{registerBean.registerStandard}" value="Save"  /></p>
+		        </h:form>  
+			</ui:define>
+	    
+		</ui:composition>
+    </body>
+
+</html>
+
