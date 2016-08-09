@@ -2,17 +2,6 @@
 
 /* Custom starts -- Srikanth*/
 
-.menu-item{
-	padding-right: 10px;
-	
-}
-.menu-item:hover{
-	color:#ffa500;
-}
-
-
-
-
 #box-table-a {
     font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
     font-size: 12px;
@@ -705,7 +694,7 @@ footer a:hover {
 	-webkit-box-shadow: none;
 	box-shadow: none;
 	font-family: 'PT Sans', Helvetica, Arial, sans-serif;
-	font-size: 16px;
+	font-size: 14px !important;
 	color: #aaa;
 }
 

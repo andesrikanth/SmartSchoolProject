@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:f="http://java.sun.com/jsf/core"      
       xmlns:h="http://java.sun.com/jsf/html">
-    <head>
+    <h:head>
     	<!-- below javascript file contains all the necessary default variables for loading on the UI. This js must load first.-->
         <script type="text/javascript" src="js/initialize-script-home.js"></script>
         
@@ -23,7 +23,7 @@
         <!-- <link rel="stylesheet" href="css/font.css"></link> -->
         <link rel="stylesheet" href="css/home-page.css"></link>
 
-    </head>
+    </h:head>
     
 	<f:metadata>
 	<!--     <f:viewParam name="paramName" value="#{bean.paramName}" /> -->
@@ -37,7 +37,7 @@
         <div class="container">
             <div class="header row">
                 <div class="span4">
-                    <h2><img src="img/SchoolLogo1.png" id="schoolLogo" align="middle" alt="Boston Schools" style="width:80px;height:70px;margin-left:-80px;"/><a href="Welcome.jsf" id="schoolName" style="padding-left: 10px;">Dummy</a></h2>
+                    <h2><img src="img/SchoolLogo1.png" id="schoolLogo" align="middle" alt="Boston Schools" style="width:80px;height:70px;margin-left:-80px;"/><a href="Welcome.jsf" id="schoolName" class="schoolName" style="padding-left: 10px;">Dummy</a></h2>
                 </div>
                 <div class="tel-skype span8">
                     <p>
@@ -48,7 +48,7 @@
 	                    <a href="#" class ="menu-item"  name="menu2" id="menu2" onmouseover="MM_showMenu(menu2_values,0,20,null,'menu2')" onmouseout="MM_startTimeout();"  >Dummy</a>
 	                    <h:link id="admin" rendered="#{cur_user_role_type == 'Admin'}"> <a href="#" class ="menu-item" name="menu3" id="menu3" onmouseover="MM_showMenu(menu3_values,0,20,null,'menu3')" onmouseout="MM_startTimeout();" >Dummy</a></h:link>
 	                    <h:commandLink id="logout" action="logout" actionListener="#{loginBean.logout}" class ="menu-item"  value="Logout"  onmouseover="hideActiveMenus();"> </h:commandLink>
-	                    <a><b><h:outputText value="Welcome #{cur_user_display_name}!" /></b></a> 
+	                    <a><b><h:outputText class="nameDisplay" value="Welcome #{cur_user_display_name}!" /></b></a> 
 			        </h:form>
                     
                      </p>
@@ -352,7 +352,7 @@
                 </div> <!-- end row -->
                 <div class="row">
                     <div class="span12 copyright">
-                        <p><a>Copyright 2016. Developed by Srikanth Ande</a></p>
+                        <p><a class="copyrightText">Copyright 2016. Developed by Srikanth Ande</a></p>
                     </div>
                 </div> <!-- end row -->
             </div> <!-- end container -->

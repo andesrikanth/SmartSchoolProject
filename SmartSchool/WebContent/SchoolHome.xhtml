@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:f="http://java.sun.com/jsf/core"      
       xmlns:h="http://java.sun.com/jsf/html">
-    <head>
+    <h:head>
     <!-- below javascript file contains all the necessary default variables for loading on the UI. This js must load first.-->
         <script type="text/javascript" src="js/initialize-script-home.js"></script>
         <!-- The below javascript file is specific to loading dynamic menu dropdown items on the UI. -->
@@ -24,7 +24,7 @@
 
 
 
-    </head>
+    </h:head>
 
     <body onload="setStaticValues()">
 <script language="JavaScript1.2">mmLoadMenus();</script>
@@ -34,7 +34,7 @@
         <div class="container">
             <div class="header row">
                 <div class="span4">
-                    <h2><img src="img/SchoolLogo1.png" id="schoolLogo" align="middle" alt="Boston Schools" style="width:80px;height:70px;margin-left:-80px;"/><a href="SchoolHome.jsf" id="schoolName" style="padding-left: 10px;">Dummy</a></h2>
+                    <h2><img src="img/SchoolLogo1.png" id="schoolLogo" align="middle" alt="Boston Schools" style="width:80px;height:70px;margin-left:-80px;"/><a href="SchoolHome.jsf" id="schoolName" class="schoolName" style="padding-left: 10px;">Dummy</a></h2>
                 </div>
                 <div class="tel-skype span8">
                     <p>
@@ -348,7 +348,7 @@
                 </div> <!-- end row -->
                 <div class="row">
                     <div class="span12 copyright">
-                        <p><a>Copyright 2016. Developed by Srikanth Ande</a></p>
+                        <p><a class="copyrightText">Copyright 2016. Developed by Srikanth Ande</a></p>
                     </div>
                 </div> <!-- end row -->
             </div> <!-- end container -->

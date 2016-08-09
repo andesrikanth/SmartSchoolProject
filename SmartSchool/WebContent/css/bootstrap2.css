@@ -1,3 +1,47 @@
+
+/* Custom starts -- Srikanth*/
+
+.button{
+	background-color: #0078e7 !important; 
+	 font-size: 14px !important; 
+	  background-image: url(none) !important; 
+	   color:#fff !important; 
+	
+}
+.nameDisplay{
+	font-size: 15px !important; 
+	color: #0088cc !important; 
+}
+.copyrightText{
+	font-size: 15px !important; 
+}
+hr{
+	border-color: #eeeeee !important; 
+}
+.schoolName{
+	padding-left: 10px !important;font-size: 31.5px !important;color: #0088cc !important;font-family: 'PT Sans', Helvetica, Arial, sans-serif !important;
+}
+.menu-item {
+	font-family: 'PT Sans', Helvetica, Arial, sans-serif !important;font-size: 16px !important;font-weight: 400 !important;color: #0088cc !important;text-decoration: none !important;
+}
+.menu-item{
+	padding-right: 10px;
+	
+}
+.menu-item:hover{
+	color:#ffa500 !important;
+}
+textarea, input[type="text"], input[type="password"], select {
+     color: #000000; !important;
+     background-repeat: no-repeat !important;
+     background-position: 1px 1px !important;
+    /* background-color: #ffffff !important; */
+     background-image: url(none) !important;
+     	font-size: 16px !important; 
+}
+
+/* Custom Ends -- Srikanth */
+
 .clearfix{*zoom:1;}.clearfix:before,.clearfix:after{display:table;content:"";line-height:0;}
 .clearfix:after{clear:both;}
 .hide-text{font:0/0 a;color:transparent;text-shadow:none;background-color:transparent;border:0;}

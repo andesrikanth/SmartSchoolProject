@@ -1,6 +1,6 @@
 
 //Global Variables
-var schoolName="Srikanth Public School";
+var schoolName="Boston Public School";
 var schoolLogoPath="img/SchoolLogo.png";
 
 var menu1="Academics";
