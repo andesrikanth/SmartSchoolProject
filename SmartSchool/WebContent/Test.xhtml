@@ -10,17 +10,59 @@
       <h:head/>
     <h:body>
     	<h3>Test</h3>
-    	 <h:outputText value="#{ErrorMsgBundle.loginFailedMsg}" /> 
-    	   
-    	<h:form>
-		
-		
-                <rich:calendar value="#{registerBean.dateOfBirth}" id="calendar"  popup="false" 
-                     cellWidth="40px" cellHeight="40px">
-                </rich:calendar>
-            
-    	 
-    	</h:form>
+    	 <ui:composition template="MainTemplate.xhtml">
+				
+			<ui:define name="custom-body">
+				<h4>Please provide student details</h4>
+				<br></br>
+				
+				<!-- 		
+		       <h:form id="register">
+    <h:panelGrid columns="3">
+        <h:outputLabel for="username" value="Username" />
+        <h:inputText id="username" value="#{myBean.username}" required="true" />
+        <h:message for="username" style="color: red;" />
+
+        <h:outputLabel for="password" value="Password" />
+        <h:inputSecret id="password" value="#{myBean.password}" required="true">
+            <f:validator validatorId="passwordValidator" />
+            <f:attribute name="confirm" value="#{confirm}" />
+        </h:inputSecret>
+        <h:message for="password" style="color: red;" />
+
+        <h:outputLabel for="confirm" value="Confirm password" />
+        <h:inputSecret id="confirm" binding="#{confirm}" required="true" >
+        <h:message for="confirm" style="color: red;" />
+        </h:inputSecret>
+
+        <h:panelGroup />
+        <h:commandButton value="Register" action="#{myBean.register}" />
+        <h:message for="register" style="color: green;" />
+    </h:panelGrid>
+</h:form> -->
+			</ui:define>
+	    
+		</ui:composition>
+    	
+    	<!-- <h:form id="register">
+				    <h:panelGrid id="panel" columns="3" border="1" cellpadding="100" cellspacing="10" >
+						
+						<h:outputText id="o8" for="email" value="Email" style="margin-right:15px;"></h:outputText>
+			            <h:inputText id="email" maxlength="30" name="email" value="#{registerBean.studentEmail}" style="margin-right:15px;"   requiredMessage="Please enter the Student Email Id"  a:placeholder="Email Id">
+				            <f:validator validatorId="passwordValidator" />
+				            
+			            </h:inputText>
+			            <h:message for="email" style="color: red;" />
+						
+						<f:facet name="footer">
+						   <h:panelGroup style="display:block; text-align:center">
+							   <h:commandButton id="register" value="Register" action="#{registerBean.register}" />
+       						 <h:message for="register" style="color: green;" />
+							   
+						   </h:panelGroup>
+						</f:facet>
+					</h:panelGrid>
+		        </h:form> -->
  
     </h:body>
 </ui:composition>

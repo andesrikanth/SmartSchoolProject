@@ -72,6 +72,7 @@ public class DatabaseUtility {
 	public void closeConnection(Connection con){
 		try {
 			con.close();
+			System.out.println("Closed Database successfully.");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

@@ -1,9 +1,12 @@
 package com.smartSchool.bean;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.event.ActionEvent;
 
 @ManagedBean(name = "testBean", eager = true)
 @SessionScoped
@@ -12,7 +15,6 @@ public class TestPojo implements Serializable {
 private static final long serialVersionUID = 1L;
 	
 	private String name="Srikanth Test";
-
 	
 	public String status() {
 		return "page1";
@@ -43,4 +45,6 @@ private static final long serialVersionUID = 1L;
 			return "Ajax message : Welcome " + name;
 		}
 	}
+	
+	
 }
