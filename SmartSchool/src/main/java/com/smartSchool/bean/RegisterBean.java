@@ -62,6 +62,7 @@ public class RegisterBean implements Serializable {
 	private String studentMotherName;
 	private String address;
 	private String studentEmail;
+	public String[] studentEmailNotAvail;
 	private String phoneNumber;
 	private String alternativePhoneNumber;
 	private List<ChoiceListPojo.AvailableBranches> availableBranches;
@@ -75,6 +76,13 @@ public class RegisterBean implements Serializable {
 	
 	
    
+	public String[] getStudentEmailNotAvail() {
+		return studentEmailNotAvail;
+	}
+	public void setStudentEmailNotAvail(String[] studentEmailNotAvail) {
+		System.out.println("Set "+studentEmailNotAvail);
+		this.studentEmailNotAvail = studentEmailNotAvail;
+	}
 	public String getSelectedStudentGender() {
 		return selectedStudentGender;
 	}
@@ -248,6 +256,15 @@ public class RegisterBean implements Serializable {
 		}
 	}
 	
+	public void studentEmailNotAvailValueChange(ValueChangeEvent e){
+		if(e.getNewValue() != null){
+			studentEmailNotAvail = (String[])e.getNewValue();
+			if(studentEmailNotAvail.length==0){
+				studentEmailNotAvail=null;
+			}
+		}
+		
+	}
 	public void validateStudentEmail(FacesContext context, UIComponent component, Object value) throws ValidatorException {
 		String selectedValue = (String) value;
 		if(!selectedValue.contains("@") || !selectedValue.contains(".")){
@@ -283,6 +300,7 @@ public class RegisterBean implements Serializable {
 		}
 		
 	}
+	
 	
 	 public String registerStudent() {
 

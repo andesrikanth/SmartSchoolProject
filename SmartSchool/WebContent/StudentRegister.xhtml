@@ -7,7 +7,14 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
       xmlns:rich="http://richfaces.org/rich">
-	<h:head></h:head> 
+	<h:head>
+	<style type="text/css">
+	  label {
+	    margin-botton:5px;
+	    display:grid;
+	    }
+	  </style>
+	</h:head> 
     
     <body>
     
@@ -62,10 +69,18 @@
 						
 						
 						<h:outputText id="o8" value="Email" style="margin-right:15px;font-weight:bold;"></h:outputText>
-			            <h:inputText id="email" maxlength="30" name="email" value="#{registerBean.studentEmail}" style="margin-right:15px;" validator="#{registerBean.validateStudentEmail}" required="true"   requiredMessage="Please enter Email Id"  a:placeholder="Email Id"/>
-			            <h:message for="email" style="color: red;" />
+			            <h:inputText id="email" maxlength="30" name="email" value="#{registerBean.studentEmail}" style="margin-right:15px;" validator="#{registerBean.validateStudentEmail}" required="#{registerBean.studentEmailNotAvail eq null ? true : false}"   requiredMessage="Please enter Email Id or select the checkbox to specify that you don't have an Email."  a:placeholder="Email Id">
+			             </h:inputText>
+			              <h:message for="email" style="color:red" />
+			              
+			             
+			           <h:outputText value="&lt;br/&gt;" escape="false" />   
+			              <h:selectManyCheckbox value="#{registerBean.studentEmailNotAvail}" valueChangeListener="#{registerBean.studentEmailNotAvailValueChange}" immediate="true">
+						   <f:selectItem itemValue="1" itemLabel="Don't have Email" />
+						</h:selectManyCheckbox> 
+						<h:outputText value="&lt;br/&gt;" escape="false" /> 
 						
-						<h:outputText id="o9" value="Phone Number (Primary)" style="margin-right:15px;font-weight:bold;"></h:outputText>
+						<h:outputText id="o9" value="Phone Number (Primary)" style="margin-right:15px;margin-top:10px;font-weight:bold;"></h:outputText>
 			            <h:inputText id="PhoneNumber" maxlength="10" name="PhoneNumber" value="#{registerBean.phoneNumber}" style="margin-right:15px;"  validator="#{registerBean.validatePhNo}" required="true"  requiredMessage="Please enter Phone Number"  a:placeholder="Phone Number"/>
 			            <h:message for="PhoneNumber" style="color: red;" />
 						
