@@ -70,10 +70,18 @@ public class RegisterBean implements Serializable {
 	private Long selectedStandardId;
 	private Long selectedSectionId;
 	private Long selectedBranchId;
+	private String selectedStudentGender="M";
 	private boolean studentRegistrationStatus;
 	
 	
-    public boolean isStudentRegistrationStatus() {
+   
+	public String getSelectedStudentGender() {
+		return selectedStudentGender;
+	}
+	public void setSelectedStudentGender(String selectedStudentGender) {
+		this.selectedStudentGender = selectedStudentGender;
+	}
+	public boolean isStudentRegistrationStatus() {
 		return studentRegistrationStatus;
 	}
 	public void setStudentRegistrationStatus(boolean studentRegistrationStatus) {
@@ -243,7 +251,6 @@ public class RegisterBean implements Serializable {
 	public void validateStudentEmail(FacesContext context, UIComponent component, Object value) throws ValidatorException {
 		String selectedValue = (String) value;
 		if(!selectedValue.contains("@") || !selectedValue.contains(".")){
-			System.out.println("In");
 			throw new ValidatorException(new FacesMessage(FacesMessage.SEVERITY_ERROR, "Please enter valid email id", "Please enter valid email id"));
 		}
 		
@@ -297,6 +304,7 @@ public class RegisterBean implements Serializable {
 			studentPojo.setCreatedBy(loggedUserName);
 			studentPojo.setLastUpdatedBy(loggedUserName);
 			studentPojo.setSelectedBranchId(selectedBranchId);
+			studentPojo.setSelectedStudentGender(selectedStudentGender);;
 			SmartSchoolFacade smartSchoolFacade = new SmartSchoolFacade();
 			boolean status=smartSchoolFacade.registerStudent(studentPojo);
 			studentRegistrationStatus=status;

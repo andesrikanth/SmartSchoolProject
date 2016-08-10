@@ -160,10 +160,9 @@ public class CommonUtil {
 			PreparedStatement st=null;
 			try{
 				java.sql.Date date = new java.sql.Date(studentPojo.getDateOfBirth().getTime());
-				System.out.println(date);
 				//stmt = con.createStatement();
 				//int out = stmt.executeUpdate("INSERT INTO STUDENT_DETAILS(STUDENT_FIRST_NAME,STUDENT_SECOND_NAME,STUDENT_LAST_NAME,DOB,FATHER_NAME, MOTHER_NAME,REGISTERED_STANDARD,REGISTERED_SECTION,ADDRESS, EMAIL,PHONE_NO, SECONDARY_PHONE_NO,CREATED_BY, LAST_UPDATED_BY)  VALUES ('"+studentPojo.getStudentFirstName()+"','"+studentPojo.getStudentMiddleName()+"','"+studentPojo.getStudentLastName()+"',"+date+",'"+studentPojo.getStudentFatherName()+"','"+studentPojo.getStudentMotherName()+"',"+studentPojo.getSelectedStandardId()+","+studentPojo.getSelectedSectionId()+",'"+studentPojo.getAddress()+"','"+studentPojo.getStudentEmail()+"','"+studentPojo.getPhoneNumber()+"','"+studentPojo.getAlternativePhoneNumber()+"','"+studentPojo.getCreatedBy()+"','"+studentPojo.getLastUpdatedBy()+"');");
-				st = con.prepareStatement("INSERT INTO STUDENT_DETAILS(STUDENT_FIRST_NAME,STUDENT_SECOND_NAME,STUDENT_LAST_NAME,DOB,FATHER_NAME, MOTHER_NAME,REGISTERED_STANDARD,REGISTERED_SECTION,ADDRESS, EMAIL,PHONE_NO, SECONDARY_PHONE_NO,BRANCH_ID,CREATED_BY, LAST_UPDATED_BY) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);");
+				st = con.prepareStatement("INSERT INTO STUDENT_DETAILS(STUDENT_FIRST_NAME,STUDENT_SECOND_NAME,STUDENT_LAST_NAME,DOB,FATHER_NAME, MOTHER_NAME,REGISTERED_STANDARD,REGISTERED_SECTION,ADDRESS, EMAIL,PHONE_NO, SECONDARY_PHONE_NO,BRANCH_ID,CREATED_BY, LAST_UPDATED_BY,GENDER) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);");
 				st.setString(1, studentPojo.getStudentFirstName());
 				st.setString(2, studentPojo.getStudentMiddleName());
 				st.setString(3, studentPojo.getStudentLastName());
@@ -179,7 +178,7 @@ public class CommonUtil {
 				st.setLong(13, studentPojo.getSelectedBranchId());
 				st.setString(14, studentPojo.getCreatedBy());
 				st.setString(15, studentPojo.getLastUpdatedBy());
-				
+				st.setString(16, studentPojo.getSelectedStudentGender());
 				
 				int out=st.executeUpdate();
 				if(out == 0){

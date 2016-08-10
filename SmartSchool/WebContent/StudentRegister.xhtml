@@ -39,6 +39,13 @@
 						<rich:calendar id="dob" value="#{registerBean.dateOfBirth}" defaultLabel="Date of Birth"  cellWidth="24px" cellHeight="22px" style="width:200px;margin-right:15px;" required="true" requiredMessage="Please select Date of Birth"/>
 			            <h:message for="dob" style="color:red" />
 						
+						<h:outputText id="og11" value="Gender" style="margin-right:15px;font-weight:bold;"></h:outputText>
+						<h:selectOneRadio id="gender" value="#{registerBean.selectedStudentGender}" style="margin-right:15px;">
+						   	<f:selectItem itemValue="M" itemLabel="Male   &nbsp;&nbsp;" escape="false" />
+						   	<f:selectItem itemValue="F" itemLabel="Female" />
+						</h:selectOneRadio>
+						<h:message for="gender" style="color: red;" />
+						
 			            <h:outputText id="o5" value="Father Name" style="margin-right:15px;font-weight:bold;"></h:outputText>
 			            <h:inputText id="StudentFatherName" maxlength="63" name="StudentFatherName" value="#{registerBean.studentFatherName}"  style="margin-right:15px;"    a:placeholder="Father Name"/>
 			            <h:message for="StudentFatherName" style="color:red" />

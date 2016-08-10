@@ -16,7 +16,14 @@ public class StudentPojo {
 	private Long selectedStandardId;
 	private Long selectedSectionId;
 	private Long selectedBranchId;
+	private String selectedStudentGender;
 	
+	public String getSelectedStudentGender() {
+		return selectedStudentGender;
+	}
+	public void setSelectedStudentGender(String selectedStudentGender) {
+		this.selectedStudentGender = selectedStudentGender;
+	}
 	public Long getSelectedBranchId() {
 		return selectedBranchId;
 	}
