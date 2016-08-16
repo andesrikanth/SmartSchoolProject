@@ -8,6 +8,7 @@ import com.smartSchoolService.pojo.BranchRegisterPojo;
 import com.smartSchoolService.pojo.SectionRegisterPojo;
 import com.smartSchoolService.pojo.StandardRegisterPojo;
 import com.smartSchoolService.pojo.StudentPojo;
+import com.smartSchoolService.pojo.TeacherRegisterPojo;
 import com.smartSchoolService.util.ChoiceListPojo;
 import com.smartSchoolService.util.CommonUtil;
 
@@ -58,6 +59,12 @@ public class SmartSchoolFacade {
 		
 		CommonUtil commonUtil =new CommonUtil();
 		return commonUtil.registerSectionDetails(sectionRegisterPojo);
+	}
+	
+	public HashMap<String,String> registerTeacher(TeacherRegisterPojo teacherRegisterPojo){
+		
+		CommonUtil commonUtil =new CommonUtil();
+		return commonUtil.registerTeacherDetails(teacherRegisterPojo);
 	}
 	
 }

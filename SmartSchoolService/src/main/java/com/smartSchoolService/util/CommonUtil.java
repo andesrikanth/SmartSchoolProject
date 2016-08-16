@@ -15,6 +15,7 @@ import com.smartSchoolService.pojo.BranchRegisterPojo;
 import com.smartSchoolService.pojo.SectionRegisterPojo;
 import com.smartSchoolService.pojo.StandardRegisterPojo;
 import com.smartSchoolService.pojo.StudentPojo;
+import com.smartSchoolService.pojo.TeacherRegisterPojo;
 
 public class CommonUtil {
 
@@ -333,6 +334,88 @@ public class CommonUtil {
 		}
 		
 		return status;
+	}
+	
+	public HashMap<String,String> registerTeacherDetails(TeacherRegisterPojo teacherRegisterPojo){
+		String status = "true";
+		HashMap<String,String> output = new HashMap<String,String>();
+		try {
+			DatabaseUtility databaseUtility =new DatabaseUtility();
+			Connection con=databaseUtility.getConnection();
+			PreparedStatement stmt = null;
+			PreparedStatement st1 = null;
+			Statement stmt1 = null;
+			try{
+				
+				java.sql.Date date = new java.sql.Date(teacherRegisterPojo.getDateOfBirth().getTime());
+				
+				stmt = con.prepareStatement("INSERT INTO TEACHER_DETAILS(TEACHER_FIRST_NAME,TEACHER_SECOND_NAME,TEACHER_LAST_NAME,DOB ,ADDRESS, GENDER, SPECIALIZATION, BRANCH_ID, EMAIL, PHONE_NO, SECONDARY_PHONE_NO, CREATED_BY, LAST_UPDATED_BY) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?);");
+				
+				stmt.setString(1, teacherRegisterPojo.getTeacherFirstName());
+				stmt.setString(2, teacherRegisterPojo.getTeacherMiddleName());
+				stmt.setString(3, teacherRegisterPojo.getTeacherLastName());
+				stmt.setDate(4, date);
+				stmt.setString(5, teacherRegisterPojo.getAddress());
+				stmt.setString(6, teacherRegisterPojo.getTeacherGender());
+				stmt.setString(7, teacherRegisterPojo.getSpecialization());
+				stmt.setLong(8, teacherRegisterPojo.getSelectedBranchId());
+				stmt.setString(9, teacherRegisterPojo.getTeacherEmail());
+				stmt.setString(10, teacherRegisterPojo.getPhoneNumber());
+				stmt.setString(11, teacherRegisterPojo.getAlternativePhoneNumber());
+				stmt.setString(12, teacherRegisterPojo.getCreatedBy());
+				stmt.setString(13, teacherRegisterPojo.getLastUpdatedBy());
+				
+				int out=stmt.executeUpdate();
+				
+				if(out == 0){
+		        	status="false";
+		        }
+				
+				Long currentTeacherId=new Long(0);
+				stmt1 = con.createStatement();
+				ResultSet rs = stmt1.executeQuery("select currval('TEACHER_ID_SEQ') as TEACHER_ID;");
+		        while(rs.next()){
+		        	currentTeacherId=rs.getLong("TEACHER_ID");
+		        }
+		        
+		        RandomPasswordGenerator randomPasswordGenerator = new RandomPasswordGenerator();
+		        String randomPwd=randomPasswordGenerator.generateNewPassword();
+		        String hashedPassword=SmartSchoolHash.customHashing(randomPwd);
+		        
+		        st1 = con.prepareStatement("INSERT INTO LOGIN_DETAILS(USER_NAME, PASSWORD, DISPLAY_NAME, USER_ROLE_TYPE, CREATED_BY,  LAST_UPDATED_BY) VALUES(?,?,?,?,?,?);");
+		        st1.setString(1, "TE"+currentTeacherId);
+		        st1.setString(2, hashedPassword);
+		        st1.setString(3, teacherRegisterPojo.getTeacherFirstName());
+		        st1.setString(4, "TEACHER");
+		        st1.setString(5, teacherRegisterPojo.getCreatedBy());
+		        st1.setString(6, teacherRegisterPojo.getLastUpdatedBy());
+		        
+		        int out1=st1.executeUpdate();
+				if(out1 == 0){
+		        	status="false";
+		        }
+				output.put("USER_NAME", "TE"+currentTeacherId);
+				output.put("PWD", randomPwd);
+				output.put("DB_STATUS", status);
+		        
+		        con.commit();
+			}
+			catch(Exception e){
+				status="false";
+				e.printStackTrace();
+			}
+			finally{
+				stmt.close();
+				databaseUtility.closeConnection(con);
+			}
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			status="false";
+			e.printStackTrace();
+		}
+		
+		return output;
 	}
 
 }

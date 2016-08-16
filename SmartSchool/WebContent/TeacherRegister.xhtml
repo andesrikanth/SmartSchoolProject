@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"      
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:rich="http://richfaces.org/rich">
+	<h:head/>
+	
+    <f:metadata>
+	    <f:viewAction action="#{commonBean.sessionStatusCheck}" />
+	</f:metadata>
+	
+	
+    <body>
+    
+	    <ui:composition template="MainTemplate.xhtml">
+				
+			<ui:define name="custom-body">
+				<h4>Student Registration Form</h4>
+				<br></br>
+				<br></br>
+						
+		        <h:form id="register">
+				    <h:panelGrid id="panel" columns="3" border="1" cellpadding="100" cellspacing="10" rendered="#{!teacherBean.teacherRegistrationStatus}" >
+						
+						
+						<h:outputText id="o1" value="First Name" style="margin-right:15px;font-weight:bold;"></h:outputText>
+						<h:inputText id="teacherFirstName" maxlength="63" name="teacherFirstName" value="#{teacherBean.teacherFirstName}"  style="margin-right:15px;" requiredMessage="Please enter Teacher First Name" required="true" a:placeholder="First Name">
+						</h:inputText>
+						<h:message for="teacherFirstName" style="color:red" />
+						
+						<h:outputText id="o2" value="Middle Name" style="margin-right:15px;font-weight:bold;"></h:outputText>
+			        	<h:inputText id="teacherMiddleName" maxlength="63" name="teacherMiddleName" value="#{teacherBean.teacherMiddleName}" style="margin-right:15px;"   a:placeholder="Middle Name"/>
+			        	<h:message for="teacherMiddleName" style="color:red" />
+						
+						<h:outputText id="o3" value="Last Name" style="margin-right:15px;font-weight:bold;"></h:outputText>
+			        	<h:inputText id="teacherLastName" maxlength="63" name="teacherLastName" value="#{teacherBean.teacherLastName}"  style="margin-right:15px;"  a:placeholder="Last Name"/>
+			           	<h:message for="teacherLastName" style="color:red" />
+						
+						<h:outputText id="o4" value="Date of Birth" style="margin-right:15px;font-weight:bold;"></h:outputText>
+						<rich:calendar id="dob" value="#{teacherBean.dateOfBirth}" defaultLabel="Date of Birth"  cellWidth="24px" cellHeight="22px" style="width:200px;margin-right:15px;" required="true" requiredMessage="Please select Date of Birth"/>
+			            <h:message for="dob" style="color:red" />
+						
+						<h:outputText id="og11" value="Gender" style="margin-right:15px;font-weight:bold;"></h:outputText>
+						<h:selectOneRadio id="gender" value="#{teacherBean.teacherGender}" style="margin-right:15px;">
+						   	<f:selectItem itemValue="M" itemLabel="Male   &nbsp;&nbsp;" escape="false" />
+						   	<f:selectItem itemValue="F" itemLabel="Female" />
+						</h:selectOneRadio>
+						<h:message for="gender" style="color: red;" />
+						
+						<h:outputText id="o7" value="Address" style="margin-right:15px;font-weight:bold;"></h:outputText>
+			            <h:inputTextarea id="Address" rows="5" cols="5"  name="Address" value="#{teacherBean.address}" style="margin-right:15px;"  requiredMessage="Please enter Student Address" required="true"  a:placeholder="Address" a:maxlength="510"/>
+						<h:message for="Address" style="color:red" />
+						
+						<h:outputText id="os7" value="Specialization" style="margin-right:15px;font-weight:bold;"></h:outputText>
+			            <h:inputTextarea id="Specialization" rows="5" cols="5"  name="Specialization" value="#{teacherBean.specialization}" style="margin-right:15px;"  requiredMessage="Please enter Teacher Specialization" required="true"  a:placeholder="Specialization" a:maxlength="510"/>
+						<h:message for="Specialization" style="color:red" />
+						
+						<h:outputText id="o11" value="Branch" style="margin-right:15px;font-weight:bold;"></h:outputText>
+			            <h:selectOneMenu id="branches" value="#{teacherBean.selectedBranchId}" style="margin-right:15px; margin-top:15px;" validator="#{teacherBean.validateBranchesLOV}">
+			            	<f:selectItem  itemValue="0" itemLabel="Select a Branch.."></f:selectItem>
+	    					<f:selectItems value="#{teacherBean.availableBranches}" var="bran" itemValue="#{bran.branchId}" itemLabel="#{bran.branchName}" />
+						 </h:selectOneMenu>
+						<h:message for="branches" style="color: red;" />
+						
+						<h:outputText id="o8" value="Email" style="margin-right:15px;font-weight:bold;"></h:outputText>
+			            <h:inputText id="email" maxlength="30" name="email" value="#{teacherBean.teacherEmail}" style="margin-right:15px;" validator="#{teacherBean.validateEmail}" required="#{teacherBean.teacherEmailNotAvail eq null ? true : false}"   requiredMessage="Please enter Email Id or select the checkbox to specify that you don't have an Email."  a:placeholder="Email Id">
+			             </h:inputText>
+			              <h:message for="email" style="color:red" />
+			              
+			             
+			           <h:outputText value="&lt;br/&gt;" escape="false" />   
+			              <h:selectManyCheckbox value="#{teacherBean.teacherEmailNotAvail}" valueChangeListener="#{teacherBean.emailNotAvailValueChange}" immediate="true">
+						   <f:selectItem itemValue="1" itemLabel="Don't have Email" />
+						</h:selectManyCheckbox> 
+						<h:outputText value="&lt;br/&gt;" escape="false" /> 
+						
+						<h:outputText id="o9" value="Phone Number (Primary)" style="margin-right:15px;margin-top:10px;font-weight:bold;"></h:outputText>
+			            <h:inputText id="PhoneNumber" maxlength="10" name="PhoneNumber" value="#{teacherBean.phoneNumber}" style="margin-right:15px; margin-top:10px"  validator="#{teacherBean.validatePhNo}" required="true"  requiredMessage="Please enter Phone Number"  a:placeholder="Phone Number"/>
+			            <h:message for="PhoneNumber" style="color: red;" />
+						
+						<h:outputText id="o10" value="Phone Number (Secondary)" style="margin-right:15px;font-weight:bold;"></h:outputText>
+			            <h:inputText id="AlternativePhNo" maxlength="10" name="AlternativePhNo" value="#{teacherBean.alternativePhoneNumber}" style="margin-right:15px;"  validator="#{teacherBean.validatePhNo}"   requiredMessage="Please enter Secondary Phone Number"  a:placeholder="Secondary Phone Number"/>
+			            <h:message for="AlternativePhNo" style="color: red;" />
+						
+						
+						
+						<f:facet name="footer">
+						   <h:panelGroup style="display:block; text-align:center">
+						   <p><h:commandButton class="button submit-btn" action="#{teacherBean.registerTeacher}" value="Save" disabled="#{teacherBean.teacherRegistrationStatus}" style="margin-top: 10px;"  /></p>
+       						 
+							   
+						   </h:panelGroup>
+						</f:facet>
+					</h:panelGrid>
+					<h:message for="register" style="color: green;" rendered="#{teacherBean.teacherRegistrationStatus}"/>
+					<h:message for="register" style="color: red;" rendered="#{!teacherBean.teacherRegistrationStatus}"/>
+					
+					<h:panelGroup id="loginDetails" rendered="#{teacherBean.teacherRegistrationStatus}" >
+					<br></br>
+					<br></br>
+						<h:outputText id="oo13" value="Please find the login details below : " style="color: green;font-weight:bold;"></h:outputText>
+						<br></br>
+						<br></br>
+						<h:outputText id="oo18" value="User Name :" style="color: green;text-align:left;"></h:outputText> <h:outputText id="oo19" value=" #{teacherBean.generatedUserName}" style="color: green;text-align:left;font-weight:bold;"></h:outputText>
+						<br></br>
+						<h:outputText id="oo20" value="Temporary Password :" style="color: green;text-align:left;"></h:outputText> <h:outputText id="oo21" value=" #{teacherBean.generatedPwd}" style="color: green;text-align:left;font-weight:bold;"></h:outputText>
+					</h:panelGroup>
+					
+		        </h:form>
+			</ui:define>
+	    
+		</ui:composition>
+    </body>
+
+</html>
+
+

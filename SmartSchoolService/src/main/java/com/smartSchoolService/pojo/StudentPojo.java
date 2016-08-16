@@ -17,6 +17,9 @@ public class StudentPojo {
 	private Long selectedSectionId;
 	private Long selectedBranchId;
 	private String selectedStudentGender;
+	private String createdBy;
+	private String lastUpdatedBy;
+	
 	
 	public String getSelectedStudentGender() {
 		return selectedStudentGender;
@@ -30,8 +33,6 @@ public class StudentPojo {
 	public void setSelectedBranchId(Long selectedBranchId) {
 		this.selectedBranchId = selectedBranchId;
 	}
-	private String createdBy;
-	private String lastUpdatedBy;
 	
 	public String getCreatedBy() {
 		return createdBy;

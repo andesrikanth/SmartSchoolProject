@@ -309,17 +309,24 @@ public class RegisterBean implements Serializable {
 		
 	}
 	public void validateStudentEmail(FacesContext context, UIComponent component, Object value) throws ValidatorException {
-		String selectedValue = (String) value;
-		if(!selectedValue.contains("@") || !selectedValue.contains(".")){
-			throw new ValidatorException(new FacesMessage(FacesMessage.SEVERITY_ERROR, "Please enter valid email id", "Please enter valid email id"));
+		if(value != null){
+			String selectedValue = (String) value;
+			if(!selectedValue.contains("@") || !selectedValue.contains(".")){
+				throw new ValidatorException(new FacesMessage(FacesMessage.SEVERITY_ERROR, "Please enter valid email id", "Please enter valid email id"));
+			}
 		}
 		
 	}
 	
 	public void validatePhNo(FacesContext context, UIComponent component, Object value) throws ValidatorException {
-		String selectedValue = (String) value;
-		if(selectedValue == null || selectedValue.length() !=10){
-			throw new ValidatorException(new FacesMessage(FacesMessage.SEVERITY_ERROR, "Please enter valid Phone Number", "Please enter valid Phone Number"));
+		if(value != null){
+			String selectedValue = (String) value;
+			if(selectedValue.length() !=10){
+				throw new ValidatorException(new FacesMessage(FacesMessage.SEVERITY_ERROR, "Please enter valid Phone Number", "Please enter valid Phone Number"));
+			}
+			else if (!(selectedValue.matches("[0-9]+") && selectedValue.length() > 2)) {
+				throw new ValidatorException(new FacesMessage(FacesMessage.SEVERITY_ERROR, "Please enter valid Phone Number", "Please enter valid Phone Number"));
+			}
 		}
 		
 	}
@@ -366,7 +373,7 @@ public class RegisterBean implements Serializable {
 			studentPojo.setLastUpdatedBy(loggedUserName);
 			studentPojo.setSelectedBranchId(selectedBranchId);
 			studentPojo.setSelectedStudentGender(selectedStudentGender);;
-			if(studentEmailNotAvail == null){
+			if(studentEmailNotAvail == null || (studentEmailNotAvail!= null && studentEmailNotAvail.length==0)){
 				studentPojo.setStudentEmail(studentEmail);
 			}
 			else{
