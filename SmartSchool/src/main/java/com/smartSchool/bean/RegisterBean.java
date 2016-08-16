@@ -2,6 +2,7 @@ package com.smartSchool.bean;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -10,12 +11,12 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
-import javax.faces.event.ActionEvent;
 import javax.faces.event.ValueChangeEvent;
 import javax.faces.validator.ValidatorException;
 import javax.servlet.http.HttpSession;
 
 import com.smartSchool.facade.SmartSchoolFacade;
+import com.smartSchoolService.pojo.SectionRegisterPojo;
 import com.smartSchoolService.pojo.StandardRegisterPojo;
 import com.smartSchoolService.pojo.StudentPojo;
 import com.smartSchoolService.util.ChoiceListPojo;
@@ -73,14 +74,65 @@ public class RegisterBean implements Serializable {
 	private Long selectedBranchId;
 	private String selectedStudentGender="M";
 	private boolean studentRegistrationStatus;
-	
+	private String generatedUserName;
+	private String generatedPwd;
 	
    
+	//Below variables are for Student Registration.
+	private String sectionName;
+	private String sectionDesc;
+	private Long branchId;
+	private Long standardId;
+	private boolean sectionRegisterStatus;
+	
+	
+	
+	public boolean isSectionRegisterStatus() {
+		return sectionRegisterStatus;
+	}
+	public void setSectionRegisterStatus(boolean sectionRegisterStatus) {
+		this.sectionRegisterStatus = sectionRegisterStatus;
+	}
+	public String getSectionName() {
+		return sectionName;
+	}
+	public void setSectionName(String sectionName) {
+		this.sectionName = sectionName;
+	}
+	public String getSectionDesc() {
+		return sectionDesc;
+	}
+	public void setSectionDesc(String sectionDesc) {
+		this.sectionDesc = sectionDesc;
+	}
+	public Long getBranchId() {
+		return branchId;
+	}
+	public void setBranchId(Long branchId) {
+		this.branchId = branchId;
+	}
+	public Long getStandardId() {
+		return standardId;
+	}
+	public void setStandardId(Long standardId) {
+		this.standardId = standardId;
+	}
+	public String getGeneratedUserName() {
+		return generatedUserName;
+	}
+	public void setGeneratedUserName(String generatedUserName) {
+		this.generatedUserName = generatedUserName;
+	}
+	public String getGeneratedPwd() {
+		return generatedPwd;
+	}
+	public void setGeneratedPwd(String generatedPwd) {
+		this.generatedPwd = generatedPwd;
+	}
 	public String[] getStudentEmailNotAvail() {
 		return studentEmailNotAvail;
 	}
 	public void setStudentEmailNotAvail(String[] studentEmailNotAvail) {
-		System.out.println("Set "+studentEmailNotAvail);
 		this.studentEmailNotAvail = studentEmailNotAvail;
 	}
 	public String getSelectedStudentGender() {
@@ -218,16 +270,7 @@ public class RegisterBean implements Serializable {
 	public void setAlternativePhoneNumber(String alternativePhoneNumber) {
 		this.alternativePhoneNumber = alternativePhoneNumber;
 	}
-	public void registerStandard(ActionEvent event){
-		HttpSession session = (HttpSession)FacesContext.getCurrentInstance().getExternalContext().getSession(true);
-		String loggedUserName=(String)session.getAttribute("cur_user_name");
-		StandardRegisterPojo standardRegisterPojo = new StandardRegisterPojo();
-		standardRegisterPojo.setStandardDesc(standardDesc);
-		standardRegisterPojo.setStandardName(standardName);
-		standardRegisterPojo.setCreatedByUserName(loggedUserName);
-		SmartSchoolFacade smartSchoolFacade = new SmartSchoolFacade();
-		standardRegisterStatus=smartSchoolFacade.registerStandard(standardRegisterPojo);
-	}
+	
 	
 	public void branchesLOVChange(ValueChangeEvent e){
 		selectedBranchId=(Long)e.getNewValue();
@@ -252,7 +295,7 @@ public class RegisterBean implements Serializable {
 		selectedStandardId=(Long)e.getNewValue();
 		if(selectedStandardId !=null){
     		SmartSchoolFacade smartSchoolFacade = new SmartSchoolFacade();
-			availableSections=smartSchoolFacade.getAvailableSectionsList(selectedStandardId);
+			availableSections=smartSchoolFacade.getAvailableSectionsList(selectedBranchId,selectedStandardId);
 		}
 	}
 	
@@ -306,6 +349,7 @@ public class RegisterBean implements Serializable {
 
 		 	HttpSession session = (HttpSession)FacesContext.getCurrentInstance().getExternalContext().getSession(true);
 			String loggedUserName=(String)session.getAttribute("cur_user_name");
+			
 			StudentPojo studentPojo = new StudentPojo();
 			studentPojo.setAddress(address);
 			studentPojo.setAlternativePhoneNumber(alternativePhoneNumber);
@@ -313,7 +357,6 @@ public class RegisterBean implements Serializable {
 			studentPojo.setPhoneNumber(phoneNumber);
 			studentPojo.setSelectedSectionId(selectedSectionId);
 			studentPojo.setSelectedStandardId(selectedStandardId);
-			studentPojo.setStudentEmail(studentEmail);
 			studentPojo.setStudentFatherName(studentFatherName);
 			studentPojo.setStudentFirstName(studentFirstName);
 			studentPojo.setStudentLastName(studentLastName);
@@ -323,17 +366,78 @@ public class RegisterBean implements Serializable {
 			studentPojo.setLastUpdatedBy(loggedUserName);
 			studentPojo.setSelectedBranchId(selectedBranchId);
 			studentPojo.setSelectedStudentGender(selectedStudentGender);;
+			if(studentEmailNotAvail == null){
+				studentPojo.setStudentEmail(studentEmail);
+			}
+			else{
+				studentPojo.setStudentEmail("N");
+			}
+			
 			SmartSchoolFacade smartSchoolFacade = new SmartSchoolFacade();
-			boolean status=smartSchoolFacade.registerStudent(studentPojo);
-			studentRegistrationStatus=status;
-	        // Show succes message.
-			if(status){
+			HashMap<String,String> output=smartSchoolFacade.registerStudent(studentPojo);
+			String status=output.get("DB_STATUS");
+			generatedUserName=output.get("USER_NAME");
+			generatedPwd=output.get("PWD");
+			if(status!= null && status.equalsIgnoreCase("true")){
+				studentRegistrationStatus=true;
+				
+				// Show success message.
 				FacesContext.getCurrentInstance().addMessage("register", new FacesMessage("Student Registration Successful !"));
+			}
+			else {
+				// Show failure message.
+				FacesContext.getCurrentInstance().addMessage("register", new FacesMessage("Student Registration Failed!! Please contact product support."));
 			}
 	        
 	        return null;
-	    }
+	  }
 
-	
+	 public String registerStandard(){
+			HttpSession session = (HttpSession)FacesContext.getCurrentInstance().getExternalContext().getSession(true);
+			String loggedUserName=(String)session.getAttribute("cur_user_name");
+			StandardRegisterPojo standardRegisterPojo = new StandardRegisterPojo();
+			standardRegisterPojo.setStandardDesc(standardDesc);
+			standardRegisterPojo.setStandardName(standardName);
+			standardRegisterPojo.setBranchId(selectedBranchId);
+			standardRegisterPojo.setCreatedByUserName(loggedUserName);
+			standardRegisterPojo.setLastUpdatedByUserName(loggedUserName);
+			SmartSchoolFacade smartSchoolFacade = new SmartSchoolFacade();
+			standardRegisterStatus=smartSchoolFacade.registerStandard(standardRegisterPojo);
+			
+			if(standardRegisterStatus){
+				// Show succes message.
+				FacesContext.getCurrentInstance().addMessage("register", new FacesMessage("Standard Registration Successful !"));
+			}
+			else {
+				// Show failure message.
+				FacesContext.getCurrentInstance().addMessage("register", new FacesMessage("Standard Registration Failed!! Please contact product support."));
+			}
+			return null;
+	 }
+	 
+	 public String registerSection(){
+			HttpSession session = (HttpSession)FacesContext.getCurrentInstance().getExternalContext().getSession(true);
+			String loggedUserName=(String)session.getAttribute("cur_user_name");
+			SectionRegisterPojo sectionRegisterPojo=new SectionRegisterPojo();
+			sectionRegisterPojo.setBranchId(selectedBranchId);
+			sectionRegisterPojo.setStandardId(selectedStandardId);
+			sectionRegisterPojo.setSectionName(sectionName);
+			sectionRegisterPojo.setSectionDesc(sectionDesc);
+			sectionRegisterPojo.setCreatedByUserName(loggedUserName);
+			sectionRegisterPojo.setLastUpdatedByUserName(loggedUserName);
+			
+			SmartSchoolFacade smartSchoolFacade = new SmartSchoolFacade();
+			sectionRegisterStatus=smartSchoolFacade.registerSection(sectionRegisterPojo);
+			
+			if(sectionRegisterStatus){
+				// Show succes message.
+				FacesContext.getCurrentInstance().addMessage("register", new FacesMessage("Section Registration Successful !"));
+			}
+			else {
+				// Show failure message.
+				FacesContext.getCurrentInstance().addMessage("register", new FacesMessage("Section Registration Failed!! Please contact product support."));
+			}
+			return null;
+	 }
 
 }

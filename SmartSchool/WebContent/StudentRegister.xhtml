@@ -7,26 +7,24 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
       xmlns:rich="http://richfaces.org/rich">
-	<h:head>
-	<style type="text/css">
-	  label {
-	    margin-botton:5px;
-	    display:grid;
-	    }
-	  </style>
-	</h:head> 
-    
+	<h:head/>
+	
+    <f:metadata>
+	    <f:viewAction action="#{commonBean.sessionStatusCheck}" />
+	</f:metadata>
+	
+	
     <body>
     
 	    <ui:composition template="MainTemplate.xhtml">
 				
 			<ui:define name="custom-body">
-				<h4>Please provide student details</h4>
+				<h4>Student Registration Form</h4>
 				<br></br>
 				<br></br>
 						
 		        <h:form id="register">
-				    <h:panelGrid id="panel" columns="3" border="1" cellpadding="100" cellspacing="10" >
+				    <h:panelGrid id="panel" columns="3" border="1" cellpadding="100" cellspacing="10" rendered="#{!registerBean.studentRegistrationStatus}" >
 						
 						
 						<h:outputText id="o1" value="First Name" style="margin-right:15px;font-weight:bold;"></h:outputText>
@@ -81,7 +79,7 @@
 						<h:outputText value="&lt;br/&gt;" escape="false" /> 
 						
 						<h:outputText id="o9" value="Phone Number (Primary)" style="margin-right:15px;margin-top:10px;font-weight:bold;"></h:outputText>
-			            <h:inputText id="PhoneNumber" maxlength="10" name="PhoneNumber" value="#{registerBean.phoneNumber}" style="margin-right:15px;"  validator="#{registerBean.validatePhNo}" required="true"  requiredMessage="Please enter Phone Number"  a:placeholder="Phone Number"/>
+			            <h:inputText id="PhoneNumber" maxlength="10" name="PhoneNumber" value="#{registerBean.phoneNumber}" style="margin-right:15px; margin-top:10px"  validator="#{registerBean.validatePhNo}" required="true"  requiredMessage="Please enter Phone Number"  a:placeholder="Phone Number"/>
 			            <h:message for="PhoneNumber" style="color: red;" />
 						
 						<h:outputText id="o10" value="Phone Number (Secondary)" style="margin-right:15px;font-weight:bold;"></h:outputText>
@@ -116,11 +114,25 @@
 						<f:facet name="footer">
 						   <h:panelGroup style="display:block; text-align:center">
 						   <p><h:commandButton class="button submit-btn" action="#{registerBean.registerStudent}" value="Save" disabled="#{registerBean.studentRegistrationStatus}" style="margin-top: 10px;"  /></p>
-       						 <h:message for="register" style="color: green;" />
+       						 
 							   
 						   </h:panelGroup>
 						</f:facet>
 					</h:panelGrid>
+					<h:message for="register" style="color: green;" rendered="#{registerBean.studentRegistrationStatus}"/>
+					<h:message for="register" style="color: red;" rendered="#{!registerBean.studentRegistrationStatus}"/>
+					
+					<h:panelGroup id="loginDetails" rendered="#{registerBean.studentRegistrationStatus}" >
+					<br></br>
+					<br></br>
+						<h:outputText id="oo13" value="Please find the login details below : " style="color: green;font-weight:bold;"></h:outputText>
+						<br></br>
+						<br></br>
+						<h:outputText id="oo18" value="User Name :" style="color: green;text-align:left;"></h:outputText> <h:outputText id="oo19" value=" #{registerBean.generatedUserName}" style="color: green;text-align:left;font-weight:bold;"></h:outputText>
+						<br></br>
+						<h:outputText id="oo20" value="Temporary Password :" style="color: green;text-align:left;"></h:outputText> <h:outputText id="oo21" value=" #{registerBean.generatedPwd}" style="color: green;text-align:left;font-weight:bold;"></h:outputText>
+					</h:panelGroup>
+					
 		        </h:form>
 			</ui:define>
 	    

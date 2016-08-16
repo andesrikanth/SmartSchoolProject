@@ -1,8 +1,11 @@
 package com.smartSchool.facade;
 
+import java.util.HashMap;
 import java.util.List;
 
 import com.smartSchoolService.login.LoginHelper;
+import com.smartSchoolService.pojo.BranchRegisterPojo;
+import com.smartSchoolService.pojo.SectionRegisterPojo;
 import com.smartSchoolService.pojo.StandardRegisterPojo;
 import com.smartSchoolService.pojo.StudentPojo;
 import com.smartSchoolService.util.ChoiceListPojo;
@@ -34,14 +37,27 @@ public class SmartSchoolFacade {
 		return commonUtil.getAvailableStandardsList(branchId);
 	}
 	
-	public List<ChoiceListPojo.AvailableSections> getAvailableSectionsList(Long standardId){
+	public List<ChoiceListPojo.AvailableSections> getAvailableSectionsList(Long selectedBranchId, Long standardId){
 		CommonUtil commonUtil =new CommonUtil();
-		return commonUtil.getAvailableSectionsList(standardId);
+		return commonUtil.getAvailableSectionsList(selectedBranchId,standardId);
 	}
 	
-	public boolean registerStudent(StudentPojo studentPojo){
+	public HashMap<String,String> registerStudent(StudentPojo studentPojo){
 		
 		CommonUtil commonUtil =new CommonUtil();
 		return commonUtil.registerStudentDetails(studentPojo);
 	}
+	
+	public boolean registerBranch(BranchRegisterPojo branchRegisterPojo){
+		
+		CommonUtil commonUtil =new CommonUtil();
+		return commonUtil.registerBranchDetails(branchRegisterPojo);
+	}
+	
+	public boolean registerSection(SectionRegisterPojo sectionRegisterPojo){
+		
+		CommonUtil commonUtil =new CommonUtil();
+		return commonUtil.registerSectionDetails(sectionRegisterPojo);
+	}
+	
 }

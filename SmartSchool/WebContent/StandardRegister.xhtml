@@ -10,23 +10,54 @@
     <f:metadata>
 	    <f:viewAction action="#{commonBean.sessionStatusCheck}" />
 	</f:metadata>
+	
+	
+	<body>
     
-    
-    <body>
 	    <ui:composition template="MainTemplate.xhtml">
 				
 			<ui:define name="custom-body">
-				<h4>Please enter the Standard details below :</h4>
+				<h4>Standard Registration Form</h4>
 				<br></br>
-				<h:form style="text-align: center;">
-		        	<p><h:inputText id="StandardName" maxlength="63" name="StandardName" value="#{registerBean.standardName}"   requiredMessage="Please enter the Standard Name" required="true" a:placeholder="Enter Standard Name"/></p>
-		             <p><h:inputText id="Description" maxlength="255" name="Description"  value="#{registerBean.standardDesc}"  requiredMessage="Please enter the Description" required="true" a:placeholder="Enter Description"/></p>
-		             <p><h:commandButton class="button submit-btn" actionListener="#{registerBean.registerStandard}" value="Save"  /></p>
-		        </h:form>  
+				<br></br>
+						
+		        <h:form id="register">
+				    <h:panelGrid id="panel" columns="3" border="1" cellpadding="100" cellspacing="10" rendered="#{!registerBean.standardRegisterStatus}" >
+						
+						<h:outputText id="o11" value="Branch" style="margin-right:15px;font-weight:bold;"></h:outputText>
+			            <h:selectOneMenu id="branches" value="#{registerBean.selectedBranchId}" valueChangeListener="#{registerBean.branchesLOVChange}" style="margin-right:15px; margin-top:15px;" validator="#{registerBean.validateBranchesLOV}">
+			            	<f:selectItem  itemValue="0" itemLabel="Select a Branch.."></f:selectItem>
+	    					<f:selectItems value="#{registerBean.availableBranches}" var="bran" itemValue="#{bran.branchId}" itemLabel="#{bran.branchName}" />
+						 </h:selectOneMenu>
+						<h:message for="branches" style="color: red;" />
+						
+												
+						<h:outputText id="o1" value="Standard Name" style="margin-right:15px;font-weight:bold;"></h:outputText>
+						<h:inputText id="StandardName" maxlength="63" name="StandardName" value="#{registerBean.standardName}" style="margin-right:15px; margin-top:15px;"  requiredMessage="Please enter the Standard Name" required="true" a:placeholder="Standard Name"/>
+						<h:message for="StandardName" style="color:red" />
+						
+						<h:outputText id="o2" value="Description" style="margin-right:15px;font-weight:bold;"></h:outputText>
+						<h:inputTextarea id="Description" rows="5" cols="5"  name="Description" value="#{registerBean.standardDesc}" style="margin-right:15px;"  a:placeholder="Description" a:maxlength="254"/>
+			        	<h:message for="Description" style="color:red" />
+						
+						
+						<f:facet name="footer">
+						   <h:panelGroup style="display:block; text-align:center">
+						   <p><h:commandButton class="button submit-btn" action="#{registerBean.registerStandard}" value="Save" disabled="#{registerBean.standardRegisterStatus}" style="margin-top: 10px;"  /></p>
+       						 
+							   
+						   </h:panelGroup>
+						</f:facet>
+					</h:panelGrid>
+					<h:message for="register" style="color: green;"  rendered="#{registerBean.standardRegisterStatus}"/>
+					<h:message for="register" style="color: red;" rendered="#{!registerBean.standardRegisterStatus}"/>
+					
+					
+		        </h:form>
 			</ui:define>
 	    
 		</ui:composition>
     </body>
-
+    
 </html>
 

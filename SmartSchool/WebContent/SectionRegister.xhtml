@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"      
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
+    <h:head></h:head>
+    <f:metadata>
+	    <f:viewAction action="#{commonBean.sessionStatusCheck}" />
+	</f:metadata>
+	
+	
+	<body>
+    
+	    <ui:composition template="MainTemplate.xhtml">
+				
+			<ui:define name="custom-body">
+				<h4>Section Registration Form</h4>
+				<br></br>
+				<br></br>
+						
+		        <h:form id="register">
+				    <h:panelGrid id="panel" columns="3" border="1" cellpadding="100" cellspacing="10" rendered="#{!registerBean.sectionRegisterStatus}" >
+						
+						<h:outputText id="o11" value="Branch" style="margin-right:15px;font-weight:bold;"></h:outputText>
+			            <h:selectOneMenu id="branches" value="#{registerBean.selectedBranchId}" valueChangeListener="#{registerBean.branchesLOVChange}" style="margin-right:15px; margin-top:15px;" validator="#{registerBean.validateBranchesLOV}">
+			            	<f:selectItem  itemValue="0" itemLabel="Select a Branch.."></f:selectItem>
+	    					<f:selectItems value="#{registerBean.availableBranches}" var="bran" itemValue="#{bran.branchId}" itemLabel="#{bran.branchName}" />
+	    					<f:ajax render="standards"/>
+						 </h:selectOneMenu>
+						<h:message for="branches" style="color: red;" />
+						
+						<h:outputText id="o12" value="Standard" style="margin-right:15px;font-weight:bold;"></h:outputText>
+			            <h:selectOneMenu id="standards" value="#{registerBean.selectedStandardId}" style="margin-right:15px; margin-top:15px;"  valueChangeListener="#{registerBean.standardsLOVChange}"  validator="#{registerBean.validateStandardsLOV}">
+			            	<f:selectItem  itemValue="0" itemLabel="Select a Standard.."></f:selectItem>
+	    					<f:selectItems value="#{registerBean.availableStandards}" var="stand" itemValue="#{stand.standardId}" itemLabel="#{stand.standardName}" />
+						 </h:selectOneMenu>
+						<h:message for="standards" style="color: red;" />
+						
+						<h:outputText id="o1" value="Section Name" style="margin-right:15px;font-weight:bold;"></h:outputText>
+						<h:inputText id="SectionName" maxlength="63" name="SectionName" value="#{registerBean.sectionName}" style="margin-right:15px; margin-top:15px;"  requiredMessage="Please enter the Section Name" required="true" a:placeholder="Section Name"/>
+						<h:message for="SectionName" style="color:red" />
+						
+						<h:outputText id="o2" value="Description" style="margin-right:15px;font-weight:bold;"></h:outputText>
+						<h:inputTextarea id="Description" rows="5" cols="5"  name="Description" value="#{registerBean.sectionDesc}" style="margin-right:15px;"  a:placeholder="Description" a:maxlength="254"/>
+			        	<h:message for="Description" style="color:red" />
+						
+										
+						<f:facet name="footer">
+						   <h:panelGroup style="display:block; text-align:center">
+						   <p><h:commandButton class="button submit-btn" action="#{registerBean.registerSection}" value="Save" disabled="#{registerBean.sectionRegisterStatus}" style="margin-top: 10px;"  /></p>
+						   </h:panelGroup>
+						</f:facet>
+					</h:panelGrid>
+					<h:message for="register" style="color: green;" rendered="#{registerBean.sectionRegisterStatus}"/>
+					<h:message for="register" style="color: red;" rendered="#{!registerBean.sectionRegisterStatus}"/>
+					
+					
+					
+		        </h:form>
+			</ui:define>
+	    
+		</ui:composition>
+    </body>
+    
+</html>
+
