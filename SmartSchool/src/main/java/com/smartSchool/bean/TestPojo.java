@@ -1,17 +1,34 @@
 package com.smartSchool.bean;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.event.ActionEvent;
 
-//@ManagedBean(name = "testBean", eager = true)
-//@SessionScoped
+@ManagedBean(name = "testBean", eager = true)
+@SessionScoped
+
 public class TestPojo implements Serializable {
 private static final long serialVersionUID = 1L;
 	
 	private String name="Srikanth Test";
+	
+	public String status() {
+		return "page1";
+	}
+	
+	public String status1() {
+		System.out.println("hiiii");
+		return "page2";
+	}
+	public String status2() {
+		return "Home";
+	}
 
+	
 	public String getName() {
 		return name;
 	}
@@ -28,4 +45,6 @@ private static final long serialVersionUID = 1L;
 			return "Ajax message : Welcome " + name;
 		}
 	}
+	
+	
 }

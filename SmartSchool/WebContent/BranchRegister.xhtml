@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"      
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
+    <h:head></h:head>
+    <f:metadata>
+	    <f:viewAction action="#{commonBean.sessionStatusCheck}" />
+	</f:metadata>
+	
+	
+	<body>
+    
+	    <ui:composition template="MainTemplate.xhtml">
+				
+			<ui:define name="custom-body">
+				<h4>Branch Registration Form</h4>
+				<br></br>
+				<br></br>
+						
+		        <h:form id="register">
+				    <h:panelGrid id="panel" columns="3" border="1" cellpadding="100" cellspacing="10" rendered="#{!branchRegisterBean.branchRegisterStatus}" >
+						<h:outputText id="o1" value="Branch Name" style="margin-right:15px;font-weight:bold;"></h:outputText>
+						<h:inputText id="BranchName" maxlength="63" name="BranchName" value="#{branchRegisterBean.branchName}" style="margin-right:15px;"  requiredMessage="Please enter the Branch Name" required="true" a:placeholder="Branch Name"/>
+						<h:message for="BranchName" style="color:red" />
+						
+						<h:outputText id="o2" value="Address" style="margin-right:15px;font-weight:bold;"></h:outputText>
+						<h:inputTextarea id="Address" rows="5" cols="5"  name="Address" value="#{branchRegisterBean.branchAddress}" style="margin-right:15px; margin-top:15px;"  a:placeholder="Address" a:maxlength="510"/>
+			        	<h:message for="Address" style="color:red" />
+						
+											
+						<f:facet name="footer">
+						   <h:panelGroup style="display:block; text-align:center">
+						   <p><h:commandButton class="button submit-btn" action="#{branchRegisterBean.registerBranch}" value="Save" disabled="#{branchRegisterBean.branchRegisterStatus}" style="margin-top: 10px;"  /></p>
+       						 
+							   
+						   </h:panelGroup>
+						</f:facet>
+					</h:panelGrid>
+					<h:message for="register" style="color: green;" rendered="#{branchRegisterBean.branchRegisterStatus}"/>
+					<h:message for="register" style="color: red;" rendered="#{!branchRegisterBean.branchRegisterStatus}"/>
+					
+					
+					
+		        </h:form>
+			</ui:define>
+	    
+		</ui:composition>
+    </body>
+    
+</html>
+

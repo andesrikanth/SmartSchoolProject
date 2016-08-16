@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<faces-config
+    xmlns="http://java.sun.com/xml/ns/javaee"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/javaee 
+    http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd"
+    version="2.0">
+	<!-- <managed-bean>
+		<managed-bean-name>commonBean</managed-bean-name>
+		<managed-bean-class>com.smartSchool.bean.CommonBean</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+	</managed-bean> -->
+	<!-- <managed-bean>
+		<managed-bean-name>testPojo</managed-bean-name>
+		<managed-bean-class>com.smartSchool.bean.TestPojo</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+	</managed-bean> -->
+	  <navigation-rule>
+		<from-view-id>/SchoolHome.xhtml</from-view-id>
+		<navigation-case>
+		 <!-- <from-action>#{commonBean.loginNavigation}</from-action> -->
+		   <from-outcome>login</from-outcome>
+			<to-view-id>/LoginPage.xhtml</to-view-id>
+		</navigation-case>
+	 </navigation-rule>
+	 
+	  <navigation-rule>
+		<from-view-id>/SchoolHome.xhtml</from-view-id>
+		<navigation-case>
+		 <!-- <from-action>#{commonBean.loginNavigation}</from-action> -->
+		   <from-outcome>register</from-outcome>
+			<to-view-id>/StudentRegister.xhtml</to-view-id>
+		</navigation-case>
+	 </navigation-rule>
+	 
+	 <navigation-rule>
+		<from-view-id>/LoginPage.xhtml</from-view-id>
+		<navigation-case>
+		 <!--  <from-action>#{testBean.status}</from-action> -->
+		   <from-outcome>success</from-outcome>
+			<to-view-id>/Welcome.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	 </navigation-rule>
+	 
+	  <navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+		 <!-- <from-action>#{commonBean.loginNavigation}</from-action> -->
+		   <from-outcome>logout</from-outcome>
+			<to-view-id>/SchoolHome.xhtml</to-view-id>
+		</navigation-case>
+	 </navigation-rule>
+	 
+	 <navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+		 <!-- <from-action>#{commonBean.loginNavigation}</from-action> -->
+		   <from-outcome>logout</from-outcome>
+			<to-view-id>/SchoolHome.xhtml</to-view-id>
+		</navigation-case>
+	 </navigation-rule>
+	 
+	 <navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+		 <!-- <from-action>#{commonBean.loginNavigation}</from-action> -->
+		   <from-outcome>return_home</from-outcome>
+			<to-view-id>/SchoolHome.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	 </navigation-rule>
+	 
+	 
+</faces-config>

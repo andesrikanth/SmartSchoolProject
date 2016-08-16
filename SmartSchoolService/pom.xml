@@ -24,17 +24,46 @@
    <groupId>com.sun.jersey</groupId>
 	<artifactId>jersey-server</artifactId>
 	<version>1.8</version>
-		</dependency>
-		 <dependency>
+	</dependency>
+   <dependency>
       <groupId>com.sun.faces</groupId>
       <artifactId>jsf-api</artifactId>
-      <version>2.1.7</version>
+      <version>2.2.10</version>
    </dependency>
    <dependency>
       <groupId>com.sun.faces</groupId>
       <artifactId>jsf-impl</artifactId>
-      <version>2.1.7</version>
+      <version>2.2.10</version>
    </dependency>
+   <dependency>
+    <groupId>javax.servlet</groupId>
+    <artifactId>jstl</artifactId>
+    <version>1.2</version>
+</dependency>
+  <dependency>
+    <groupId>org.postgresql</groupId>
+    <artifactId>postgresql</artifactId>
+    <version>9.4-1202-jdbc42</version>
+     <scope>compile</scope>
+</dependency>
+
+<dependency>
+    <groupId>org.richfaces.ui</groupId>
+    <artifactId>richfaces-components-ui</artifactId>
+    <version>4.3.7.Final</version>
+</dependency>
+<dependency>
+    <groupId>org.richfaces.core</groupId>
+    <artifactId>richfaces-core-impl</artifactId>
+    <version>4.3.7.Final</version>
+</dependency>
+<dependency>
+        <groupId>javax.mail</groupId>
+        <artifactId>mail</artifactId>
+        <version>1.4.7</version>
+ </dependency>
+
+
   </dependencies>
   <build>
     <finalName>SmartSchoolService</finalName>

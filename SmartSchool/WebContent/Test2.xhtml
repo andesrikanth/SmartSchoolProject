@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"      
+      xmlns:h="http://java.sun.com/jsf/html">
+ <!-- Test URL : http://localhost:8080/SmartSchool/home.jsf -->
+    <h:body>
+    	<h3>Test2</h3>
+    	 <h:outputText value="2nd page" />  
+    	  
+    	<h:form>
+    	<p><b>Username : </b><h:inputText id="login" name="login"  requiredMessage="Please enter the username." required="true"/></p>
+	     <p><b>Password : </b><h:inputText id="pwd" name="pwd" requiredMessage="Please enter the password." required="true"/></p>
+		<h:commandButton action="#{testBean.status2}" value="Home"  />
+		
+    	</h:form>
+ 
+    </h:body>
+</html>

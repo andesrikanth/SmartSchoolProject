@@ -7,10 +7,10 @@
     version="2.0">
     
     <!-- Bean can be initialized in 2 ways. One is the below XML code and the other way is to keep @ManagedBean annotation for the bean pojo class. Look at http://docs.oracle.com/javaee/6/tutorial/doc/girch.html for more info -->
-	 <managed-bean>
+	<!--  <managed-bean>
 		<managed-bean-name>testBean</managed-bean-name>
 		<managed-bean-class>com.smartSchool.bean.TestPojo</managed-bean-class>
 		<managed-bean-scope>session</managed-bean-scope>
 	</managed-bean> 
-	
+	-->
 </faces-config>

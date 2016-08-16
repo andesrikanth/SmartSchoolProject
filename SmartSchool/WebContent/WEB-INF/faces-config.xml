@@ -15,4 +15,32 @@
 		<var>InfoMsgBundle</var>
 	   </resource-bundle>
      </application>
+      <!-- <navigation-rule>
+	<from-view-id>/home.xhtml</from-view-id>
+	<navigation-case>
+		  <from-action>#{testBean.status}</from-action>
+		   <from-outcome>success</from-outcome>
+			<to-view-id>/pages/Test.xhtml</to-view-id>
+		</navigation-case>
+	    </navigation-rule> -->
+      <!-- <navigation-rule>
+		<from-view-id>/home.xhtml</from-view-id>
+		<navigation-case>
+		   <from-action>#{testBean.status}</from-action>
+		   <from-outcome>page1</from-outcome>
+			<to-view-id>/Test.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	 </navigation-rule>
+	<navigation-rule>
+		<display-name>/Test.xhtml</display-name>
+		<from-view-id>/Test.xhtml</from-view-id>
+		<navigation-case>
+			<from-action>#{testBean.status1}</from-action>
+			<from-outcome>page2</from-outcome>
+			<to-view-id>/Test2.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule> -->
+	
 </faces-config>

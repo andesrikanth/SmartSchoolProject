@@ -24,10 +24,7 @@
 		<url-pattern>/SmartSchoolRest/*</url-pattern>
 	</servlet-mapping>
 
-   <servlet-mapping>
-      <servlet-name>Faces Servlet</servlet-name>
-      <url-pattern>/faces/*</url-pattern>
-   </servlet-mapping>
+   
 	
    <servlet-mapping>
       <servlet-name>Faces Servlet</servlet-name>
@@ -43,6 +40,12 @@
       <servlet-name>Faces Servlet</servlet-name>
       <url-pattern>*.xhtml</url-pattern>
    </servlet-mapping>
+   
+   <servlet-mapping>
+      <servlet-name>Faces Servlet</servlet-name>
+      <url-pattern>/faces/*</url-pattern>
+   </servlet-mapping>
+  
     <!-- Change to "Production" when you are ready to deploy -->
   <context-param>
     <param-name>javax.faces.PROJECT_STAGE</param-name>
@@ -51,7 +54,7 @@
   <!--  Look at this doc for more details on config files : http://docs.oracle.com/javaee/6/tutorial/doc/bnawp.html -->
   <context-param>
     <param-name>javax.faces.CONFIG_FILES</param-name>
-    <param-value>WEB-INF/config/managed-beans.xml</param-value>
+    <param-value>WEB-INF/config/managed-beans.xml,WEB-INF/config/home-navigation.xml</param-value>
     <!-- A context initialization parameter, javax.faces.application.CONFIG_FILES, in your web deployment descriptor file that specifies one or more (comma-delimited) paths to multiple configuration files for your web application. This method is most often used for enterprise-scale applications that delegate to separate groups the responsibility for maintaining the file for each portion of a big application. -->
   </context-param>
   <context-param>
@@ -63,7 +66,19 @@
     <param-name>javax.servlet.jsp.jstl.fmt.localizationContext</param-name>
     <param-value>resources.application</param-value>
   </context-param>
+  
+   <context-param>
+    <param-name>javax.faces.VALIDATE_EMPTY_FIELDS</param-name>
+    <param-value>true</param-value>
+</context-param>
+<context-param>
+  <param-name>javax.faces.INTERPRET_EMPTY_STRING_SUBMITTED_VALUES_AS_NULL</param-name>
+  <param-value>true</param-value>
+</context-param>
+
   <listener>
     <listener-class>com.sun.faces.config.ConfigureListener</listener-class>
   </listener>
+  
+ 
 </web-app>

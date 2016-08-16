@@ -4,12 +4,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:f="http://java.sun.com/jsf/core"      
       xmlns:h="http://java.sun.com/jsf/html">
- <!-- Test URL : http://localhost:8080/SmartSchool/home.jsf -->
+ <!-- Test URL : http://localhost:8080/SmartSchoolService/home.jsf -->
     <h:body>
     	<h3>Testing</h3>
-    	 <h:outputText value="#{ErrorMsgBundle.loginFailedMsg}" />  
+    	 <h:outputText value="#{InfoMsgBundle.welcomeMsg}" />  
     	<h:form>
-		<h:outputText id="name" value="#{testBean.name}"></h:outputText>
+		<h:outputText id="name" value="#{testServiceBean.name}"></h:outputText>
 		
     	  <!--  <h:inputText id="name" value="#{helloBean.name}"></h:inputText>
     	   <h:commandButton value="Welcome Me">
