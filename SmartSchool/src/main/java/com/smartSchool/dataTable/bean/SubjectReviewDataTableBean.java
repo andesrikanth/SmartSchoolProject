@@ -28,12 +28,16 @@ public class SubjectReviewDataTableBean implements Serializable {
 	private List<SubjectRegisterPojo> list;
 	    
 	private SubjectRegisterPojo selectedSubjectRegisterPojo;
+	private boolean subjectUpdateStatus;
 	
 	
 	
    
    @PostConstruct
    public void init() {
+	   
+	   subjectUpdateStatus=false;
+	   
 	   String defaultSelectQuery="select SUBJECT_ID , SUBJECT_NAME, SUBJECT_DESC FROM SUBJECTS_DETAILS";
 	   String defaultCountQuery="select count(*) as range FROM SUBJECTS_DETAILS";
 	   //SmartSchoolFacade smartSchoolFacade = new SmartSchoolFacade();
@@ -95,6 +99,7 @@ public class SubjectReviewDataTableBean implements Serializable {
 		String out=smartSchoolFacade.updateSubject(this.getSelectedSubjectRegisterPojo());
 		
 		if(out !=null && out.equals("true")){
+			subjectUpdateStatus=true;
 			FacesContext.getCurrentInstance().addMessage("save", new FacesMessage(FacesMessage.SEVERITY_INFO, "Subject Details Updated Successful !", "Info"));
 		}
 		else {
@@ -142,8 +147,24 @@ public class SubjectReviewDataTableBean implements Serializable {
 	public void closeSubjectDialog(){
 		RequestContext context = RequestContext.getCurrentInstance();
 		context.execute("PF('subjectDialog').hide();");
-		context.update("form");
+		if(subjectUpdateStatus){
+			context.update("form");
+		}
+		
+		subjectUpdateStatus=false;
+		
 	}
+
+
+	public boolean isSubjectUpdateStatus() {
+		return subjectUpdateStatus;
+	}
+
+
+	public void setSubjectUpdateStatus(boolean subjectUpdateStatus) {
+		this.subjectUpdateStatus = subjectUpdateStatus;
+	}
+	
 	
 	
 }
