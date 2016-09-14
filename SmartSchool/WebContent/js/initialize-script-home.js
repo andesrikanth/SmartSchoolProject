@@ -11,8 +11,8 @@ var menu1_options = ["Curriculum", "Faculty"];
 var menu1_options_location = ["home.jsf", "https://www.google.com"];
 var menu2_options = ["New York", "California"];
 var menu2_options_location = ["#", "#"];
-var menu3_options = ["Branch Register","Standard Register", "Section Register" , "Student Register", "Teacher Register"];
-var menu3_options_location = ["BranchRegister.xhtml","StandardRegister.xhtml", "SectionRegister.xhtml", "StudentRegister.xhtml","TeacherRegister.xhtml"];
+var menu3_options = ["Branch Register","Standard Register", "Section Register" , "Student Register", "Teacher Register", "Subject Register"];
+var menu3_options_location = ["BranchRegister.xhtml","StandardRegister.xhtml", "SectionRegister.xhtml", "StudentRegister.xhtml","TeacherRegister.xhtml","SubjectRegister.xhtml"];
 
 var OfficeAddress1="2300 Washington Street";
 var OfficeAddress2="Roxbury, MA 02119";

@@ -15,11 +15,11 @@ import com.smartSchoolService.pojo.BranchRegisterPojo;
 import com.smartSchoolService.pojo.SectionRegisterPojo;
 import com.smartSchoolService.pojo.StandardRegisterPojo;
 import com.smartSchoolService.pojo.StudentPojo;
+import com.smartSchoolService.pojo.SubjectRegisterPojo;
 import com.smartSchoolService.pojo.TeacherRegisterPojo;
 
-public class CommonUtil {
+public class RegisterCommonUtil {
 
-	
 	public boolean registerStandardDetails(StandardRegisterPojo standardRegisterPojo){
 		boolean status = true;
 		try {
@@ -78,7 +78,6 @@ public class CommonUtil {
 		        	bran.setBranchName(rs.getString("BRANCH_NAME"));
 		        	availableBranches.add(bran);
 		        }
-		        con.commit();
 			}
 			catch(Exception e){
 				e.printStackTrace();
@@ -114,7 +113,6 @@ public class CommonUtil {
 		        	stand.setStandardName(rs.getString("STANDARD_NAME"));
 		        	availableStandards.add(stand);
 		        }
-		        con.commit();
 			}
 			catch(Exception e){
 				e.printStackTrace();
@@ -142,14 +140,13 @@ public class CommonUtil {
 			try{
 				
 				stmt = con.createStatement();
-				ResultSet rs = stmt.executeQuery("select * from CLASS_AVBL_SECTIONS where BRANCH_ID= "+selectedBranchId+" AND STANDARD_ID="+standardId+";");
+				ResultSet rs = stmt.executeQuery("select SECTION_ID,SECTION_NAME from CLASS_AVBL_SECTIONS where BRANCH_ID= "+selectedBranchId+" AND STANDARD_ID="+standardId+";");
 		        while(rs.next()){
 		        	ChoiceListPojo.AvailableSections stand= choiceListPojo.new AvailableSections();
 		        	stand.setSectionId(rs.getLong("SECTION_ID"));
 		        	stand.setSectionName(rs.getString("SECTION_NAME"));
 		        	availableSections.add(stand);
 		        }
-		        con.commit();
 			}
 			catch(Exception e){
 				e.printStackTrace();
@@ -416,6 +413,58 @@ public class CommonUtil {
 		}
 		
 		return output;
+	}
+	
+	
+	public String registerSubjectDetails(SubjectRegisterPojo subjectRegisterPojo){
+		String status = "true";
+		try {
+			DatabaseUtility databaseUtility =new DatabaseUtility();
+			Connection con=databaseUtility.getConnection();
+			PreparedStatement stmt = null;
+			try{
+				
+				stmt = con.prepareStatement("INSERT INTO SUBJECTS_DETAILS(SUBJECT_NAME, SUBJECT_DESC, CREATED_BY,  LAST_UPDATED_BY) VALUES(?,?,?,?);");
+				
+				stmt.setString(1, subjectRegisterPojo.getSubjectName());
+				stmt.setString(2, subjectRegisterPojo.getSubjectDesc());
+				stmt.setString(3, subjectRegisterPojo.getCreatedByUserName());
+				stmt.setString(4, subjectRegisterPojo.getLastUpdatedByUserName());
+				
+				int out=stmt.executeUpdate();
+				//int out = stmt.executeUpdate("INSERT INTO CLASS_AVBL_STANDARDS(STANDARD_NAME, DESCRIPTION, CREATED_BY,  LAST_UPDATED_BY) VALUES('"+standardRegisterPojo.getStandardName()+"', '"+standardRegisterPojo.getStandardDesc()+"','"+standardRegisterPojo.getCreatedByUserName()+"','"+standardRegisterPojo.getCreatedByUserName()+"');" );
+		        if(out == 0){
+		        	status="false";
+		        }
+		        
+		        con.commit();
+			}
+			catch(Exception e){
+				status="false";
+				if(e !=null && e.getLocalizedMessage()!=null){
+					if(e.getLocalizedMessage().contains("violates unique constraint \"subjects_details_subject_name_key\"")){
+						status="Same subject already exists. Please enter a different Subject Name";
+					}
+				}
+				
+				e.printStackTrace();
+			}
+			finally{
+				stmt.close();
+				databaseUtility.closeConnection(con);
+			}
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			status="false";
+			if(e!=null && e.getCause()!=null) {
+				status=e.getCause().toString();
+			}
+			
+			e.printStackTrace();
+		}
+		
+		return status;
 	}
 
 }

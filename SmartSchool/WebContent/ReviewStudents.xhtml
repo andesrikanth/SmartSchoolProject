@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"      
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:p="http://primefaces.org/ui" >
+    <h:head></h:head>
+    
+   	
+	<body>
+    
+	    <ui:composition template="MainTemplate.xhtml">
+				
+			<ui:define name="custom-body">
+				<h4>Review Students</h4>
+		<br></br>
+		<br></br>
+				
+	<h:form id="form">
+    <p:dataTable var="stud" value="#{studentDataTable.lazyDataModel}" paginator="true" rows="10" style="font-size: 0.9em;margin-left: 20px;margin-right: 20px;"
+                 paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+                 
+                 rowsPerPageTemplate="5,10,15" selectionMode="single" selection="#{studentDataTable.selectedStudentRegisterPojo}" id="subjectTable" lazy="true">
+         <p:ajax event="rowSelect" listener="#{studentDataTable.onRowSelect}" update=":form:subjectDetail" oncomplete="PF('studentDialog').show()" />
+         
+           
+        <p:column headerText="Student Identifier" sortBy="#{STUDENT_ID}" filterBy="#{STUDENT_ID}">
+            <h:outputText value="#{stud.key}" />
+        </p:column>
+        <p:column headerText="First Name" sortBy="#{STUDENT_FIRST_NAME}" filterBy="#{STUDENT_FIRST_NAME}">
+            <h:outputText value="#{stud.studentFirstName}" />
+        </p:column>
+        <p:column headerText="Last Name" sortBy="#{STUDENT_LAST_NAME}" filterBy="#{STUDENT_LAST_NAME}">
+            <h:outputText value="#{stud.studentLastName}" />
+        </p:column>
+         <p:column headerText="Gender" sortBy="#{GENDER}" filterBy="#{GENDER}">
+            <h:outputText value="#{stud.selectedStudentGender}" />
+        </p:column>
+         <p:column headerText="Branch" sortBy="#{BRANCH_NAME}" filterBy="#{BRANCH_NAME}">
+            <h:outputText value="#{stud.branchName}" />
+        </p:column>
+         <p:column headerText="Standard" sortBy="#{STANDARD_NAME}" filterBy="#{STANDARD_NAME}">
+            <h:outputText value="#{stud.standardName}" />
+        </p:column>
+         <p:column headerText="Section" sortBy="#{SECTION_NAME}" filterBy="#{SECTION_NAME}">
+            <h:outputText value="#{stud.sectionName}" />
+        </p:column>
+       
+    </p:dataTable>
+ 
+</h:form>
+	 
+	 
+	  <p:dialog header="Student Detail" widgetVar="studentDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+		    <p:outputPanel id="studentDetail" style="text-align:center;">
+		        <p:panelGrid  columns="2" rendered="#{not empty studentDataTable.selectedStudentRegisterPojo}" >
+		            <h:outputText value="Identifier :" />
+		            <h:outputText value="#{subjectDataTable.selectedSubjectRegisterPojo.key}" />
+		
+		            <h:outputText value="Subject Name" />
+		            <h:outputText value="#{subjectDataTable.selectedSubjectRegisterPojo.subjectName}" />
+		
+					<h:outputText value="Subject Description" />
+		            <h:outputText value="#{subjectDataTable.selectedSubjectRegisterPojo.subjectDesc}" />
+		            
+		        </p:panelGrid>
+		    </p:outputPanel>
+	    </p:dialog>
+	 
+	</h:form>
+			</ui:define>
+	    
+		</ui:composition>
+    </body>
+    
+</html>
+

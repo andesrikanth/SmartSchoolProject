@@ -3,18 +3,28 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:f="http://java.sun.com/jsf/core"      
-      xmlns:h="http://java.sun.com/jsf/html">
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui" >
  <!-- Test URL : http://localhost:8080/SmartSchool/home.jsf -->
+ <h:head></h:head>
     <h:body>
-    	<h3>Test2</h3>
-    	 <h:outputText value="2nd page" />  
-    	  
-    	<h:form>
-    	<p><b>Username : </b><h:inputText id="login" name="login"  requiredMessage="Please enter the username." required="true"/></p>
-	     <p><b>Password : </b><h:inputText id="pwd" name="pwd" requiredMessage="Please enter the password." required="true"/></p>
-		<h:commandButton action="#{testBean.status2}" value="Home"  />
-		
-    	</h:form>
+    <p:dataTable var="car" value="#{dtBasicView.cars}" paginator="true" rows="3">
+    <p:column headerText="Id">
+        <h:outputText value="#{car.id}" />
+    </p:column>
+ 
+    <p:column headerText="Year">
+        <h:outputText value="#{car.year}" />
+    </p:column>
+ 
+    <p:column headerText="Brand">
+        <h:outputText value="#{car.brand}" />
+    </p:column>
+ 
+    <p:column headerText="Color">
+        <h:outputText value="#{car.color}" />
+    </p:column>
+</p:dataTable>
  
     </h:body>
 </html>

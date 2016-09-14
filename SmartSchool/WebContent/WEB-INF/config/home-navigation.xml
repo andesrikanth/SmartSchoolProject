@@ -43,6 +43,27 @@
 		</navigation-case>
 	 </navigation-rule>
 	 
+	 <navigation-rule>
+		<from-view-id>/SubjectRegister.xhtml</from-view-id>
+		<navigation-case>
+		 <!--  <from-action>#{testBean.status}</from-action> -->
+		   <from-outcome>reviewSubjects</from-outcome>
+			<to-view-id>/ReviewSubjects.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	 </navigation-rule>
+	 
+	  <navigation-rule>
+		<from-view-id>/StudentRegister.xhtml</from-view-id>
+		<navigation-case>
+		 <!--  <from-action>#{testBean.status}</from-action> -->
+		   <from-outcome>reviewStudents</from-outcome>
+			<to-view-id>/ReviewStudents.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	 </navigation-rule>
+	 
+	 
 	  <navigation-rule>
 		<from-view-id>*</from-view-id>
 		<navigation-case>
@@ -51,16 +72,7 @@
 			<to-view-id>/SchoolHome.xhtml</to-view-id>
 		</navigation-case>
 	 </navigation-rule>
-	 
-	 <navigation-rule>
-		<from-view-id>*</from-view-id>
-		<navigation-case>
-		 <!-- <from-action>#{commonBean.loginNavigation}</from-action> -->
-		   <from-outcome>logout</from-outcome>
-			<to-view-id>/SchoolHome.xhtml</to-view-id>
-		</navigation-case>
-	 </navigation-rule>
-	 
+	  
 	 <navigation-rule>
 		<from-view-id>*</from-view-id>
 		<navigation-case>

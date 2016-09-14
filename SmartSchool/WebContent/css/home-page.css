@@ -2,6 +2,42 @@
 
 /* Custom starts -- Srikanth*/
 
+
+/* Start : Below 2 styles classes for datatable dialog box popup*/
+.ui-widget-content {
+	border:0px !important;
+}
+
+.ui-panelgrid .ui-panelgrid-cell {
+	border-width: 0px !important;
+	text-align: left;
+}
+
+.ui-button-text {
+	    display: inline !important;
+		padding: .1em 0.4em !important;
+}
+
+    
+ .ui-messages-info {
+    color: #fff !important;
+    background-color: #9ccc65 !important;
+    border-color: #9ccc65 !important;
+ }
+ 
+ .ui-messages-error{
+ color: #fff !important;
+    background-color: #ef5350 !important;
+    border-color: #ef5350 !important;
+ }
+ 
+.ui-widget-content .ui-icon {
+	margin-top: 3px;
+}
+ 
+/* End Customizing styles classes for datatable dialog box popup*/
+
+
 #box-table-a {
     font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
     font-size: 12px;

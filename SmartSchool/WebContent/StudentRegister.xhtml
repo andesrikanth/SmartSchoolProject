@@ -133,6 +133,10 @@
 						<h:outputText id="oo20" value="Temporary Password :" style="color: green;text-align:left;"></h:outputText> <h:outputText id="oo21" value=" #{registerBean.generatedPwd}" style="color: green;text-align:left;font-weight:bold;"></h:outputText>
 					</h:panelGroup>
 					
+					
+					<br></br>
+					<h:outputText id="o3" value="Please review the list of Students " style="font-weight:bold;" rendered="#{registerBean.studentRegistrationStatus}"></h:outputText><h:commandLink id="cl1" value="here." style="font-size: 15px;" action="reviewStudents" rendered="#{registerBean.studentRegistrationStatus}"></h:commandLink>
+					
 		        </h:form>
 			</ui:define>
 	    

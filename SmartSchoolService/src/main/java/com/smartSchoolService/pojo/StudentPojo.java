@@ -3,6 +3,8 @@ package com.smartSchoolService.pojo;
 import java.util.Date;
 
 public class StudentPojo {
+	
+	private Long key;
 	private String studentFirstName;
 	private String studentMiddleName;
 	private String studentLastName;
@@ -20,7 +22,17 @@ public class StudentPojo {
 	private String createdBy;
 	private String lastUpdatedBy;
 	
+	//Below columns are being used for rendering students datatable
+	private String branchName;
+	private String standardName;
+	private String sectionName;
 	
+	public Long getKey() {
+		return key;
+	}
+	public void setKey(Long key) {
+		this.key = key;
+	}
 	public String getSelectedStudentGender() {
 		return selectedStudentGender;
 	}
@@ -118,5 +130,24 @@ public class StudentPojo {
 	public void setSelectedSectionId(Long selectedSectionId) {
 		this.selectedSectionId = selectedSectionId;
 	}
+	public String getBranchName() {
+		return branchName;
+	}
+	public void setBranchName(String branchName) {
+		this.branchName = branchName;
+	}
+	public String getStandardName() {
+		return standardName;
+	}
+	public void setStandardName(String standardName) {
+		this.standardName = standardName;
+	}
+	public String getSectionName() {
+		return sectionName;
+	}
+	public void setSectionName(String sectionName) {
+		this.sectionName = sectionName;
+	}
+	
 	
 }
