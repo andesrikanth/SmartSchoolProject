@@ -39,7 +39,7 @@
 	    </p:dataTable>
 	 
 	 
-	<p:dialog header="Subject Detail" widgetVar="subjectDialog" modal="true" showEffect="fade" hideEffect="fade" closable="false" resizable="false" style="border:0px" >
+	<p:dialog header="Subject Detail" widgetVar="subjectDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false" style="border:0px" >
 	    
 	  <h:form id="f2">
 		    <p:outputPanel id="subjectDetail" style="text-align:center;">
@@ -60,10 +60,12 @@
 					<h:inputTextarea id="Description" rows="5" cols="5"  name="Description" value="#{subjectDataTable.selectedSubjectRegisterPojo.subjectDesc}" style="margin-right:15px;"  a:maxlength="254"/>
 		            <h:message for="Description" style="color:red" />
 		            
+		            
+		            <h:panelGroup/>
 		       </p:panelGrid>
-		       <p:commandButton value="Save" id="save" actionListener="#{subjectDataTable.updateSubject}" update="subjectDetail" style="font-size: 0.9em;"/>
+		       <p:commandButton value="Save" id="save" actionListener="#{subjectDataTable.updateSubject}" update="subjectDetail"/>
 		             
-		       <p:commandButton id="delete" value="Delete" actionListener="#{subjectDataTable.deleteSubject}" update="deleteConfirmBox" style="margin-left: 25px;font-size: 0.9em;">
+		       <p:commandButton id="delete" value="Delete" actionListener="#{subjectDataTable.deleteSubject}" update="deleteConfirmBox" style="margin-left: 25px;">
 				  <p:confirm header="Confirmation" message="Are you sure?" icon="ui-icon-alert" />
 				</p:commandButton>
 				 
@@ -71,9 +73,6 @@
 				  <p:commandButton value="Yes" id="deleteConfirm" type="button" styleClass="ui-confirmdialog-yes" style=" margin-left: 25px;" update="form"/>
 				  <p:commandButton value="No" styleClass="ui-confirmdialog-no" type="button"/>
 			   </p:confirmDialog>
-			   
-			   <p:commandButton value="Close" id="close" actionListener="#{subjectDataTable.closeSubjectDialog}" style=" margin-left: 25px;font-size: 0.9em;"/>
-			   
 		    </p:outputPanel>
 		    
 		   </h:form>

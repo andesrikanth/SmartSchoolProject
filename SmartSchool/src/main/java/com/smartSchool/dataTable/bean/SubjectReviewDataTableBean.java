@@ -108,6 +108,9 @@ public class SubjectReviewDataTableBean implements Serializable {
 			}
 		}
 		
+		/*RequestContext context = RequestContext.getCurrentInstance();
+		context.update("form");*/
+		
 	}
 	
 	public void deleteSubject(){
@@ -134,6 +137,12 @@ public class SubjectReviewDataTableBean implements Serializable {
 		context.update("form:deleteMessage");
 		context.update("form");
 		
+	}
+	
+	public void closeSubjectDialog(){
+		RequestContext context = RequestContext.getCurrentInstance();
+		context.execute("PF('subjectDialog').hide();");
+		context.update("form");
 	}
 	
 	
