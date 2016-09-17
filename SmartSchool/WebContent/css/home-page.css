@@ -34,7 +34,26 @@
 .ui-widget-content .ui-icon {
 	margin-top: 3px;
 }
- 
+
+.ui-growl-info{
+	color: #fff !important;
+    background-color: #9ccc65 !important;
+    border-color: #9ccc65 !important;
+}
+
+.ui-growl-error{
+ color: #fff !important;
+    background-color: #ef5350 !important;
+    border-color: #ef5350 !important;
+ }
+
+.ui-growl-item-container{
+	color: #fff !important;
+    background-color: #9ccc65 !important;
+    border-color: #9ccc65 !important;
+    background: #9ccc65 !important;
+}
+
 /* End Customizing styles classes for datatable dialog box popup*/
 
 

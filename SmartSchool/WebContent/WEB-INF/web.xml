@@ -51,6 +51,13 @@
     <param-name>javax.faces.PROJECT_STAGE</param-name>
     <param-value>Development</param-value>
   </context-param>
+  
+  <!-- The below param will make sure that commented code in jsf is skipped. -->
+  <context-param>
+    <param-name>facelets.SKIP_COMMENTS</param-name>
+    <param-value>true</param-value>
+  </context-param>
+  
   <!--  Look at this doc for more details on config files : http://docs.oracle.com/javaee/6/tutorial/doc/bnawp.html -->
   <context-param>
     <param-name>javax.faces.CONFIG_FILES</param-name>

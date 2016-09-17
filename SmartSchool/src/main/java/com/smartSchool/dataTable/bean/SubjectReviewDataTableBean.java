@@ -76,7 +76,7 @@ public class SubjectReviewDataTableBean implements Serializable {
 	}
 
 	public void onRowSelect(SelectEvent event) {
-		System.out.println("selected Subject : "+ this.getSelectedSubjectRegisterPojo().getKey());
+		//System.out.println("selected Subject : "+ this.getSelectedSubjectRegisterPojo().getKey());
 		
 		//FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add(":form:test1");
 		//RequestContext context = RequestContext.getCurrentInstance();
@@ -122,18 +122,18 @@ public class SubjectReviewDataTableBean implements Serializable {
 		SmartSchoolFacade smartSchoolFacade = new SmartSchoolFacade();
 		Long subjectId=this.getSelectedSubjectRegisterPojo().getKey();
 		String out=smartSchoolFacade.deleteSubject(subjectId);
-		
+		System.out.println("Sub Name"+this.getSelectedSubjectRegisterPojo().getSubjectName());
 		if(out !=null && out.equals("true")){
-			FacesContext.getCurrentInstance().addMessage("deleteConfirm", new FacesMessage(FacesMessage.SEVERITY_INFO, "Subject : "+subjectId+" deleted successfully !", "Info"));
+			FacesContext.getCurrentInstance().addMessage("deleteConfirm", new FacesMessage(FacesMessage.SEVERITY_INFO, "Successful", "Subject : "+this.getSelectedSubjectRegisterPojo().getSubjectName()+" deleted!"));
 		}
 		else {
 			if(out !=null && out.equals("false")){
 				// Show default failure message.
-				FacesContext.getCurrentInstance().addMessage("deleteConfirm", new FacesMessage(FacesMessage.SEVERITY_ERROR,  "Subject : "+subjectId+" deletion failed!! Please contact product support.","Info"));
+				FacesContext.getCurrentInstance().addMessage("deleteConfirm", new FacesMessage(FacesMessage.SEVERITY_ERROR, "Failed", "Subject : "+this.getSelectedSubjectRegisterPojo().getSubjectName()+" deletion failed!! Please contact product support."));
 			}
 			else {
 				// Show custom failure message.
-				FacesContext.getCurrentInstance().addMessage("deleteConfirm", new FacesMessage(FacesMessage.SEVERITY_ERROR,  out,"Info"));
+				FacesContext.getCurrentInstance().addMessage("deleteConfirm", new FacesMessage(FacesMessage.SEVERITY_ERROR, "Failed", out));
 			}
 		}
 		

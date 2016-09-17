@@ -19,7 +19,9 @@
 		<br></br>
 		
 	<h:form id="form">
-	<p:growl id="deleteMessage" for="deleteConfirm"/>		
+		
+		<p:growl id="deleteMessage" for="deleteConfirm" showDetail="true"/> <!-- This growl component is required for rendering the successful deletion message.  -->
+		
 	    <p:dataTable var="sub" value="#{subjectDataTable.lazyDataModel}" paginator="true" rows="10" style="font-size: 0.9em;margin-left: 200px;margin-right: 200px;"
 	                 paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
 	                 
@@ -42,7 +44,9 @@
 	<p:dialog header="Subject Detail" widgetVar="subjectDialog" modal="true" showEffect="fade" hideEffect="fade" closable="false" resizable="false" style="border:0px" >
 	    
 	  <h:form id="f2">
+	  			
 		    <p:outputPanel id="subjectDetail" style="text-align:center;">
+		    
 				<p:messages id="saveMessage" autoUpdate="true" for="save"  closable="true"/>
 				<p:messages id="deleteConfirmBox"  autoUpdate="true" for="delete" closable="true"/>
 				
