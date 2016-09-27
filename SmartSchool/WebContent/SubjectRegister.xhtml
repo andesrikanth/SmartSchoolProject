@@ -7,16 +7,13 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
     <h:head></h:head>
+    
     <f:metadata>
-	    <f:viewAction action="#{commonBean.sessionStatusCheck}" />
+	    <f:viewAction action="#{commonBean.adminSessionStatusCheck}" />
 	</f:metadata>
-	
 	
 	<body>
     
-	    <ui:composition template="MainTemplate.xhtml">
-				
-			<ui:define name="custom-body">
 				<h4>Subject Registration Form</h4>
 				<br></br>
 				<br></br>
@@ -45,9 +42,6 @@
 					<h:outputText id="o3" value="Please review the list of subjects " style="font-weight:bold;" rendered="#{subjectRegisterBean.subjectRegisterStatus}"></h:outputText><h:commandLink id="cl1" value="here." style="font-size: 15px;" action="reviewSubjects" rendered="#{subjectRegisterBean.subjectRegisterStatus}"></h:commandLink>
 					
 		        </h:form>
-			</ui:define>
-	    
-		</ui:composition>
     </body>
     
 </html>

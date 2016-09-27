@@ -46,4 +46,70 @@ public class CommonBean implements Serializable {
 		return status;
 		
 	}
+	
+	public String adminSessionStatusCheck() {
+		
+		
+		String status=null;
+		HttpSession session = (HttpSession)FacesContext.getCurrentInstance().getExternalContext().getSession(true);
+		if(session == null){
+			status="return_home";
+		}
+		else {
+			try{
+				String cur_user_role_type=(String)session.getAttribute("cur_user_role_type");
+				if(cur_user_role_type == null){
+					status="return_home";
+				}
+				else if(!cur_user_role_type.equalsIgnoreCase("Admin")){
+					status="return_home";
+				}
+				else{
+					status=null;
+				}
+				
+			}
+			catch(Exception e){
+				e.printStackTrace();
+				status="return_home";
+			}
+			
+		}
+		System.out.println("Session Status Check :: "+status);
+		return status;
+		
+	}
+	
+public String reviewSessionStatusCheck() {
+		
+		
+		String status=null;
+		HttpSession session = (HttpSession)FacesContext.getCurrentInstance().getExternalContext().getSession(true);
+		if(session == null){
+			status="return_home";
+		}
+		else {
+			try{
+				String cur_user_role_type=(String)session.getAttribute("cur_user_role_type");
+				if(cur_user_role_type == null){
+					status="return_home";
+				}
+				else if(!cur_user_role_type.equalsIgnoreCase("Admin")){
+					status="return_home";
+				}
+				else{
+					status=null;
+				}
+				
+			}
+			catch(Exception e){
+				e.printStackTrace();
+				status="return_home";
+			}
+			
+		}
+		System.out.println("Session Status Check :: "+status);
+		return status;
+		
+	}
 }

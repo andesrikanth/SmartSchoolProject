@@ -45,8 +45,6 @@ public class JsfTableDataModel<T> extends LazyDataModel<T> {
             	Object noobjs[] = {};
 				Long key = (Long)m.invoke(t, noobjs);
 				if(key.toString().equals(rowKey)){
-					System.out.println("In get Row Data :: Row Key "+key);
-					
 					return t;
 				}
 				
@@ -66,7 +64,6 @@ public class JsfTableDataModel<T> extends LazyDataModel<T> {
 			Method m =obj.getClass().getMethod("getKey", noparams);
 				Object noobjs[] = {};
 				Long key = (Long)m.invoke(obj, noobjs);
-				System.out.println("in getRowKey :: Selected Row Key "+key);
 				return key;
 		} catch (NoSuchMethodException e) {
 			// TODO Auto-generated catch block
@@ -124,8 +121,8 @@ public class JsfTableDataModel<T> extends LazyDataModel<T> {
 			localSelectQuery = localSelectQuery +" ORDER BY 1 ";
 		}
 		
-		System.out.println("generated select query in JsfTableDataModel "+localSelectQuery);
-		System.out.println("generated count query in JsfTableDataModel "+localCountQuery);
+		//System.out.println("generated select query in JsfTableDataModel "+localSelectQuery);
+		//System.out.println("generated count query in JsfTableDataModel "+localCountQuery);
 		
 		SmartSchoolFacade smartSchoolFacade = new SmartSchoolFacade();
 		if(!filtersApplied && sortApplied){

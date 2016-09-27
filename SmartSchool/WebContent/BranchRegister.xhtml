@@ -7,16 +7,13 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
     <h:head></h:head>
-    <f:metadata>
-	    <f:viewAction action="#{commonBean.sessionStatusCheck}" />
+   
+   <f:metadata>
+	    <f:viewAction action="#{commonBean.adminSessionStatusCheck}" />
 	</f:metadata>
-	
 	
 	<body>
     
-	    <ui:composition template="MainTemplate.xhtml">
-				
-			<ui:define name="custom-body">
 				<h4>Branch Registration Form</h4>
 				<br></br>
 				<br></br>
@@ -44,9 +41,6 @@
 					<h:message for="register" style="color: red;" rendered="#{!branchRegisterBean.branchRegisterStatus}"/>
 					
 		        </h:form>
-			</ui:define>
-	    
-		</ui:composition>
     </body>
     
 </html>

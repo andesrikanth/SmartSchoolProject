@@ -9,16 +9,12 @@
       xmlns:rich="http://richfaces.org/rich">
 	<h:head/>
 	
-    <f:metadata>
-	    <f:viewAction action="#{commonBean.sessionStatusCheck}" />
+	<f:metadata>
+	    <f:viewAction action="#{commonBean.adminSessionStatusCheck}" />
 	</f:metadata>
-	
 	
     <body>
     
-	    <ui:composition template="MainTemplate.xhtml">
-				
-			<ui:define name="custom-body">
 				<h4>Student Registration Form</h4>
 				<br></br>
 				<br></br>
@@ -135,12 +131,10 @@
 					
 					
 					<br></br>
-					<h:outputText id="o3" value="Please review the list of Students " style="font-weight:bold;" rendered="#{registerBean.studentRegistrationStatus}"></h:outputText><h:commandLink id="cl1" value="here." style="font-size: 15px;" action="reviewStudents" rendered="#{registerBean.studentRegistrationStatus}"></h:commandLink>
+					<h:outputText id="oo3" value="Please review the list of Students " style="font-weight:bold;" rendered="#{registerBean.studentRegistrationStatus}"></h:outputText><h:commandLink id="cl1" value="here." style="font-size: 15px;" action="reviewStudents" rendered="#{registerBean.studentRegistrationStatus}"></h:commandLink>
 					
 		        </h:form>
-			</ui:define>
-	    
-		</ui:composition>
+			
     </body>
 
 </html>

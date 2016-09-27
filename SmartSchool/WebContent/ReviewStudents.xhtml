@@ -9,22 +9,28 @@
       xmlns:p="http://primefaces.org/ui" >
     <h:head></h:head>
     
+     <f:metadata>
+	    <f:viewAction action="#{commonBean.reviewSessionStatusCheck}" />
+	</f:metadata>
    	
 	<body>
     
-	    <ui:composition template="MainTemplate.xhtml">
-				
-			<ui:define name="custom-body">
-				<h4>Review Students</h4>
+	   	<h4>Review Students</h4>
 		<br></br>
 		<br></br>
 				
 	<h:form id="form">
+	
+	<p:growl id="deleteMessage" for="deleteConfirm" showDetail="true"/> <!-- This growl component is required for rendering the successful deletion message.  -->
+	
+	<!-- If datatable is rendered seperately without embedding in any page, then use - style="font-size: 0.9em;margin-left: 200px;margin-right: 200px;" .. 
+				If the datatable is embedded in any page, then use - style="font-size: 0.9em;margin-left: 200px;margin-right: 200px;" -->
+				
     <p:dataTable var="stud" value="#{studentDataTable.lazyDataModel}" paginator="true" rows="10" style="font-size: 0.9em;margin-left: 20px;margin-right: 20px;"
                  paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
-                 
-                 rowsPerPageTemplate="5,10,15" selectionMode="single" selection="#{studentDataTable.selectedStudentRegisterPojo}" id="subjectTable" lazy="true">
-         <p:ajax event="rowSelect" listener="#{studentDataTable.onRowSelect}" update=":form:subjectDetail" oncomplete="PF('studentDialog').show()" />
+                 rowsPerPageTemplate="5,10,15" selectionMode="single" selection="#{studentDataTable.selectedStudentRegisterPojo}" id="studentTable" lazy="true">
+         
+         <p:ajax event="rowSelect" listener="#{studentDataTable.onRowSelect}" update=":form:studentDetail" oncomplete="PF('studentDialog').show()" />
          
            
         <p:column headerText="Student Identifier" sortBy="#{STUDENT_ID}" filterBy="#{STUDENT_ID}">
@@ -70,10 +76,7 @@
 		    </p:outputPanel>
 	    </p:dialog>
 	 
-	</h:form>
-			</ui:define>
-	    
-		</ui:composition>
+
     </body>
     
 </html>

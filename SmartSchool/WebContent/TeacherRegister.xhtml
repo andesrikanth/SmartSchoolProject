@@ -9,17 +9,13 @@
       xmlns:rich="http://richfaces.org/rich">
 	<h:head/>
 	
-    <f:metadata>
-	    <f:viewAction action="#{commonBean.sessionStatusCheck}" />
+	<f:metadata>
+	    <f:viewAction action="#{commonBean.adminSessionStatusCheck}" />
 	</f:metadata>
-	
-	
+   
     <body>
     
-	    <ui:composition template="MainTemplate.xhtml">
-				
-			<ui:define name="custom-body">
-				<h4>Student Registration Form</h4>
+				<h4>Teacher Registration Form</h4>
 				<br></br>
 				<br></br>
 						
@@ -111,9 +107,6 @@
 					</h:panelGroup>
 					
 		        </h:form>
-			</ui:define>
-	    
-		</ui:composition>
     </body>
 
 </html>
