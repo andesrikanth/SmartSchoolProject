@@ -1,6 +1,11 @@
 
 /* Custom starts -- Srikanth*/
 
+/*below ui-corner-left style class is being used by primefaces datatable*/
+.ui-corner-left{
+	width: 60px !important;
+}
+
 .button{
 	background-color: #0078e7 !important; 
 	 font-size: 14px !important; 

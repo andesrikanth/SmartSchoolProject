@@ -15,10 +15,11 @@ import com.smartSchoolService.pojo.BranchRegisterPojo;
 import com.smartSchoolService.pojo.SectionRegisterPojo;
 import com.smartSchoolService.pojo.StandardRegisterPojo;
 import com.smartSchoolService.pojo.StudentPojo;
+import com.smartSchoolService.pojo.SubjectRegisterPojo;
+import com.smartSchoolService.pojo.TeacherRegisterPojo;
 
-public class CommonUtil {
+public class RegisterCommonUtil {
 
-	
 	public boolean registerStandardDetails(StandardRegisterPojo standardRegisterPojo){
 		boolean status = true;
 		try {
@@ -77,7 +78,6 @@ public class CommonUtil {
 		        	bran.setBranchName(rs.getString("BRANCH_NAME"));
 		        	availableBranches.add(bran);
 		        }
-		        con.commit();
 			}
 			catch(Exception e){
 				e.printStackTrace();
@@ -113,7 +113,6 @@ public class CommonUtil {
 		        	stand.setStandardName(rs.getString("STANDARD_NAME"));
 		        	availableStandards.add(stand);
 		        }
-		        con.commit();
 			}
 			catch(Exception e){
 				e.printStackTrace();
@@ -141,14 +140,13 @@ public class CommonUtil {
 			try{
 				
 				stmt = con.createStatement();
-				ResultSet rs = stmt.executeQuery("select * from CLASS_AVBL_SECTIONS where BRANCH_ID= "+selectedBranchId+" AND STANDARD_ID="+standardId+";");
+				ResultSet rs = stmt.executeQuery("select SECTION_ID,SECTION_NAME from CLASS_AVBL_SECTIONS where BRANCH_ID= "+selectedBranchId+" AND STANDARD_ID="+standardId+";");
 		        while(rs.next()){
 		        	ChoiceListPojo.AvailableSections stand= choiceListPojo.new AvailableSections();
 		        	stand.setSectionId(rs.getLong("SECTION_ID"));
 		        	stand.setSectionName(rs.getString("SECTION_NAME"));
 		        	availableSections.add(stand);
 		        }
-		        con.commit();
 			}
 			catch(Exception e){
 				e.printStackTrace();
@@ -329,6 +327,140 @@ public class CommonUtil {
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			status=false;
+			e.printStackTrace();
+		}
+		
+		return status;
+	}
+	
+	public HashMap<String,String> registerTeacherDetails(TeacherRegisterPojo teacherRegisterPojo){
+		String status = "true";
+		HashMap<String,String> output = new HashMap<String,String>();
+		try {
+			DatabaseUtility databaseUtility =new DatabaseUtility();
+			Connection con=databaseUtility.getConnection();
+			PreparedStatement stmt = null;
+			PreparedStatement st1 = null;
+			Statement stmt1 = null;
+			try{
+				
+				java.sql.Date date = new java.sql.Date(teacherRegisterPojo.getDateOfBirth().getTime());
+				
+				stmt = con.prepareStatement("INSERT INTO TEACHER_DETAILS(TEACHER_FIRST_NAME,TEACHER_SECOND_NAME,TEACHER_LAST_NAME,DOB ,ADDRESS, GENDER, SPECIALIZATION, BRANCH_ID, EMAIL, PHONE_NO, SECONDARY_PHONE_NO, CREATED_BY, LAST_UPDATED_BY) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?);");
+				
+				stmt.setString(1, teacherRegisterPojo.getTeacherFirstName());
+				stmt.setString(2, teacherRegisterPojo.getTeacherMiddleName());
+				stmt.setString(3, teacherRegisterPojo.getTeacherLastName());
+				stmt.setDate(4, date);
+				stmt.setString(5, teacherRegisterPojo.getAddress());
+				stmt.setString(6, teacherRegisterPojo.getTeacherGender());
+				stmt.setString(7, teacherRegisterPojo.getSpecialization());
+				stmt.setLong(8, teacherRegisterPojo.getSelectedBranchId());
+				stmt.setString(9, teacherRegisterPojo.getTeacherEmail());
+				stmt.setString(10, teacherRegisterPojo.getPhoneNumber());
+				stmt.setString(11, teacherRegisterPojo.getAlternativePhoneNumber());
+				stmt.setString(12, teacherRegisterPojo.getCreatedBy());
+				stmt.setString(13, teacherRegisterPojo.getLastUpdatedBy());
+				
+				int out=stmt.executeUpdate();
+				
+				if(out == 0){
+		        	status="false";
+		        }
+				
+				Long currentTeacherId=new Long(0);
+				stmt1 = con.createStatement();
+				ResultSet rs = stmt1.executeQuery("select currval('TEACHER_ID_SEQ') as TEACHER_ID;");
+		        while(rs.next()){
+		        	currentTeacherId=rs.getLong("TEACHER_ID");
+		        }
+		        
+		        RandomPasswordGenerator randomPasswordGenerator = new RandomPasswordGenerator();
+		        String randomPwd=randomPasswordGenerator.generateNewPassword();
+		        String hashedPassword=SmartSchoolHash.customHashing(randomPwd);
+		        
+		        st1 = con.prepareStatement("INSERT INTO LOGIN_DETAILS(USER_NAME, PASSWORD, DISPLAY_NAME, USER_ROLE_TYPE, CREATED_BY,  LAST_UPDATED_BY) VALUES(?,?,?,?,?,?);");
+		        st1.setString(1, "TE"+currentTeacherId);
+		        st1.setString(2, hashedPassword);
+		        st1.setString(3, teacherRegisterPojo.getTeacherFirstName());
+		        st1.setString(4, "TEACHER");
+		        st1.setString(5, teacherRegisterPojo.getCreatedBy());
+		        st1.setString(6, teacherRegisterPojo.getLastUpdatedBy());
+		        
+		        int out1=st1.executeUpdate();
+				if(out1 == 0){
+		        	status="false";
+		        }
+				output.put("USER_NAME", "TE"+currentTeacherId);
+				output.put("PWD", randomPwd);
+				output.put("DB_STATUS", status);
+		        
+		        con.commit();
+			}
+			catch(Exception e){
+				status="false";
+				e.printStackTrace();
+			}
+			finally{
+				stmt.close();
+				databaseUtility.closeConnection(con);
+			}
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			status="false";
+			e.printStackTrace();
+		}
+		
+		return output;
+	}
+	
+	
+	public String registerSubjectDetails(SubjectRegisterPojo subjectRegisterPojo){
+		String status = "true";
+		try {
+			DatabaseUtility databaseUtility =new DatabaseUtility();
+			Connection con=databaseUtility.getConnection();
+			PreparedStatement stmt = null;
+			try{
+				
+				stmt = con.prepareStatement("INSERT INTO SUBJECTS_DETAILS(SUBJECT_NAME, SUBJECT_DESC, CREATED_BY,  LAST_UPDATED_BY) VALUES(?,?,?,?);");
+				
+				stmt.setString(1, subjectRegisterPojo.getSubjectName());
+				stmt.setString(2, subjectRegisterPojo.getSubjectDesc());
+				stmt.setString(3, subjectRegisterPojo.getCreatedByUserName());
+				stmt.setString(4, subjectRegisterPojo.getLastUpdatedByUserName());
+				
+				int out=stmt.executeUpdate();
+				//int out = stmt.executeUpdate("INSERT INTO CLASS_AVBL_STANDARDS(STANDARD_NAME, DESCRIPTION, CREATED_BY,  LAST_UPDATED_BY) VALUES('"+standardRegisterPojo.getStandardName()+"', '"+standardRegisterPojo.getStandardDesc()+"','"+standardRegisterPojo.getCreatedByUserName()+"','"+standardRegisterPojo.getCreatedByUserName()+"');" );
+		        if(out == 0){
+		        	status="false";
+		        }
+		        
+		        con.commit();
+			}
+			catch(Exception e){
+				status="false";
+				if(e !=null && e.getLocalizedMessage()!=null){
+					if(e.getLocalizedMessage().contains("violates unique constraint \"subjects_details_subject_name_key\"")){
+						status="Same subject already exists. Please enter a different Subject Name";
+					}
+				}
+				
+				e.printStackTrace();
+			}
+			finally{
+				stmt.close();
+				databaseUtility.closeConnection(con);
+			}
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			status="false";
+			if(e!=null && e.getCause()!=null) {
+				status=e.getCause().toString();
+			}
+			
 			e.printStackTrace();
 		}
 		

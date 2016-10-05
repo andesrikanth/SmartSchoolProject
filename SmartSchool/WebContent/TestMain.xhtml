@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"      
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:p="http://primefaces.org/ui" >
+    <h:head></h:head>
+    
+	<body>
+    
+	    <ui:composition template="MainTemplate.xhtml">
+				
+			<ui:define name="custom-body">
+		
+		<!-- <h:form>
+			    <p:menu toggleable="true">
+			        <p:submenu label="Ajax">
+			            <p:menuitem value="Save" actionListener="#{menuView.save}"  />
+			            <p:menuitem value="Update" actionListener="#{menuView.update}" />
+			        </p:submenu>
+			        <p:submenu label="Non-Ajax">
+			            <p:menuitem value="Delete" actionListener="#{menuView.delete}" />
+			        </p:submenu>
+			        <p:submenu label="Navigations">
+			            <p:menuitem value="External" url="http://www.primefaces.org" />
+			            <p:menuitem value="Internal" />
+			        </p:submenu>
+			    </p:menu>
+			</h:form>
+			    <ui:include src="Test1.xhtml" />
+			     -->
+			    
+			<p:layout>
+			 
+		    <p:layoutUnit position="west">
+		    <h:form>
+		          <p:menu toggleable="true" model="#{adminBean.model}"  style="margin-top:30px;"/>
+		     </h:form>
+		<!-- 	    <h:form>
+					    <p:menu toggleable="true" style="margin-top:30px;">
+					    
+					        <p:submenu label="Ajax">
+					            <p:menuitem value="Save"  actionListener="#{adminBean.save}" update="pg1" ajax="true"  />
+					            <p:menuitem value="Update" actionListener="#{menuView.update}" />
+					        </p:submenu>
+					        <p:submenu label="Non-Ajax">
+					            <p:menuitem value="Delete" actionListener="#{menuView.delete}" />
+					        </p:submenu>
+					        <p:submenu label="Navigations">
+					            <p:menuitem value="External" url="http://www.primefaces.org" />
+					            <p:menuitem value="Internal" />
+					        </p:submenu>
+					    </p:menu>
+			    </h:form>
+		 -->    
+		 </p:layoutUnit>
+		 
+		    <p:layoutUnit position="center" id="center" style="height:100%">
+		    
+		    <h:panelGroup id="pg1"> 
+		    <ui:include  src="#{adminBean.renderUiComponentTarget}" />
+		     <!-- <ui:include  src="Test1.xhtml"/> -->
+		    </h:panelGroup>
+		    
+		        
+		    </p:layoutUnit> 
+		</p:layout>
+
+
+    
+				
+			</ui:define>
+	    
+		</ui:composition>
+    </body>
+    
+</html>
+

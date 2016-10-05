@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"      
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:p="http://primefaces.org/ui" >
+    <h:head></h:head>
+    
+    <f:metadata>
+	    <f:viewAction action="#{commonBean.reviewSessionStatusCheck}" />
+	</f:metadata>
+	
+	<body>
+	    
+		<h4>Review Subjects</h4>
+		<br></br>
+		<br></br>
+		
+	<h:form id="form">
+		
+		<p:growl id="deleteMessage" for="deleteConfirm" showDetail="true"/> <!-- This growl component is required for rendering the successful deletion message.  -->
+		
+		
+		
+		<!-- If datatable is rendered seperately without embedding in any page, then use - style="font-size: 0.9em;margin-left: 200px;margin-right: 200px;" .. 
+				If the datatable is embedded in any page, then use - style="font-size: 0.9em;margin-left: 200px;margin-right: 200px;" -->
+				
+	    <p:dataTable var="sub" value="#{subjectDataTable.lazyDataModel}" paginator="true" rows="10" style="font-size: 0.9em;margin-left: 20px;margin-right: 20px;"
+	                 paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"	                 
+	                 rowsPerPageTemplate="5,10,15" selectionMode="single" selection="#{subjectDataTable.selectedSubjectRegisterPojo}" id="subjectTable" lazy="true">
+	        <p:ajax event="rowSelect" listener="#{subjectDataTable.onRowSelect}" update=":form:f2:subjectDetail" oncomplete="PF('subjectDialog').show()" /> 
+	           
+	        <p:column headerText="Subject Identifier" sortBy="#{SUBJECT_ID}" filterBy="#{SUBJECT_ID}">
+	            <h:outputText value="#{sub.key}" />
+	        </p:column>
+	        <p:column headerText="Subject Name" sortBy="#{SUBJECT_NAME}" filterBy="#{SUBJECT_NAME}">
+	            <h:outputText value="#{sub.subjectName}" />
+	        </p:column>
+	        <p:column headerText="Subject Desc" sortBy="#{SUBJECT_DESC}" filterBy="#{SUBJECT_DESC}">
+	            <h:outputText value="#{sub.subjectDesc}" />
+	        </p:column>
+	       
+	    </p:dataTable>
+	 
+	 
+	<p:dialog header="Subject Detail" widgetVar="subjectDialog" modal="true" showEffect="fade" hideEffect="fade" closable="false" resizable="false" style="border:0px" >
+	    
+	  <h:form id="f2">
+	  			
+		    <p:outputPanel id="subjectDetail" style="text-align:center;">
+		    
+				<p:messages id="saveMessage" autoUpdate="true" for="save"  closable="true"/>
+				<p:messages id="deleteConfirmBox"  autoUpdate="true" for="delete" closable="true"/>
+				
+		        <p:panelGrid  columns="3" rendered="#{not empty subjectDataTable.selectedSubjectRegisterPojo}">
+		            <h:outputText value="Identifier :" />
+		            <h:outputText value="#{subjectDataTable.selectedSubjectRegisterPojo.key}" />
+					<h:panelGroup/>
+					
+		            <h:outputText value="Subject Name : " />
+		           <h:inputText id="SubjectName" maxlength="63"  name="SectionName" value="#{subjectDataTable.selectedSubjectRegisterPojo.subjectName}" style="margin-right:15px; margin-top:15px;"  requiredMessage="Please enter the Subject Name" required="true"/>
+					<p:message for="SubjectName" style="color:red" />
+		            
+		
+					<h:outputText value="Subject Description : " />
+					<h:inputTextarea id="Description" rows="5" cols="5"  name="Description" value="#{subjectDataTable.selectedSubjectRegisterPojo.subjectDesc}" style="margin-right:15px;"  a:maxlength="254"/>
+		            <h:message for="Description" style="color:red" />
+		            
+		       </p:panelGrid>
+		       <p:commandButton value="Save" id="save" actionListener="#{subjectDataTable.updateSubject}" update="subjectDetail" style="font-size: 0.9em;"/>
+		             
+		       <p:commandButton id="delete" value="Delete" actionListener="#{subjectDataTable.deleteSubject}" update="deleteConfirmBox" style="margin-left: 25px;font-size: 0.9em;">
+				  <p:confirm header="Confirmation" message="Are you sure?" icon="ui-icon-alert" />
+				</p:commandButton>
+				 
+			   <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+				  <p:commandButton value="Yes" id="deleteConfirm" type="button" styleClass="ui-confirmdialog-yes" style=" margin-left: 25px;" update="form"/>
+				  <p:commandButton value="No" styleClass="ui-confirmdialog-no" type="button"/>
+			   </p:confirmDialog>
+			   
+			   <p:commandButton value="Close" id="close" actionListener="#{subjectDataTable.closeSubjectDialog}" style=" margin-left: 25px;font-size: 0.9em;"/>
+			   
+		    </p:outputPanel>
+		    
+		   </h:form>
+	    </p:dialog>
+	 
+	</h:form>
+		
+    </body>
+    
+</html>
+

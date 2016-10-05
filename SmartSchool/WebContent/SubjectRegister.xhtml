@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"      
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
+    <h:head></h:head>
+    
+    <f:metadata>
+	    <f:viewAction action="#{commonBean.adminSessionStatusCheck}" />
+	</f:metadata>
+	
+	<body>
+    
+				<h4>Subject Registration Form</h4>
+				<br></br>
+				<br></br>
+						
+		        <h:form id="register">
+				    <h:panelGrid id="panel" columns="3" border="1" cellpadding="100" cellspacing="10" rendered="#{!subjectRegisterBean.subjectRegisterStatus}" >
+						
+						<h:outputText id="o1" value="Subject Name" style="margin-right:15px;font-weight:bold;"></h:outputText>
+						<h:inputText id="SubjectName" maxlength="63"  name="SectionName" value="#{subjectRegisterBean.subjectName}" style="margin-right:15px; margin-top:15px;"  requiredMessage="Please enter the Subject Name" required="true" a:placeholder="Subject Name"/>
+						<h:message for="SubjectName" style="color:red" />
+						
+						<h:outputText id="o2" value="Description" style="margin-right:15px;font-weight:bold;"></h:outputText>
+						<h:inputTextarea id="Description" rows="5" cols="5"  name="Description" value="#{subjectRegisterBean.subjectDesc}" style="margin-right:15px;"  a:placeholder="Description" a:maxlength="254"/>
+			        	<h:message for="Description" style="color:red" />
+						
+										
+						<f:facet name="footer">
+						   <h:panelGroup style="display:block; text-align:center">
+						   <p><h:commandButton class="button submit-btn" action="#{subjectRegisterBean.registerSubject}" value="Save" disabled="#{subjectRegisterBean.subjectRegisterStatus}" style="margin-top: 10px;"  /></p>
+						   </h:panelGroup>
+						</f:facet>
+					</h:panelGrid>
+					<h:message for="register" style="color: green;" rendered="#{subjectRegisterBean.subjectRegisterStatus}"/>
+					<h:message for="register" style="color: red;" rendered="#{!subjectRegisterBean.subjectRegisterStatus}"/>
+					<br></br>
+					<h:outputText id="o3" value="Please review the list of subjects " style="font-weight:bold;" rendered="#{subjectRegisterBean.subjectRegisterStatus}"></h:outputText><h:commandLink id="cl1" value="here." style="font-size: 15px;" action="reviewSubjects" rendered="#{subjectRegisterBean.subjectRegisterStatus}"></h:commandLink>
+					
+		        </h:form>
+    </body>
+    
+</html>
+

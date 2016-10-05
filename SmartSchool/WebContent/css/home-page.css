@@ -2,6 +2,121 @@
 
 /* Custom starts -- Srikanth*/
 
+
+/* Start : Below styles classes for primefaces customizations*/
+
+/* below are for datatable*/
+.ui-widget-content {
+	border:0px !important;
+}
+
+.ui-panelgrid .ui-panelgrid-cell {
+	border-width: 0px !important;
+	text-align: left;
+}
+
+.ui-button-text {
+	    display: inline !important;
+		padding: .1em 0.4em !important;
+}
+
+    
+ .ui-messages-info {
+    color: #fff !important;
+    background-color: #9ccc65 !important;
+    border-color: #9ccc65 !important;
+ }
+ 
+ .ui-messages-error{
+ color: #fff !important;
+    background-color: #ef5350 !important;
+    border-color: #ef5350 !important;
+ }
+ 
+.ui-widget-content .ui-icon {
+	margin-top: 3px;
+}
+
+.ui-growl-info{
+	color: #fff !important;
+    background-color: #9ccc65 !important;
+    border-color: #9ccc65 !important;
+}
+
+.ui-growl-error{
+ color: #fff !important;
+    background-color: #ef5350 !important;
+    border-color: #ef5350 !important;
+ }
+
+.ui-growl-item-container{
+	color: #fff !important;
+    background-color: #9ccc65 !important;
+    border-color: #9ccc65 !important;
+    background: #9ccc65 !important;
+}
+
+/* below are for toggle menu*/ /* Don't change the below settings as it will impact the datatables rendering inside another jsf pages*/
+
+.ui-widget-header h3{
+	line-height: 20px;
+}
+
+.ui-menu-toggleable{
+    border: 1px solid #d5d5d5 !important;
+    background: #fff !important;
+    color: #222 !important;
+}
+
+
+.ui-menu .ui-menuitem-text {
+    float: left !important;
+    font-size: 1.2em !important;
+}
+
+.ui-widget-header{
+	background: -webkit-linear-gradient(top,#f6f7f9 0,#ebedf0 100%) !important;
+}
+
+.ui-widget-content a {
+    color: #222 !important;
+}
+
+.ui-state-hover,.ui-selectmanybutton .ui-button.ui-state-focus{border:1px solid #c0c0c0 !important;
+background:#eee !important;
+font-weight:normal !important;
+color:#212121 !important;
+}
+
+.ui-layout-resizer-west{
+	position: inherit  !important;
+}
+
+ .ui-layout-west{
+	margin-top: 50px  !important;
+	margin-left: 8px  !important;
+} 
+
+
+ .ui-layout-center, .ui-layout-pane-center, .ui-layout-pane-center-hover,.ui-layout-pane-center-open-hover{
+	height:700px  !important;
+}
+
+
+.ui-layout-west, .ui-layout-pane-west, .ui-layout-pane-west-hover,.ui-layout-pane-west-open-hover{
+	height:700px  !important;
+} 
+
+.ui-layout-resizer, .ui-layout-resizer-west, .ui-layout-resizer-open, .ui-layout-resizer-west-open {
+	height:700px  !important;
+}
+
+/* End Customizing styles classes for primefaces customizations*/
+
+
+
+
+
 #box-table-a {
     font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
     font-size: 12px;
@@ -604,7 +719,7 @@ a:hover {
 /***** Footer *****/
 footer {
 	margin-top: 60px;
-	padding: 30px 0;
+	/* padding: 30px 0; */
 	background: #2d2d2d url(../img/pattern-3.jpg);
 	-moz-box-shadow: 0 1px 5px 0 rgba(0, 0, 0, .3) inset;
 	-webkit-box-shadow: 0 1px 5px 0 rgba(0, 0, 0, .3) inset;

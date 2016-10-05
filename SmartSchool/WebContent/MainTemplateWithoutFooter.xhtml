@@ -42,8 +42,8 @@
 	                    <a href="Welcome.jsf" class ="menu-item" name="home" id="home" onmouseover="hideActiveMenus();">Home</a>
 	                    <a href="#" class ="menu-item" name="menu1" id="menu1" onmouseover="MM_showMenu(menu1_values,0,20,null,'menu1')" onmouseout="MM_startTimeout();" >Dummy</a>
 	                    <a href="#" class ="menu-item"  name="menu2" id="menu2" onmouseover="MM_showMenu(menu2_values,0,20,null,'menu2')" onmouseout="MM_startTimeout();"  >Dummy</a>
-	                   <!--  <h:link id="admin" rendered="#{cur_user_role_type == 'Admin'}"> <a href="#" class ="menu-item" name="menu3" id="menu3" onmouseover="MM_showMenu(menu3_values,0,20,null,'menu3')" onmouseout="MM_startTimeout();" >Dummy</a></h:link> -->
-	                   <h:link id="admin" rendered="#{cur_user_role_type == 'Admin'}"> <a href="Admin.jsf" class ="menu-item" name="menu3" id="menu3">Dummy</a></h:link>
+	                    <!-- <h:link id="admin" rendered="#{cur_user_role_type == 'Admin'}"> <a href="#" class ="menu-item" name="menu3" id="menu3" onmouseover="MM_showMenu(menu3_values,0,20,null,'menu3')" onmouseout="MM_startTimeout();" >Dummy</a></h:link> -->
+	                    <h:link id="admin" rendered="#{cur_user_role_type == 'Admin'}"> <a href="Admin.jsf" class ="menu-item" name="menu3" id="menu3">Dummy</a></h:link>
 			   			<h:commandLink id="logout" action="logout" actionListener="#{loginBean.logout}" class ="menu-item"  value="Logout" onmouseover="hideActiveMenus();"> </h:commandLink>
 			   			<a><b><h:outputText  class="nameDisplay" value="Welcome #{cur_user_display_name}!"/></b></a> 
 	                    
@@ -57,8 +57,6 @@
         </div>
         <hr style="border-width: 2px 2px 0; "></hr>
         <br></br>
-        <br></br>
-        
         
         <center>
 	     
@@ -79,15 +77,15 @@
 
         <footer>
             <div class="container">
-                <div class="row">
+                <!-- <div class="row">
                      <div class="span4 testimonials" style="width:500px">
                         <h3>Head Office</h3>
                         <p id="OfficeAddress1">Dummy</p>
                         <p id="OfficeAddress2">Dummy</p>
                         <p id="OfficePhone">Dummy</p>
                         <p id="OfficeFax">Dummy</p>
-                    </div>
-                    <div class="span4 contact-us">
+                    </div> -->
+                    <!-- <div class="span4 contact-us">
                         <h3>Contact Us</h3>
                         <form action="contact.php" method="post">
                             <input type="text" name="name" class="name" placeholder="Name"></input>
@@ -97,10 +95,10 @@
                             <textarea name="message" placeholder="Message"></textarea>
                             <button type="submit">Submit</button>
                         </form>
-                    </div>
-                </div> 
-                <!-- end row -->
-                <div class="row">
+                    </div> 
+                </div> -->
+                
+                <!-- <div class="row">
                     <div class="span12">
                         <div class="social-links">
                             <a class="facebook" href="#"></a>
@@ -115,7 +113,7 @@
                             <a class="email" href="#"></a>
                         </div>
                     </div>
-                </div> <!-- end row -->
+                </div>  -->
                 <div class="row">
                     <div class="span12 copyright">
                         <p><a class="copyrightText">Copyright 2016. Developed by Srikanth Ande</a></p>
