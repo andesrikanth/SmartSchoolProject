@@ -7,11 +7,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.sql.Timestamp;
-import java.util.ArrayList;
 import java.util.Date;
 
 import com.smartSchoolService.dao.DatabaseUtility;
-import com.smartSchoolService.mail.MailSender;
 
 public class LoginHelper {
 

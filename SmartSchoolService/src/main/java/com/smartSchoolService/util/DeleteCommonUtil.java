@@ -2,7 +2,6 @@ package com.smartSchoolService.util;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.util.Date;
 
 import com.smartSchoolService.dao.DatabaseUtility;
 
@@ -15,7 +14,7 @@ public class DeleteCommonUtil {
 			DatabaseUtility databaseUtility =new DatabaseUtility();
 			Connection con=databaseUtility.getConnection();
 			PreparedStatement stmt = null;
-			java.sql.Date date = new java.sql.Date(new Date().getTime());
+			//java.sql.Date date = new java.sql.Date(new Date().getTime());
 			try{
 				
 				stmt = con.prepareStatement("DELETE FROM SUBJECTS_DETAILS WHERE SUBJECT_ID = ? ;");
@@ -57,7 +56,7 @@ public class DeleteCommonUtil {
 			DatabaseUtility databaseUtility =new DatabaseUtility();
 			Connection con=databaseUtility.getConnection();
 			PreparedStatement stmt = null;
-			java.sql.Date date = new java.sql.Date(new Date().getTime());
+			//java.sql.Date date = new java.sql.Date(new Date().getTime());
 			try{
 				
 				stmt = con.prepareStatement("DELETE FROM STUDENT_DETAILS WHERE STUDENT_ID = ? ;");

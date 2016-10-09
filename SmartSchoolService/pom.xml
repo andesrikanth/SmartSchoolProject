@@ -46,7 +46,7 @@
     <version>9.4-1202-jdbc42</version>
      <scope>compile</scope>
 </dependency>
-
+<!-- 
 <dependency>
     <groupId>org.richfaces.ui</groupId>
     <artifactId>richfaces-components-ui</artifactId>
@@ -56,7 +56,9 @@
     <groupId>org.richfaces.core</groupId>
     <artifactId>richfaces-core-impl</artifactId>
     <version>4.3.7.Final</version>
-</dependency>
+</dependency> -->
+
+
 <!-- https://mvnrepository.com/artifact/javax.mail/mail -->
 <dependency>
     <groupId>javax.mail</groupId>
