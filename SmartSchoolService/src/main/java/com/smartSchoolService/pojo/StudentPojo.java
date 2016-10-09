@@ -1,6 +1,9 @@
 package com.smartSchoolService.pojo;
 
 import java.util.Date;
+import java.util.List;
+
+import com.smartSchoolService.util.ChoiceListPojo;
 
 public class StudentPojo {
 	
@@ -26,6 +29,10 @@ public class StudentPojo {
 	private String branchName;
 	private String standardName;
 	private String sectionName;
+	public String[] studentEmailNotAvail;
+	private List<ChoiceListPojo.AvailableBranches> availableBranches;
+	private List<ChoiceListPojo.AvailableSections> availableSections;
+	private List<ChoiceListPojo.AvailableStandards> availableStandards;
 	
 	public Long getKey() {
 		return key;
@@ -37,6 +44,14 @@ public class StudentPojo {
 		return selectedStudentGender;
 	}
 	public void setSelectedStudentGender(String selectedStudentGender) {
+		if(selectedStudentGender != null){
+			if(selectedStudentGender.equals("Male")){
+				selectedStudentGender="M";
+			}
+			else {
+				selectedStudentGender="F";
+			}
+		}
 		this.selectedStudentGender = selectedStudentGender;
 	}
 	public Long getSelectedBranchId() {
@@ -147,6 +162,30 @@ public class StudentPojo {
 	}
 	public void setSectionName(String sectionName) {
 		this.sectionName = sectionName;
+	}
+	public String[] getStudentEmailNotAvail() {
+		return studentEmailNotAvail;
+	}
+	public void setStudentEmailNotAvail(String[] studentEmailNotAvail) {
+		this.studentEmailNotAvail = studentEmailNotAvail;
+	}
+	public List<ChoiceListPojo.AvailableBranches> getAvailableBranches() {
+		return availableBranches;
+	}
+	public void setAvailableBranches(List<ChoiceListPojo.AvailableBranches> availableBranches) {
+		this.availableBranches = availableBranches;
+	}
+	public List<ChoiceListPojo.AvailableSections> getAvailableSections() {
+		return availableSections;
+	}
+	public void setAvailableSections(List<ChoiceListPojo.AvailableSections> availableSections) {
+		this.availableSections = availableSections;
+	}
+	public List<ChoiceListPojo.AvailableStandards> getAvailableStandards() {
+		return availableStandards;
+	}
+	public void setAvailableStandards(List<ChoiceListPojo.AvailableStandards> availableStandards) {
+		this.availableStandards = availableStandards;
 	}
 	
 	

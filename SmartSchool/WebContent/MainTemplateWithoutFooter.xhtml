@@ -34,7 +34,7 @@
         <div class="container">
             <div class="header row">
                 <div class="span4">
-                    <h2><img src="img/SchoolLogo1.png" id="schoolLogo" align="middle" alt="Boston Schools" style="width:80px;height:70px;margin-left:-80px;"/><a href="Welcome.jsf" id="schoolName" class="schoolName" style="padding-left: 10px;">Dummy</a></h2>
+                    <h2><img src="img/SchoolLogo1.png" id="schoolLogo" align="middle" alt="Boston Schools" style="width:80px;height:70px;margin-left:0px;"/><a href="Welcome.jsf" id="schoolName" class="schoolName" style="padding-left: 10px;">Dummy</a></h2>
                 </div>
                 <div class="tel-skype span8">
                     <p>
@@ -42,8 +42,7 @@
 	                    <a href="Welcome.jsf" class ="menu-item" name="home" id="home" onmouseover="hideActiveMenus();">Home</a>
 	                    <a href="#" class ="menu-item" name="menu1" id="menu1" onmouseover="MM_showMenu(menu1_values,0,20,null,'menu1')" onmouseout="MM_startTimeout();" >Dummy</a>
 	                    <a href="#" class ="menu-item"  name="menu2" id="menu2" onmouseover="MM_showMenu(menu2_values,0,20,null,'menu2')" onmouseout="MM_startTimeout();"  >Dummy</a>
-	                    <!-- <h:link id="admin" rendered="#{cur_user_role_type == 'Admin'}"> <a href="#" class ="menu-item" name="menu3" id="menu3" onmouseover="MM_showMenu(menu3_values,0,20,null,'menu3')" onmouseout="MM_startTimeout();" >Dummy</a></h:link> -->
-	                    <h:link id="admin" rendered="#{cur_user_role_type == 'Admin'}"> <a href="Admin.jsf" class ="menu-item" name="menu3" id="menu3">Dummy</a></h:link>
+	                    <h:link id="admin" rendered="#{cur_user_role_type == 'Admin'}"> <a href="Admin.jsf" class ="menu-item" name="menu3" id="menu3" >Dummy</a></h:link>
 			   			<h:commandLink id="logout" action="logout" actionListener="#{loginBean.logout}" class ="menu-item"  value="Logout" onmouseover="hideActiveMenus();"> </h:commandLink>
 			   			<a><b><h:outputText  class="nameDisplay" value="Welcome #{cur_user_display_name}!"/></b></a> 
 	                    

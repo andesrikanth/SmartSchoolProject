@@ -1,6 +1,7 @@
 package com.smartSchool.bean;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -8,12 +9,15 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.RequestScoped;
 import javax.faces.bean.ViewScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ValueChangeEvent;
 import javax.faces.validator.ValidatorException;
 import javax.servlet.http.HttpSession;
+
+import org.primefaces.event.SelectEvent;
 
 import com.smartSchool.facade.SmartSchoolFacade;
 import com.smartSchoolService.pojo.SectionRegisterPojo;
@@ -22,6 +26,7 @@ import com.smartSchoolService.pojo.StudentPojo;
 import com.smartSchoolService.util.ChoiceListPojo;
 
 @ManagedBean(name = "registerBean", eager = true)
+//@RequestScoped
 @ViewScoped
 public class RegisterBean implements Serializable {
 	
@@ -276,7 +281,7 @@ public class RegisterBean implements Serializable {
 		selectedBranchId=(Long)e.getNewValue();
 		if(selectedBranchId !=null){
 			SmartSchoolFacade smartSchoolFacade = new SmartSchoolFacade();
-			availableStandards=smartSchoolFacade.getAvailableStandardsList(selectedBranchId);
+			availableStandards=smartSchoolFacade.getAvailableStandardsList(selectedBranchId,null);
 			availableSections=null;
 			//selectedStandardId=availableStandards.get(0).getStandardId();
 			
@@ -295,7 +300,7 @@ public class RegisterBean implements Serializable {
 		selectedStandardId=(Long)e.getNewValue();
 		if(selectedStandardId !=null){
     		SmartSchoolFacade smartSchoolFacade = new SmartSchoolFacade();
-			availableSections=smartSchoolFacade.getAvailableSectionsList(selectedBranchId,selectedStandardId);
+			availableSections=smartSchoolFacade.getAvailableSectionsList(selectedBranchId,selectedStandardId,null);
 		}
 	}
 	
@@ -445,6 +450,10 @@ public class RegisterBean implements Serializable {
 				FacesContext.getCurrentInstance().addMessage("register", new FacesMessage("Section Registration Failed!! Please contact product support."));
 			}
 			return null;
+	 }
+	 
+	 public void onDateSelect(SelectEvent event) {
+	        this.setDateOfBirth((Date)event.getObject());
 	 }
 
 }

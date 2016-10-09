@@ -40,6 +40,16 @@ public class FetchCommonUtil {
 		        	studentPojo.setBranchName(rs.getString("BRANCH_NAME"));
 		        	studentPojo.setStandardName(rs.getString("STANDARD_NAME"));
 		        	studentPojo.setSectionName(rs.getString("SECTION_NAME"));
+		        	studentPojo.setStudentFatherName(rs.getString("FATHER_NAME"));
+		        	studentPojo.setStudentMotherName(rs.getString("MOTHER_NAME"));
+		        	studentPojo.setAddress(rs.getString("ADDRESS"));
+		        	studentPojo.setStudentEmail(rs.getString("EMAIL"));
+		        	studentPojo.setPhoneNumber(rs.getString("PHONE_NO"));
+		        	studentPojo.setAlternativePhoneNumber(rs.getString("SECONDARY_PHONE_NO"));
+		        	
+		        	studentPojo.setSelectedBranchId(rs.getLong("BRANCH_ID"));
+		        	studentPojo.setSelectedStandardId(rs.getLong("REGISTERED_STANDARD"));
+		        	studentPojo.setSelectedSectionId(rs.getLong("REGISTERED_SECTION"));
 		        	
 		        	availableStudents.add(studentPojo);
 		        }
