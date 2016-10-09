@@ -9,6 +9,7 @@ import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+import javax.mail.internet.MimeMessage.RecipientType;
 
 
 public class MailSender {
@@ -60,59 +61,128 @@ public class MailSender {
 */        
         
     	final String username = "javaprojects2013@gmail.com";
-                                final String password = "pwd";
-                                
-                                //support : https://support.google.com/accounts/answer/6010255
-                                
-                                //https://www.google.com/settings/security/lesssecureapps    ==> open this URL in browser and temporarily turn on your less secure apps. 
-                                //Once your mail purpose is done, then turn off the setting. 
-                                
-                                Properties props = new Properties();
-                                props.put("mail.transport.protocol", "smtp");
-                                props.put("mail.from"  ,                 username);
-                                props.put("mail.host"                   ,"gmail.com");
-                                props.put("mail.smtp.starttls.enable"   , true);
-                                props.put("mail.smtp.starttls.required" , true);
-                                props.put("mail.smtp.host" , "smtp.gmail.com");
-                                props.put("mail.smtp.auth" ,true);
-                                props.put("mail.smtp.port" , 587);
-                                props.put("mail.user" , username);
-                                props.put("mail.password" , password);
-                                props.put("proxySet","true"); 
-                                props.put("socksProxyHost","www-proxy.us.oracle.com");
-                                props.put("socksProxyPort","80");
-                                
+    	final String password = "Srikanth$005";
 
-                                Session session = Session.getInstance(props,
-                                  new javax.mail.Authenticator() {
-                                                protected PasswordAuthentication getPasswordAuthentication() {
-                                                                return new PasswordAuthentication(username, password);
-                                                }
-                                  });
+    	//support : https://support.google.com/accounts/answer/6010255
 
-                                try {
-                                                
-                                                ArrayList<String> arr = new ArrayList<String>();
-                                                arr.add("srikanthande1990@gmail.com");
-                                                arr.add("lovelysrikanthande@gmail.com");
-                                                
-                                                for(String mail : arr){
-                                                                Message message = new MimeMessage(session);
-                                                                message.setFrom(new InternetAddress("lovelysrikanthande@gmail.com"));
-                                                                message.setRecipients(Message.RecipientType.TO,
-                                                                                InternetAddress.parse(mail));
-                                                                message.setSubject("Testing Subject");
-                                                                message.setText("My Mail Body");
+    	//https://www.google.com/settings/security/lesssecureapps    ==> open this URL in browser and temporarily turn on your less secure apps. 
+    	//Once your mail purpose is done, then turn off the setting. 
 
-                                                                Transport.send(message);
+    	Properties props = new Properties();
+    	props.put("mail.transport.protocol", "smtp");
+    	props.put("mail.from"  ,                 username);
+    	props.put("mail.host"  ,"gmail.com");
+    	props.put("mail.smtp.starttls.enable"   , true);
+    	props.put("mail.smtp.starttls.required" , true);
+    	props.put("mail.smtp.host" , "smtp.gmail.com");
+    	props.put("mail.smtp.auth" ,true);
+    	props.put("mail.smtp.port" , 587);
+    	props.put("mail.user" , username);
+    	props.put("mail.password" , password);
+    	//props.put("proxySet","true"); 
+    	//props.put("socksProxyHost","www-proxy.us.oracle.com");
+    	//props.put("socksProxyPort","80");
 
-                                                                System.out.println("Done");
-                                                }
-                                                
 
-                                } catch (MessagingException e) {
-                                                throw new RuntimeException(e);
-                                }
+    	Session session = Session.getInstance(props,
+    	  new javax.mail.Authenticator() {
+    	                protected PasswordAuthentication getPasswordAuthentication() {
+    	                                return new PasswordAuthentication(username, password);
+    	                }
+    	  });
+
+    	try {
+    	                
+    	        ArrayList<String> arr = new ArrayList<String>();
+    	        arr.add("srikanthande1990@gmail.com");
+    	        arr.add("lovelysrikanthande@gmail.com");
+    	                
+    	        for(String mail : arr){
+    	            Message message = new MimeMessage(session);
+    	            message.setFrom(new InternetAddress("lovelysrikanthande@gmail.com"));
+    	            message.setRecipients(Message.RecipientType.TO,
+    	                                                InternetAddress.parse(mail));
+    	            message.setSubject("Testing Subject");
+    	            message.setText("My Mail Body");
+
+    	            Transport.send(message);
+
+    	            System.out.println("Done");
+    	         }
+    	                
+
+    	} catch (MessagingException e) {
+    	      throw new RuntimeException(e);
+    	}
+    }
+    
+    
+    public boolean sendMail(ArrayList<String> toList, ArrayList<String> ccList, ArrayList<String> bccList, String mailHeading, String subject){
+    
+    	
+    	//http://tomcat.apache.org/tomcat-6.0-doc/jndi-resources-howto.html#JavaMail_Sessions
+    	
+    	
+    	boolean status =false;
+    	
+    	final String username = "javaprojects2013@gmail.com";
+    	final String password = "Srikanth$005";
+
+    	//support : https://support.google.com/accounts/answer/6010255
+
+    	//https://www.google.com/settings/security/lesssecureapps    ==> open this URL in browser and temporarily turn on your less secure apps. 
+    	//Once your mail purpose is done, then turn off the setting. 
+
+    	Properties props = new Properties();
+    	props.put("mail.transport.protocol", "smtp");
+    	props.put("mail.from"  ,  username);
+    	props.put("mail.host"  ,"gmail.com");
+    	props.put("mail.smtp.starttls.enable"   , true);
+    	props.put("mail.smtp.starttls.required" , true);
+    	props.put("mail.smtp.host" , "smtp.gmail.com");
+    	props.put("mail.smtp.auth" ,true);
+    	props.put("mail.smtp.port" , 587);
+    	props.put("mail.user" , username);
+    	props.put("mail.password" , password);
+    	props.put("proxySet","true"); 
+    	props.put("socksProxyHost","www-proxy.us.oracle.com");
+    	props.put("socksProxyPort","80");
+
+
+    	Session session = Session.getInstance(props,
+    	  new javax.mail.Authenticator() {
+    	                protected PasswordAuthentication getPasswordAuthentication() {
+    	                                return new PasswordAuthentication(username, password);
+    	                }
+    	  });
+
+    	try {
+    			Message message = new MimeMessage(session);
+                
+    			if(toList!= null && toList.size()>0){
+                	InternetAddress[] addressTo = new InternetAddress[toList.size()];
+        	        
+        	        for (int i = 0; i < toList.size(); i++){
+        	            addressTo[i] = new InternetAddress(toList.get(i));
+        	        }
+    	            message.setRecipients(RecipientType.TO, addressTo); 
+        	         
+                }
+    			
+    	           message.setFrom(new InternetAddress("lovelysrikanthande@gmail.com"));
+    	            message.setSubject("Testing Subject");
+    	            message.setText("My Mail Body");
+
+    	            Transport.send(message);
+
+    	            System.out.println("Done");
+    	                
+
+    	} catch (Exception e) {
+    		e.printStackTrace();
+    	}
+    	
+    	return status;
     }
 
 }

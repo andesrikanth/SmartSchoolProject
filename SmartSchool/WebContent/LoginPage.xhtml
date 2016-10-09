@@ -4,7 +4,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:f="http://java.sun.com/jsf/core"      
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:p="http://primefaces.org/ui">
     <h:head>
     <!-- below javascript file contains all the necessary default variables for loading on the UI. This js must load first.-->
         <script type="text/javascript" src="js/initialize-script-home.js"></script>
@@ -54,9 +55,11 @@
 	        	<h4>Login</h4>
 	        	 <br></br>  
 	        	<h:form style="text-align: center;">
+	        	<p:messages id="validationMessages"  autoUpdate="true" closable="true" />
 	        	<p><h:inputText id="username" name="username" value="#{loginBean.userName}"   requiredMessage="Please enter the username." required="true" a:placeholder="Enter Username"/></p>
 	             <p><h:inputSecret  id="pwd" name="pwd"  value="#{loginBean.password}"  requiredMessage="Please enter the password." required="true" a:placeholder="Enter Password"/></p>
 	             <p><h:commandButton class="button submit-btn" action="#{loginBean.LoginAuthenticationStatus}" actionListener="#{loginBean.SubmitLogin}" value="Submit" /></p>
+	             <h:commandLink id="forgot" action="forgotPwd"  value="Forgot Password ?" > </h:commandLink>
 	        	</h:form>                        
 	                <br></br>                    
 	                                    

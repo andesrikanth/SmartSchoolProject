@@ -30,15 +30,17 @@ function setStaticValues() {
 	document.getElementById("menu1").innerHTML=menu1;
 	document.getElementById("menu2").innerHTML=menu2;
 	
+	//below are the varying menus per each page. Here need to check whether the menu component is null or not.
+	if(document.getElementById("menu3") != null){
+		document.getElementById("menu3").innerHTML=menu3;
+	}
+	
 	document.getElementById("OfficeAddress1").innerHTML=OfficeAddress1;
 	document.getElementById("OfficeAddress2").innerHTML=OfficeAddress2;
 	document.getElementById("OfficePhone").innerHTML=OfficePhone;
 	document.getElementById("OfficeFax").innerHTML=OfficeFax;
 	
-	//below are the varying menus per each page. Here need to check whether the menu component is null or not.
-	if(document.getElementById("menu3") != null){
-		document.getElementById("menu3").innerHTML=menu3;
-	}
+	
 	
 }
 

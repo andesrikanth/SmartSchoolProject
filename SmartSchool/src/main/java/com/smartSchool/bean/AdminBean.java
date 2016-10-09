@@ -125,6 +125,10 @@ public class AdminBean  implements Serializable {
 	}
 
 	public void selectTargetRenderPage(ActionEvent event) {
+		FacesContext.getCurrentInstance().getViewRoot().getViewMap().remove("registerBean");
+		FacesContext.getCurrentInstance().getViewRoot().getViewMap().remove("branchRegisterBean");
+		FacesContext.getCurrentInstance().getViewRoot().getViewMap().remove("subjectRegisterBean");
+		FacesContext.getCurrentInstance().getViewRoot().getViewMap().remove("teacherBean");
 		
 		Map<String,String> params =	FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
 		Object out=params.get("targetPageParam");

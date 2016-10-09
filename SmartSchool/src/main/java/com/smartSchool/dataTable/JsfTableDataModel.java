@@ -9,7 +9,7 @@ import org.primefaces.model.LazyDataModel;
 import org.primefaces.model.SortOrder;
 
 import com.smartSchool.facade.SmartSchoolFacade;
-
+import javax.servlet.ServletConfig;
 public class JsfTableDataModel<T> extends LazyDataModel<T> {
 
 	private static final long serialVersionUID = 200L;
@@ -85,8 +85,20 @@ public class JsfTableDataModel<T> extends LazyDataModel<T> {
 		boolean sortApplied=false;
 		
 		if (filters != null && filters.size()>0) {
-			localSelectQuery = localSelectQuery+" WHERE ";
-			localCountQuery=localCountQuery+" WHERE ";
+			if(localSelectQuery != null && localSelectQuery.contains(" WHERE ")){
+				localSelectQuery = localSelectQuery+" AND ";
+			}
+			else {
+				localSelectQuery = localSelectQuery+" WHERE ";
+			}
+			
+			if(localCountQuery != null && localCountQuery.contains(" WHERE ")){
+				localCountQuery=localCountQuery+" AND ";
+			}
+			else {
+				localCountQuery=localCountQuery+" WHERE ";
+			}
+			
 			int c=0;
 			filtersApplied=true;
             for (Iterator<String> it = filters.keySet().iterator(); it.hasNext();) {
@@ -121,8 +133,8 @@ public class JsfTableDataModel<T> extends LazyDataModel<T> {
 			localSelectQuery = localSelectQuery +" ORDER BY 1 ";
 		}
 		
-		//System.out.println("generated select query in JsfTableDataModel "+localSelectQuery);
-		//System.out.println("generated count query in JsfTableDataModel "+localCountQuery);
+		System.out.println("generated select query in JsfTableDataModel "+localSelectQuery);
+		System.out.println("generated count query in JsfTableDataModel "+localCountQuery);
 		
 		SmartSchoolFacade smartSchoolFacade = new SmartSchoolFacade();
 		if(!filtersApplied && sortApplied){

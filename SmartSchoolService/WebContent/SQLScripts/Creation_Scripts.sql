@@ -1,4 +1,3 @@
-
 CREATE SEQUENCE BRANCH_ID_SEQ INCREMENT BY 1 MINVALUE 1 NO CYCLE;
 
 CREATE TABLE SCHOOL_BRANCHES (
@@ -72,11 +71,11 @@ commit;
 
 select * from CLASS_AVBL_SECTIONS;
 
-INSERT INTO CLASS_AVBL_SECTIONS(SECTION_NAME,BRANCH_ID, STANDARD_ID, DESCRIPTION, CREATED_BY,  LAST_UPDATED_BY) VALUES('Section-A',1,10, 'This section is relavant for 1st class students.','srikanth','srikanth');
-INSERT INTO CLASS_AVBL_SECTIONS(SECTION_NAME, BRANCH_ID, STANDARD_ID, DESCRIPTION, CREATED_BY,  LAST_UPDATED_BY) VALUES('Section-B',1,10, 'This section is relavant for 2nd class students.','srikanth','srikanth');
+INSERT INTO CLASS_AVBL_SECTIONS(SECTION_NAME,BRANCH_ID, STANDARD_ID, DESCRIPTION, CREATED_BY,  LAST_UPDATED_BY) VALUES('Section-A',1,1, 'This section is relavant for 1st class students.','srikanth','srikanth');
+INSERT INTO CLASS_AVBL_SECTIONS(SECTION_NAME, BRANCH_ID, STANDARD_ID, DESCRIPTION, CREATED_BY,  LAST_UPDATED_BY) VALUES('Section-B',1,1, 'This section is relavant for 2nd class students.','srikanth','srikanth');
 
-INSERT INTO CLASS_AVBL_SECTIONS(SECTION_NAME,BRANCH_ID, STANDARD_ID, DESCRIPTION, CREATED_BY,  LAST_UPDATED_BY) VALUES('Section-C',1,10, 'This section is relavant for 2nd class students.','srikanth','srikanth');
-INSERT INTO CLASS_AVBL_SECTIONS(SECTION_NAME, BRANCH_ID,STANDARD_ID, DESCRIPTION, CREATED_BY,  LAST_UPDATED_BY) VALUES('Section-D',1,10, 'This section is relavant for 2nd class students.','srikanth','srikanth');
+INSERT INTO CLASS_AVBL_SECTIONS(SECTION_NAME,BRANCH_ID, STANDARD_ID, DESCRIPTION, CREATED_BY,  LAST_UPDATED_BY) VALUES('Section-C',1,1, 'This section is relavant for 2nd class students.','srikanth','srikanth');
+INSERT INTO CLASS_AVBL_SECTIONS(SECTION_NAME, BRANCH_ID,STANDARD_ID, DESCRIPTION, CREATED_BY,  LAST_UPDATED_BY) VALUES('Section-D',1,1, 'This section is relavant for 2nd class students.','srikanth','srikanth');
 ----------------------------------------------------------
 
 CREATE SEQUENCE STUDENT_ID_SEQ INCREMENT BY 1 MINVALUE 1 NO CYCLE;
@@ -109,7 +108,7 @@ PRIMARY KEY (STUDENT_ID)
 
 INSERT INTO STUDENT_DETAILS(STUDENT_FIRST_NAME,STUDENT_SECOND_NAME,STUDENT_LAST_NAME,DOB,GENDER,FATHER_NAME, MOTHER_NAME,BRANCH_ID,REGISTERED_STANDARD,REGISTERED_SECTION,ADDRESS, EMAIL,
 PHONE_NO, SECONDARY_PHONE_NO,CREATED_BY, LAST_UPDATED_BY) 
-VALUES ('Srikanth',null,'Ande',Now(),'M','Pavan','Vijaya',1,9,19,'Guntur','srikanthande1990@gmail.com','9052366146',null,'srikanth','srikanth');
+VALUES ('Srikanth',null,'Ande',Now(),'M','Pavan','Vijaya',1,1,2,'Guntur','srikanthande1990@gmail.com','9052366146',null,'srikanth','srikanth');
 
 select * from STUDENT_DETAILS;
 
@@ -135,20 +134,20 @@ LAST_UPDATE_DATE TIMESTAMP DEFAULT current_timestamp,
 PRIMARY KEY (USER_NAME)
 );
 
-drop table LOGIN_DETAILS;
+--drop table LOGIN_DETAILS;
 
 --CREATE SEQUENCE LOGIN_ID_SEQ INCREMENT BY 1 MINVALUE 1 NO CYCLE;
 
-SELECT current_timestamp ;
+--SELECT current_timestamp ;
 
 SELECT * FROM LOGIN_DETAILS;
 
-INSERT INTO LOGIN_DETAILS(USER_NAME, PASSWORD, DISPLAY_NAME,PWD_RESET_FLAG,USER_ROLE_TYPE,CREATED_BY,  LAST_UPDATED_BY) VALUES('srikanth', '5a15878df5a959e8e1f5c28bb6354a0b9722838d', 'Srikanth Ande','Y','Admin','srikanth','srikanth');
+INSERT INTO LOGIN_DETAILS(USER_NAME, PASSWORD, DISPLAY_NAME,PWD_RESET_FLAG,USER_ROLE_TYPE,EMAIL,PHONE_NO,CREATED_BY,  LAST_UPDATED_BY) VALUES('srikanth', '5a15878df5a959e8e1f5c28bb6354a0b9722838d', 'Srikanth Ande','Y','Admin','srikanthande1990@gnail.com','9052366146','srikanth','srikanth');
 
 
-UPDATE LOGIN_DETAILS
-set display_name = 'Srikanth Ande', last_update_date = current_timestamp
-where user_id = 1;
+--UPDATE LOGIN_DETAILS
+--set display_name = 'Srikanth Ande', last_update_date = current_timestamp
+--where user_id = 1;
 
 COMMIT;
 ----------------------------------------------------------
@@ -215,7 +214,5 @@ INSERT INTO SUBJECTS_DETAILS(SUBJECT_NAME, SUBJECT_DESC, CREATED_BY,  LAST_UPDAT
 
 commit;
 ------------------------------------------------------------------------
-
-
 
 

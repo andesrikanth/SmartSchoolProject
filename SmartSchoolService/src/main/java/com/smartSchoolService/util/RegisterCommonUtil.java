@@ -74,9 +74,13 @@ public class RegisterCommonUtil {
 				ResultSet rs = stmt.executeQuery("select BRANCH_ID, BRANCH_NAME FROM SCHOOL_BRANCHES;");
 		        while(rs.next()){
 		        	ChoiceListPojo.AvailableBranches bran= choiceListPojo.new AvailableBranches();
-		        	bran.setBranchId(rs.getLong("BRANCH_ID"));
-		        	bran.setBranchName(rs.getString("BRANCH_NAME"));
-		        	availableBranches.add(bran);
+		        	Long branId = rs.getLong("BRANCH_ID");
+		        	
+		        		bran.setBranchId(branId);
+		        		bran.setBranchName(rs.getString("BRANCH_NAME"));
+		        		availableBranches.add(bran);
+		        			        	
+		        	
 		        }
 			}
 			catch(Exception e){
@@ -95,7 +99,7 @@ public class RegisterCommonUtil {
 		return availableBranches;
 	}
 	
-	public List<ChoiceListPojo.AvailableStandards> getAvailableStandardsList(Long branchId){
+	public List<ChoiceListPojo.AvailableStandards> getAvailableStandardsList(Long branchId, Long ignoreStandardId){
 		ChoiceListPojo choiceListPojo =new ChoiceListPojo();
 		List<ChoiceListPojo.AvailableStandards> availableStandards = new ArrayList<ChoiceListPojo.AvailableStandards>();
 		
@@ -109,9 +113,16 @@ public class RegisterCommonUtil {
 				ResultSet rs = stmt.executeQuery("select STANDARD_ID, STANDARD_NAME FROM CLASS_AVBL_STANDARDS where BRANCH_ID = "+branchId+ ";");
 		        while(rs.next()){
 		        	ChoiceListPojo.AvailableStandards stand= choiceListPojo.new AvailableStandards();
-		        	stand.setStandardId(rs.getLong("STANDARD_ID"));
-		        	stand.setStandardName(rs.getString("STANDARD_NAME"));
-		        	availableStandards.add(stand);
+		        	
+		        	Long standardId =rs.getLong("STANDARD_ID");
+		        	
+		        	//We are having the below condition just to skip the Standard name having the same value as input parameter.
+		        	if(ignoreStandardId==null || (ignoreStandardId !=null && !ignoreStandardId.equals(standardId))){
+		        		stand.setStandardId(standardId);
+			        	stand.setStandardName(rs.getString("STANDARD_NAME"));
+			        	availableStandards.add(stand);
+		        	}
+		        	
 		        }
 			}
 			catch(Exception e){
@@ -130,7 +141,7 @@ public class RegisterCommonUtil {
 		return availableStandards;
 	}
 	
-	public List<ChoiceListPojo.AvailableSections> getAvailableSectionsList(Long selectedBranchId, Long standardId){
+	public List<ChoiceListPojo.AvailableSections> getAvailableSectionsList(Long selectedBranchId, Long standardId, Long ignoreSectionId){
 		ChoiceListPojo choiceListPojo =new ChoiceListPojo();
 		List<ChoiceListPojo.AvailableSections> availableSections = new ArrayList<ChoiceListPojo.AvailableSections>();
 		try {
@@ -143,9 +154,15 @@ public class RegisterCommonUtil {
 				ResultSet rs = stmt.executeQuery("select SECTION_ID,SECTION_NAME from CLASS_AVBL_SECTIONS where BRANCH_ID= "+selectedBranchId+" AND STANDARD_ID="+standardId+";");
 		        while(rs.next()){
 		        	ChoiceListPojo.AvailableSections stand= choiceListPojo.new AvailableSections();
-		        	stand.setSectionId(rs.getLong("SECTION_ID"));
-		        	stand.setSectionName(rs.getString("SECTION_NAME"));
-		        	availableSections.add(stand);
+		        	Long secId = rs.getLong("SECTION_ID");
+		        	//We are having the below condition just to skip the section name having the same value as input parameter.
+		        	if(ignoreSectionId==null || (ignoreSectionId !=null && !ignoreSectionId.equals(secId))){
+		        		stand.setSectionId(secId);
+			        	stand.setSectionName(rs.getString("SECTION_NAME"));
+			        	availableSections.add(stand);
+		        	}
+		        	
+		        	
 		        }
 			}
 			catch(Exception e){
@@ -210,13 +227,14 @@ public class RegisterCommonUtil {
 		        String randomPwd=randomPasswordGenerator.generateNewPassword();
 		        String hashedPassword=SmartSchoolHash.customHashing(randomPwd);
 		        
-		        st1 = con.prepareStatement("INSERT INTO LOGIN_DETAILS(USER_NAME, PASSWORD, DISPLAY_NAME, USER_ROLE_TYPE, CREATED_BY,  LAST_UPDATED_BY) VALUES(?,?,?,?,?,?);");
+		        st1 = con.prepareStatement("INSERT INTO LOGIN_DETAILS(USER_NAME, PASSWORD, DISPLAY_NAME, USER_ROLE_TYPE,  CREATED_BY,  LAST_UPDATED_BY,PWD_RESET_FLAG) VALUES(?,?,?,?,?,?,?);");
 		        st1.setString(1, "ST"+currentStudentId);
 		        st1.setString(2, hashedPassword);
 		        st1.setString(3, studentPojo.getStudentFirstName());
 		        st1.setString(4, "STUDENT");
 		        st1.setString(5, studentPojo.getCreatedBy());
 		        st1.setString(6, studentPojo.getLastUpdatedBy());
+		        st1.setString(7, "Y");
 		        
 		        int out1=st1.executeUpdate();
 				if(out1 == 0){
@@ -379,13 +397,14 @@ public class RegisterCommonUtil {
 		        String randomPwd=randomPasswordGenerator.generateNewPassword();
 		        String hashedPassword=SmartSchoolHash.customHashing(randomPwd);
 		        
-		        st1 = con.prepareStatement("INSERT INTO LOGIN_DETAILS(USER_NAME, PASSWORD, DISPLAY_NAME, USER_ROLE_TYPE, CREATED_BY,  LAST_UPDATED_BY) VALUES(?,?,?,?,?,?);");
+		        st1 = con.prepareStatement("INSERT INTO LOGIN_DETAILS(USER_NAME, PASSWORD, DISPLAY_NAME, USER_ROLE_TYPE, CREATED_BY,  LAST_UPDATED_BY,PWD_RESET_FLAG) VALUES(?,?,?,?,?,?,?);");
 		        st1.setString(1, "TE"+currentTeacherId);
 		        st1.setString(2, hashedPassword);
 		        st1.setString(3, teacherRegisterPojo.getTeacherFirstName());
 		        st1.setString(4, "TEACHER");
 		        st1.setString(5, teacherRegisterPojo.getCreatedBy());
 		        st1.setString(6, teacherRegisterPojo.getLastUpdatedBy());
+		        st1.setString(7, "Y");
 		        
 		        int out1=st1.executeUpdate();
 				if(out1 == 0){

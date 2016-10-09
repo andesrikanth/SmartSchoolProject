@@ -4,7 +4,7 @@
   <groupId>com.apps</groupId>
   <artifactId>SmartSchool</artifactId>
   <packaging>war</packaging>
-  <version>0.0.1-SNAPSHOT</version>
+  <version>0.0.1</version>
   <name>SmartSchool Maven Webapp</name>
   <url>http://maven.apache.org</url>
   <dependencies>
@@ -46,7 +46,7 @@
 	    <version>9.4-1202-jdbc42</version>
 	    <scope>compile</scope>
 	</dependency>
-	
+	<!-- 
 <dependency>
     <groupId>org.richfaces.ui</groupId>
     <artifactId>richfaces-components-ui</artifactId>
@@ -57,7 +57,13 @@
     <artifactId>richfaces-core-impl</artifactId>
     <version>4.3.7.Final</version>
 </dependency>
-	
+	 -->
+	 
+  <dependency>
+    <groupId>org.richfaces</groupId>
+    <artifactId>richfaces</artifactId>
+    <version>4.5.1.Final</version>
+</dependency> 
 <dependency>
     <groupId>org.apache.myfaces.trinidad</groupId>
     <artifactId>trinidad-api</artifactId>
@@ -71,7 +77,7 @@
 	<dependency>
 	    <groupId>com.apps</groupId>
 	    <artifactId>SmartSchoolService</artifactId>
-	    <version>0.0.1-SNAPSHOT</version>
+	    <version>0.0.1</version>
 	    <scope>compile</scope>
 	</dependency>
 <dependency>

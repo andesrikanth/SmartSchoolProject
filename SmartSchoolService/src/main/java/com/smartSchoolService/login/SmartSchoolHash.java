@@ -33,6 +33,8 @@ public class SmartSchoolHash {
     
     public static void main(String args[]){
     	try {
+    		
+    		//Test login credentials :     srikanth/Srikanth
 			System.out.println(customHashing("Srikanth"));
 		} catch (NoSuchAlgorithmException e) {
 			// TODO Auto-generated catch block

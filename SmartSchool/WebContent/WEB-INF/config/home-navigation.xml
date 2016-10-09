@@ -32,6 +32,17 @@
 			<to-view-id>/StudentRegister.xhtml</to-view-id>
 		</navigation-case>
 	 </navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>/PasswordReset.xhtml</from-view-id>
+		<navigation-case>
+		 <!--  <from-action>#{testBean.status}</from-action> -->
+		   <from-outcome>success</from-outcome>
+			<to-view-id>/Welcome.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	 </navigation-rule>
+	
 	 
 	 <navigation-rule>
 		<from-view-id>/LoginPage.xhtml</from-view-id>
@@ -43,6 +54,34 @@
 		</navigation-case>
 	 </navigation-rule>
 	 
+	 <navigation-rule>
+		<from-view-id>/LoginPage.xhtml</from-view-id>
+		<navigation-case>
+		   <from-outcome>reset</from-outcome>
+			<to-view-id>/PasswordReset.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	 </navigation-rule>
+	 
+	  <navigation-rule>
+		<from-view-id>/LoginPage.xhtml</from-view-id>
+		<navigation-case>
+		 <!--  <from-action>#{testBean.status}</from-action> -->
+		   <from-outcome>forgotPwd</from-outcome>
+			<to-view-id>/ForgotPassword.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	 </navigation-rule>
+	
+	 <navigation-rule>
+		<from-view-id>/ForgotPassword.xhtml</from-view-id>
+		<navigation-case>
+		 <!-- <from-action>#{commonBean.loginNavigation}</from-action> -->
+		   <from-outcome>login</from-outcome>
+			<to-view-id>/LoginPage.xhtml</to-view-id>
+		</navigation-case>
+	 </navigation-rule>
+		 
 	 <navigation-rule>
 		<from-view-id>/SubjectRegister.xhtml</from-view-id>
 		<navigation-case>
@@ -63,6 +102,14 @@
 		</navigation-case>
 	 </navigation-rule>
 	 
+	 <navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+		   <from-outcome>return_pwd_reset</from-outcome>
+			<to-view-id>/PasswordReset.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	 </navigation-rule>
 	 
 	  <navigation-rule>
 		<from-view-id>*</from-view-id>

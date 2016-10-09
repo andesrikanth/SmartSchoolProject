@@ -32,7 +32,14 @@ public class CommonBean implements Serializable {
 					status="return_home";
 				}
 				else{
-					status=null;
+					String cur_user_pwd_reset=(String)session.getAttribute("cur_user_pwd_reset");
+					if(cur_user_pwd_reset!=null && cur_user_pwd_reset.equals("Y")){
+						status="return_pwd_reset";
+					}
+					else {
+						status=null;
+					}
+					
 				}
 				
 			}
@@ -65,7 +72,13 @@ public class CommonBean implements Serializable {
 					status="return_home";
 				}
 				else{
-					status=null;
+					String cur_user_pwd_reset=(String)session.getAttribute("cur_user_pwd_reset");
+					if(cur_user_pwd_reset!=null && cur_user_pwd_reset.equals("Y")){
+						status="return_pwd_reset";
+					}
+					else {
+						status=null;
+					}
 				}
 				
 			}
@@ -98,7 +111,13 @@ public String reviewSessionStatusCheck() {
 					status="return_home";
 				}
 				else{
-					status=null;
+					String cur_user_pwd_reset=(String)session.getAttribute("cur_user_pwd_reset");
+					if(cur_user_pwd_reset!=null && cur_user_pwd_reset.equals("Y")){
+						status="return_pwd_reset";
+					}
+					else {
+						status=null;
+					}
 				}
 				
 			}

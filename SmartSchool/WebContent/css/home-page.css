@@ -113,7 +113,12 @@ color:#212121 !important;
 
 /* End Customizing styles classes for primefaces customizations*/
 
+/* Start :::: The below customizations are for primefaces date calendar component */
+.ui-state-default{
+	text-align: center !important;
+}
 
+/* End :::: The below customizations are for primefaces date calendar component */
 
 
 
@@ -262,6 +267,11 @@ body {
 
 
 /* Custom Ends -- Srikanth */
+
+/* *************************************************************************************************** */
+
+
+
 
 
 strong {

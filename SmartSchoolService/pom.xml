@@ -3,8 +3,8 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.apps</groupId>
   <artifactId>SmartSchoolService</artifactId>
-  <packaging>war</packaging>
-  <version>0.0.1-SNAPSHOT</version>
+  <packaging>jar</packaging>
+  <version>0.0.1</version>
   <name>SmartSchoolService Maven Webapp</name>
   <url>http://maven.apache.org</url>
   <dependencies>
@@ -46,7 +46,7 @@
     <version>9.4-1202-jdbc42</version>
      <scope>compile</scope>
 </dependency>
-
+<!-- 
 <dependency>
     <groupId>org.richfaces.ui</groupId>
     <artifactId>richfaces-components-ui</artifactId>
@@ -56,13 +56,21 @@
     <groupId>org.richfaces.core</groupId>
     <artifactId>richfaces-core-impl</artifactId>
     <version>4.3.7.Final</version>
-</dependency>
-<dependency>
-        <groupId>javax.mail</groupId>
-        <artifactId>mail</artifactId>
-        <version>1.4.7</version>
- </dependency>
+</dependency> -->
 
+
+<!-- https://mvnrepository.com/artifact/javax.mail/mail -->
+<dependency>
+    <groupId>javax.mail</groupId>
+    <artifactId>mail</artifactId>
+    <version>1.4</version>
+</dependency>
+<!-- https://mvnrepository.com/artifact/javax.mail/javax.mail-api -->
+<dependency>
+    <groupId>javax.mail</groupId>
+    <artifactId>javax.mail-api</artifactId>
+    <version>1.5.1</version>
+</dependency>
 
   </dependencies>
   <build>

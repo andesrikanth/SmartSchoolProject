@@ -6,8 +6,10 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
-      xmlns:rich="http://richfaces.org/rich">
+       xmlns:p="http://primefaces.org/ui">
 	<h:head/>
+	
+	<!-- xmlns:rich="http://richfaces.org/rich" -->
 	
 	<f:metadata>
 	    <f:viewAction action="#{commonBean.adminSessionStatusCheck}" />
@@ -36,10 +38,17 @@
 			        	<h:inputText id="StudentLastName" maxlength="63" name="StudentLastName" value="#{registerBean.studentLastName}"  style="margin-right:15px;"  a:placeholder="Last Name"/>
 			           	<h:message for="StudentLastName" style="color:red" />
 						
-						<h:outputText id="o4" value="Date of Birth" style="margin-right:15px;font-weight:bold;"></h:outputText>
+						<!-- <h:outputText id="o4" value="Date of Birth" style="margin-right:15px;font-weight:bold;"></h:outputText>
 						<rich:calendar id="dob" value="#{registerBean.dateOfBirth}" defaultLabel="Date of Birth"  cellWidth="24px" cellHeight="22px" style="width:200px;margin-right:15px;" required="true" requiredMessage="Please select Date of Birth"/>
-			            <h:message for="dob" style="color:red" />
+			            <h:message for="dob" style="color:red" /> -->
 						
+						<h:outputText id="o4" value="Date of Birth" style="margin-right:15px;font-weight:bold;"></h:outputText>
+			             <p:calendar id="dob" value="#{registerBean.dateOfBirth}">
+        			    	<p:ajax event="dateSelect" listener="#{registerBean.onDateSelect}"/>
+        				</p:calendar>
+        				<h:message for="dob" style="color:red" />
+        				
+        				
 						<h:outputText id="og11" value="Gender" style="margin-right:15px;font-weight:bold;"></h:outputText>
 						<h:selectOneRadio id="gender" value="#{registerBean.selectedStudentGender}" style="margin-right:15px;">
 						   	<f:selectItem itemValue="M" itemLabel="Male   &nbsp;&nbsp;" escape="false" />
@@ -117,9 +126,11 @@
 					</h:panelGrid>
 					<h:message for="register" style="color: green;" rendered="#{registerBean.studentRegistrationStatus}"/>
 					<h:message for="register" style="color: red;" rendered="#{!registerBean.studentRegistrationStatus}"/>
+					<br></br>
+					<br></br>
 					
 					<h:panelGroup id="loginDetails" rendered="#{registerBean.studentRegistrationStatus}" >
-					<br></br>
+					
 					<br></br>
 						<h:outputText id="oo13" value="Please find the login details below : " style="color: green;font-weight:bold;"></h:outputText>
 						<br></br>
@@ -131,7 +142,8 @@
 					
 					
 					<br></br>
-					<h:outputText id="oo3" value="Please review the list of Students " style="font-weight:bold;" rendered="#{registerBean.studentRegistrationStatus}"></h:outputText><h:commandLink id="cl1" value="here." style="font-size: 15px;" action="reviewStudents" rendered="#{registerBean.studentRegistrationStatus}"></h:commandLink>
+					<!-- <h:outputText id="oo3" value="Please review the list of Students " style="font-weight:bold;" rendered="#{registerBean.studentRegistrationStatus}"></h:outputText><h:commandLink id="cl1" value="here." style="font-size: 15px;" action="reviewStudents" rendered="#{registerBean.studentRegistrationStatus}"></h:commandLink> -->
+					
 					
 		        </h:form>
 			

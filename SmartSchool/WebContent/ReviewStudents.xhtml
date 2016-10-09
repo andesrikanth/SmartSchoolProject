@@ -30,7 +30,7 @@
                  paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
                  rowsPerPageTemplate="5,10,15" selectionMode="single" selection="#{studentDataTable.selectedStudentRegisterPojo}" id="studentTable" lazy="true">
          
-         <p:ajax event="rowSelect" listener="#{studentDataTable.onRowSelect}" update=":form:studentDetail" oncomplete="PF('studentDialog').show()" />
+         <p:ajax event="rowSelect" listener="#{studentDataTable.onRowSelect}" update=":form:f2:studentDetail" oncomplete="PF('studentDialog').show()" />
          
            
         <p:column headerText="Student Identifier" sortBy="#{STUDENT_ID}" filterBy="#{STUDENT_ID}">
@@ -43,7 +43,7 @@
             <h:outputText value="#{stud.studentLastName}" />
         </p:column>
          <p:column headerText="Gender" sortBy="#{GENDER}" filterBy="#{GENDER}">
-            <h:outputText value="#{stud.selectedStudentGender}" />
+            <h:outputText value="#{stud.selectedStudentGender eq 'M' ? 'Male' : 'Female'}" />
         </p:column>
          <p:column headerText="Branch" sortBy="#{BRANCH_NAME}" filterBy="#{BRANCH_NAME}">
             <h:outputText value="#{stud.branchName}" />
@@ -57,26 +57,117 @@
        
     </p:dataTable>
  
+  <p:dialog header="Student Detail" widgetVar="studentDialog" showEffect="fade" hideEffect="fade" closable="false"  resizable="false" style="border:0px" >
+	  <h:form id="f2">
+	  			
+		    <p:outputPanel id="studentDetail"  style="text-align:center;">
+		    
+				<!-- <p:messages id="saveMessage" autoUpdate="true" for="save"  closable="true"/> -->
+				<p:messages id="deleteConfirmBox"  autoUpdate="true" for="delete" closable="true"/>
+				
+				<p:messages id="validationMessages" autoUpdate="true" closable="true" />
+				
+		        <p:panelGrid  id="pg1" columns="6" rendered="#{not empty studentDataTable.selectedStudentRegisterPojo}">
+		            <h:outputText value="Identifier :" />
+		            <h:outputText value="#{studentDataTable.selectedStudentRegisterPojo.key}" />
+					<h:panelGroup/>
+					
+		            <h:outputText value="First Name : " />
+		           <h:inputText id="StudentFirstName" maxlength="63"  name="StudentFirstName" value="#{studentDataTable.selectedStudentRegisterPojo.studentFirstName}" style="margin-right:15px;"  requiredMessage="Please enter the Student First Name" required="true"/>
+					<h:panelGroup/>
+		            
+		            <h:outputText value="Last Name : " />
+		           <h:inputText id="StudentLastName" maxlength="63"  name="StudentLastName" value="#{studentDataTable.selectedStudentRegisterPojo.studentLastName}" style="margin-right:15px;"/>
+					<h:panelGroup/>
+		
+					<h:outputText value="Gender : " />
+					<h:selectOneRadio id="gender" value="#{studentDataTable.selectedStudentRegisterPojo.selectedStudentGender}" style="margin-right:15px;">
+						   	<f:selectItem itemValue="M" itemLabel="Male   &nbsp;&nbsp;" escape="false" />
+						   	<f:selectItem itemValue="F" itemLabel="Female" />
+					</h:selectOneRadio>
+		            <h:panelGroup/>
+		            
+		            
+		            <h:outputText id="o5" value="Father Name" ></h:outputText>
+			            <h:inputText id="StudentFatherName" maxlength="63" name="StudentFatherName" value="#{studentDataTable.selectedStudentRegisterPojo.studentFatherName}"  style="margin-right:15px;"/>
+			            <h:panelGroup/>
+						
+						
+						<h:outputText id="o6" value="Mother Name" ></h:outputText>
+						<h:inputText id="StudentMotherName" maxlength="63" name="StudentMotherName" value="#{studentDataTable.selectedStudentRegisterPojo.studentMotherName}" style="margin-right:15px;"/>
+			           <h:panelGroup/>
+						
+						
+						<h:outputText id="o7" value="Address" ></h:outputText>
+			            <h:inputTextarea id="Address" rows="5" cols="5"  name="Address" value="#{studentDataTable.selectedStudentRegisterPojo.address}" style="margin-right:15px;"  requiredMessage="Please enter Student Address" required="true"  a:maxlength="510"/>
+						<h:panelGroup/>
+						
+						
+						<h:outputText id="o8" value="Email" ></h:outputText>
+			            <h:inputText id="email" maxlength="30" name="email" value="#{studentDataTable.selectedStudentRegisterPojo.studentEmail}" style="margin-right:15px;" validator="#{studentDataTable.validateStudentEmail}" required="#{studentDataTable.selectedStudentRegisterPojo.studentEmailNotAvail eq null ? true : false}"    requiredMessage="Please enter Email Id or select the checkbox to specify that you don't have an Email." >
+			             </h:inputText>
+			              <h:panelGroup/>
+			              
+			             
+			           <h:outputText value="&lt;br/&gt;" escape="false" />   
+			              <h:selectManyCheckbox value="#{studentDataTable.selectedStudentRegisterPojo.studentEmailNotAvail}" valueChangeListener="#{studentDataTable.studentEmailNotAvailValueChange}" immediate="true">
+						   <f:selectItem itemValue="1" itemLabel="Don't have Email" />
+						</h:selectManyCheckbox> 
+						<h:outputText value="&lt;br/&gt;" escape="false" /> 
+						
+						<h:outputText id="o9" value="Phone Number (Primary)" style="margin-top:10px;"></h:outputText>
+			            <h:inputText id="PhoneNumber" maxlength="10" name="PhoneNumber" value="#{studentDataTable.selectedStudentRegisterPojo.phoneNumber}" style="margin-right:15px;"  validator="#{studentDataTable.validatePhNo}" required="true"  requiredMessage="Please enter Phone Number"/>
+			            <h:panelGroup/>
+						
+						<h:outputText id="o10" value="Phone Number (Secondary)" ></h:outputText>
+			            <h:inputText id="AlternativePhNo" maxlength="10" name="AlternativePhNo" value="#{studentDataTable.selectedStudentRegisterPojo.alternativePhoneNumber}" style="margin-right:15px;"  validator="#{studentDataTable.validatePhNo}"   requiredMessage="Please enter Secondary Phone Number"/>
+			            <h:panelGroup/>
+						
+						<h:outputText id="o11" value="Branch" ></h:outputText>
+			            <h:selectOneMenu id="branches" value="#{studentDataTable.selectedStudentRegisterPojo.selectedBranchId}" valueChangeListener="#{studentDataTable.branchesLOVChange}" required="true" requiredMessage="Please select a valid Branch." style="margin-right:15px;" validator="#{studentDataTable.validateBranchesLOV}">
+			            	<!-- <f:selectItem  itemValue="#{studentDataTable.selectedStudentRegisterPojo.selectedBranchId}" itemLabel="#{studentDataTable.selectedStudentRegisterPojo.branchName}"></f:selectItem> -->
+	    					<f:selectItems value="#{studentDataTable.selectedStudentRegisterPojo.availableBranches}" var="bran" itemValue="#{bran.branchId}" itemLabel="#{bran.branchName}" />
+	    					<f:ajax render="standards"/>
+	    					<f:ajax render="sections"/>
+						 </h:selectOneMenu>
+						<h:panelGroup/>
+						
+						<h:outputText id="o12" value="Standard" ></h:outputText>
+			            <h:selectOneMenu id="standards" value="#{studentDataTable.selectedStudentRegisterPojo.selectedStandardId}" style="margin-right:15px;"  required="true" requiredMessage="Please select a valid Standard."  valueChangeListener="#{studentDataTable.standardsLOVChange}"  validator="#{studentDataTable.validateStandardsLOV}">
+			            	<f:selectItem  itemValue="#{studentDataTable.selectedStudentRegisterPojo.selectedStandardId}" itemLabel="#{studentDataTable.selectedStudentRegisterPojo.standardName}"></f:selectItem>
+	    					<f:selectItems value="#{studentDataTable.selectedStudentRegisterPojo.availableStandards}" var="stand" itemValue="#{stand.standardId}" itemLabel="#{stand.standardName}" />
+	    					<f:ajax render="sections"/>
+						 </h:selectOneMenu>
+						<h:panelGroup/>
+						
+						<h:outputText id="o13" value="Section" ></h:outputText>
+						<h:selectOneMenu id="sections" value="#{studentDataTable.selectedStudentRegisterPojo.selectedSectionId}" style="margin-right:15px;"  required="true" requiredMessage="Please select a valid Section."  validator="#{studentDataTable.validateSectionsLOV}">
+							<f:selectItem  itemValue="#{studentDataTable.selectedStudentRegisterPojo.selectedSectionId}" itemLabel="#{studentDataTable.selectedStudentRegisterPojo.sectionName}"></f:selectItem>
+	    					<f:selectItems value="#{studentDataTable.selectedStudentRegisterPojo.availableSections}" var="sec" itemValue="#{sec.sectionId}" itemLabel="#{sec.sectionName}" />
+						 </h:selectOneMenu>
+						 <h:panelGroup/>
+		            
+		       </p:panelGrid>
+		       <p:commandButton value="Save" id="save" actionListener="#{studentDataTable.updateStudent}" update="studentDetail" style="font-size: 0.9em;"/>
+		             
+		       <p:commandButton id="delete" value="Delete" actionListener="#{studentDataTable.deleteStudent}" update="deleteConfirmBox" style="margin-left: 25px;font-size: 0.9em;">
+				  <p:confirm header="Confirmation" message="Are you sure?" icon="ui-icon-alert" />
+				</p:commandButton>
+				 
+			   <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+				  <p:commandButton value="Yes" id="deleteConfirm" type="button" styleClass="ui-confirmdialog-yes" style=" margin-left: 25px;" update="form"/>
+				  <p:commandButton value="No" styleClass="ui-confirmdialog-no" type="button"/>
+			   </p:confirmDialog>
+			   
+			   <p:commandButton value="Close" id="close" actionListener="#{studentDataTable.closeStudentDialog}" immediate="true" style=" margin-left: 25px;font-size: 0.9em;"/>
+			   
+		    </p:outputPanel>
+		    
+		   </h:form>
+	</p:dialog>
+	    
 </h:form>
 	 
-	 
-	  <p:dialog header="Student Detail" widgetVar="studentDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
-		    <p:outputPanel id="studentDetail" style="text-align:center;">
-		        <p:panelGrid  columns="2" rendered="#{not empty studentDataTable.selectedStudentRegisterPojo}" >
-		            <h:outputText value="Identifier :" />
-		            <h:outputText value="#{subjectDataTable.selectedSubjectRegisterPojo.key}" />
-		
-		            <h:outputText value="Subject Name" />
-		            <h:outputText value="#{subjectDataTable.selectedSubjectRegisterPojo.subjectName}" />
-		
-					<h:outputText value="Subject Description" />
-		            <h:outputText value="#{subjectDataTable.selectedSubjectRegisterPojo.subjectDesc}" />
-		            
-		        </p:panelGrid>
-		    </p:outputPanel>
-	    </p:dialog>
-	 
-
     </body>
     
 </html>

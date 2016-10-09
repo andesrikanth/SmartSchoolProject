@@ -18,10 +18,23 @@ import com.smartSchoolService.util.UpdateCommonUtil;
 
 public class SmartSchoolFacade {
 
+	public String submitForgotPassword (String userName, String registeredEmailId, String registeredPhoneNo){
+		LoginHelper loginHelper =new LoginHelper();
+		String status=loginHelper.submitForgotPassword(userName,registeredEmailId,registeredPhoneNo);
+		return status;
+	}
 	public String validateUserLogin(String userName,String password){
 		
 		LoginHelper loginHelper =new LoginHelper();
 		String status=loginHelper.validateLogin(userName,password);
+		return status;
+		
+	}
+	
+public String resetUserPassword(String userName,String password){
+		
+		LoginHelper loginHelper =new LoginHelper();
+		String status=loginHelper.resetUserPassword(userName,password);
 		return status;
 		
 	}
@@ -37,14 +50,14 @@ public class SmartSchoolFacade {
 		return commonUtil.getAvailableBranchesList();
 	}
 	
-	public List<ChoiceListPojo.AvailableStandards> getAvailableStandardsList(Long branchId){
+	public List<ChoiceListPojo.AvailableStandards> getAvailableStandardsList(Long branchId, Long ignoreStandardId){
 		RegisterCommonUtil commonUtil =new RegisterCommonUtil();
-		return commonUtil.getAvailableStandardsList(branchId);
+		return commonUtil.getAvailableStandardsList(branchId,ignoreStandardId);
 	}
 	
-	public List<ChoiceListPojo.AvailableSections> getAvailableSectionsList(Long selectedBranchId, Long standardId){
+	public List<ChoiceListPojo.AvailableSections> getAvailableSectionsList(Long selectedBranchId, Long standardId, Long ignoreSectionId){
 		RegisterCommonUtil commonUtil =new RegisterCommonUtil();
-		return commonUtil.getAvailableSectionsList(selectedBranchId,standardId);
+		return commonUtil.getAvailableSectionsList(selectedBranchId,standardId,ignoreSectionId);
 	}
 	
 	public HashMap<String,String> registerStudent(StudentPojo studentPojo){
@@ -100,5 +113,15 @@ public class SmartSchoolFacade {
 	public String deleteSubject(Long subjectId){
 		DeleteCommonUtil commonUtil =new DeleteCommonUtil();
 		return commonUtil.deleteSubject(subjectId);
+	}
+	
+	public String deleteStudent(Long studentId){
+		DeleteCommonUtil commonUtil =new DeleteCommonUtil();
+		return commonUtil.deleteStudent(studentId);
+	}
+	
+	public String updateStudent(StudentPojo studentPojo){
+		UpdateCommonUtil commonUtil =new UpdateCommonUtil();
+		return commonUtil.updateStudentDetails(studentPojo);
 	}
 }
