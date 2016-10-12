@@ -2,6 +2,7 @@ package com.smartSchoolService.pojo;
 
 public class BranchRegisterPojo {
 
+	private Long key;
 	private String branchName;
 	private String branchAddress;
 	private String createdByUserName;
@@ -30,6 +31,12 @@ public class BranchRegisterPojo {
 	}
 	public void setLastUpdatedByUserName(String lastUpdatedByUserName) {
 		this.lastUpdatedByUserName = lastUpdatedByUserName;
+	}
+	public Long getKey() {
+		return key;
+	}
+	public void setKey(Long key) {
+		this.key = key;
 	}
 	
 	

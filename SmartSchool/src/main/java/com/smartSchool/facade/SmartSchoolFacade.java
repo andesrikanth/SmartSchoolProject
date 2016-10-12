@@ -105,6 +105,17 @@ public String resetUserPassword(String userName,String password){
 		return fetchCommonUtil.getAvailableStudentsListForDataTable(startRow, endRow,defaultSelectQuery);
 	}
 	
+	public List<TeacherRegisterPojo> getAvailableTeachersListForDataTable(Integer startRow, Integer endRow, String defaultSelectQuery /*query should NOT end with semi-colon ';'*/){
+		FetchCommonUtil fetchCommonUtil = new FetchCommonUtil();
+		return fetchCommonUtil.getAvailableTeachersListForDataTable(startRow, endRow,defaultSelectQuery);
+	}
+	
+	public List<BranchRegisterPojo> getAvailableBranchesListForDataTable(Integer startRow, Integer endRow, String defaultSelectQuery /*query should NOT end with semi-colon ';'*/){
+		FetchCommonUtil fetchCommonUtil = new FetchCommonUtil();
+		return fetchCommonUtil.getAvailableBranchesListForDataTable(startRow, endRow,defaultSelectQuery);
+	}
+
+	
 	public String updateSubject(SubjectRegisterPojo subjectRegisterPojo){
 		UpdateCommonUtil commonUtil =new UpdateCommonUtil();
 		return commonUtil.updateSubjectDetails(subjectRegisterPojo);
@@ -123,5 +134,45 @@ public String resetUserPassword(String userName,String password){
 	public String updateStudent(StudentPojo studentPojo){
 		UpdateCommonUtil commonUtil =new UpdateCommonUtil();
 		return commonUtil.updateStudentDetails(studentPojo);
+	}
+	
+	public String updateTeacher(TeacherRegisterPojo teacherRegisterPojo){
+		UpdateCommonUtil commonUtil =new UpdateCommonUtil();
+		return commonUtil.updateTeacherDetails(teacherRegisterPojo);
+	}
+	
+	public String deleteTeacher(Long teacherId){
+		DeleteCommonUtil commonUtil =new DeleteCommonUtil();
+		return commonUtil.deleteTeacher(teacherId);
+	}
+	
+	public String updateBranch(BranchRegisterPojo branchRegisterPojo){
+		UpdateCommonUtil commonUtil =new UpdateCommonUtil();
+		return commonUtil.updateBranchDetails(branchRegisterPojo);
+	}
+	
+	public String deleteBranch(Long branchId){
+		DeleteCommonUtil commonUtil =new DeleteCommonUtil();
+		return commonUtil.deleteBranch(branchId);
+	}
+	
+	public String updateStandard(StandardRegisterPojo standardRegisterPojo){
+		UpdateCommonUtil commonUtil =new UpdateCommonUtil();
+		return commonUtil.updateStandardDetails(standardRegisterPojo);
+	}
+	
+	public String deleteStandard(Long standardId){
+		DeleteCommonUtil commonUtil =new DeleteCommonUtil();
+		return commonUtil.deleteStandard(standardId);
+	}
+	
+	public String updateSection(SectionRegisterPojo sectionRegisterPojo){
+		UpdateCommonUtil commonUtil =new UpdateCommonUtil();
+		return commonUtil.updateSectionDetails(sectionRegisterPojo);
+	}
+	
+	public String deleteSection(Long sectionId){
+		DeleteCommonUtil commonUtil =new DeleteCommonUtil();
+		return commonUtil.deleteSection(sectionId);
 	}
 }

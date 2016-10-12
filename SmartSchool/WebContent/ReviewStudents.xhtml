@@ -102,26 +102,27 @@
 			            <h:inputTextarea id="Address" rows="5" cols="5"  name="Address" value="#{studentDataTable.selectedStudentRegisterPojo.address}" style="margin-right:15px;"  requiredMessage="Please enter Student Address" required="true"  a:maxlength="510"/>
 						<h:panelGroup/>
 						
-						
+						<h:outputText id="o9" value="Phone Number (Primary)" style="margin-top:10px;"></h:outputText>
+			            <h:inputText id="PhoneNumber" maxlength="10" name="PhoneNumber" value="#{studentDataTable.selectedStudentRegisterPojo.phoneNumber}" style="margin-right:15px;"  validator="#{studentDataTable.validatePhNo}" required="true"  requiredMessage="Please enter Phone Number"/>
+			            <h:panelGroup/>
+			            
 						<h:outputText id="o8" value="Email" ></h:outputText>
 			            <h:inputText id="email" maxlength="30" name="email" value="#{studentDataTable.selectedStudentRegisterPojo.studentEmail}" style="margin-right:15px;" validator="#{studentDataTable.validateStudentEmail}" required="#{studentDataTable.selectedStudentRegisterPojo.studentEmailNotAvail eq null ? true : false}"    requiredMessage="Please enter Email Id or select the checkbox to specify that you don't have an Email." >
 			             </h:inputText>
 			              <h:panelGroup/>
 			              
-			             
+			             <h:outputText id="o10" value="Phone Number (Secondary)" ></h:outputText>
+			            <h:inputText id="AlternativePhNo" maxlength="10" name="AlternativePhNo" value="#{studentDataTable.selectedStudentRegisterPojo.alternativePhoneNumber}" style="margin-right:15px;"  validator="#{studentDataTable.validatePhNo}"   requiredMessage="Please enter Secondary Phone Number"/>
+			            <h:panelGroup/>
+						
 			           <h:outputText value="&lt;br/&gt;" escape="false" />   
-			              <h:selectManyCheckbox value="#{studentDataTable.selectedStudentRegisterPojo.studentEmailNotAvail}" valueChangeListener="#{studentDataTable.studentEmailNotAvailValueChange}" immediate="true">
+			              <h:selectManyCheckbox value="#{studentDataTable.selectedStudentRegisterPojo.studentEmailNotAvail}" valueChangeListener="#{studentDataTable.studentEmailNotAvailValueChange}" immediate="true" style="margin-top: -8%;">
 						   <f:selectItem itemValue="1" itemLabel="Don't have Email" />
 						</h:selectManyCheckbox> 
 						<h:outputText value="&lt;br/&gt;" escape="false" /> 
 						
-						<h:outputText id="o9" value="Phone Number (Primary)" style="margin-top:10px;"></h:outputText>
-			            <h:inputText id="PhoneNumber" maxlength="10" name="PhoneNumber" value="#{studentDataTable.selectedStudentRegisterPojo.phoneNumber}" style="margin-right:15px;"  validator="#{studentDataTable.validatePhNo}" required="true"  requiredMessage="Please enter Phone Number"/>
-			            <h:panelGroup/>
 						
-						<h:outputText id="o10" value="Phone Number (Secondary)" ></h:outputText>
-			            <h:inputText id="AlternativePhNo" maxlength="10" name="AlternativePhNo" value="#{studentDataTable.selectedStudentRegisterPojo.alternativePhoneNumber}" style="margin-right:15px;"  validator="#{studentDataTable.validatePhNo}"   requiredMessage="Please enter Secondary Phone Number"/>
-			            <h:panelGroup/>
+						
 						
 						<h:outputText id="o11" value="Branch" ></h:outputText>
 			            <h:selectOneMenu id="branches" value="#{studentDataTable.selectedStudentRegisterPojo.selectedBranchId}" valueChangeListener="#{studentDataTable.branchesLOVChange}" required="true" requiredMessage="Please select a valid Branch." style="margin-right:15px;" validator="#{studentDataTable.validateBranchesLOV}">
