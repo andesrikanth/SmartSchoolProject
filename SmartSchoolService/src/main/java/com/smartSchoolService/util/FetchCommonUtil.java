@@ -7,8 +7,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.smartSchoolService.dao.DatabaseUtility;
+import com.smartSchoolService.pojo.BranchRegisterPojo;
 import com.smartSchoolService.pojo.StudentPojo;
 import com.smartSchoolService.pojo.SubjectRegisterPojo;
+import com.smartSchoolService.pojo.TeacherRegisterPojo;
 
 public class FetchCommonUtil {
 
@@ -106,6 +108,52 @@ public class FetchCommonUtil {
 	}
 	
 	
+	public List<TeacherRegisterPojo> getAvailableTeachersListForDataTable(int startRow, int endRow, String defaultQuery){
+		List<TeacherRegisterPojo> availableTeachers = new ArrayList<TeacherRegisterPojo>();
+		
+		try {
+			DatabaseUtility databaseUtility =new DatabaseUtility();
+			Connection con=databaseUtility.getConnection();
+			Statement stmt = null;
+			try{
+				
+				stmt = con.createStatement();
+				ResultSet rs = stmt.executeQuery(defaultQuery+" limit "+endRow+" OFFSET "+startRow+";");
+		        while(rs.next()){
+		        	TeacherRegisterPojo teacherRegisterPojo = new TeacherRegisterPojo();
+		        	teacherRegisterPojo.setKey(rs.getLong("TEACHER_ID"));
+		        	teacherRegisterPojo.setTeacherFirstName(rs.getString("TEACHER_FIRST_NAME"));
+		        	teacherRegisterPojo.setTeacherLastName(rs.getString("TEACHER_LAST_NAME"));
+		        	teacherRegisterPojo.setDateOfBirth(rs.getDate("DOB"));
+		        	teacherRegisterPojo.setTeacherGender(rs.getString("GENDER"));
+		        	teacherRegisterPojo.setAddress(rs.getString("ADDRESS"));
+		        	teacherRegisterPojo.setSpecialization(rs.getString("SPECIALIZATION"));
+		        	teacherRegisterPojo.setTeacherEmail(rs.getString("EMAIL"));
+		        	teacherRegisterPojo.setPhoneNumber(rs.getString("PHONE_NO"));
+		        	teacherRegisterPojo.setAlternativePhoneNumber(rs.getString("SECONDARY_PHONE_NO"));
+		        	teacherRegisterPojo.setBranchName(rs.getString("BRANCH_NAME"));
+		        	teacherRegisterPojo.setSelectedBranchId(rs.getLong("BRANCH_ID"));
+		        	
+		        	availableTeachers.add(teacherRegisterPojo);
+		        }
+			}
+			catch(Exception e){
+				e.printStackTrace();
+			}
+			finally{
+				stmt.close();
+				databaseUtility.closeConnection(con);
+			}
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return availableTeachers;
+	}
+	
+	
 	public int getRowCountForDataTable(String countQuery){
 		int count =0; 
 		try {
@@ -139,4 +187,41 @@ public class FetchCommonUtil {
 		
 		return count;
 	}
+	
+	
+	public List<BranchRegisterPojo> getAvailableBranchesListForDataTable(int startRow, int endRow, String defaultQuery){
+		List<BranchRegisterPojo> availableBranches = new ArrayList<BranchRegisterPojo>();
+		
+		try {
+			DatabaseUtility databaseUtility =new DatabaseUtility();
+			Connection con=databaseUtility.getConnection();
+			Statement stmt = null;
+			try{
+				
+				stmt = con.createStatement();
+				ResultSet rs = stmt.executeQuery(defaultQuery+" limit "+endRow+" OFFSET "+startRow+";");
+		        while(rs.next()){
+		        	BranchRegisterPojo branchRegisterPojo = new BranchRegisterPojo();
+		        	branchRegisterPojo.setKey(rs.getLong("BRANCH_ID"));
+		        	branchRegisterPojo.setBranchName(rs.getString("BRANCH_NAME"));
+		        	branchRegisterPojo.setBranchAddress(rs.getString("BRANCH_ADDRESS"));
+		        	availableBranches.add(branchRegisterPojo);
+		        }
+			}
+			catch(Exception e){
+				e.printStackTrace();
+			}
+			finally{
+				stmt.close();
+				databaseUtility.closeConnection(con);
+			}
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return availableBranches;
+	}
+	
 }

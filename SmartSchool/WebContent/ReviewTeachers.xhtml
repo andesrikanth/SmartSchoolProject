@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"      
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:p="http://primefaces.org/ui" >
+    <h:head></h:head>
+    
+     <f:metadata>
+	    <f:viewAction action="#{commonBean.reviewSessionStatusCheck}" />
+	</f:metadata>
+   	
+	<body>
+    
+	   	<h4>Review Teachers</h4>
+		<br></br>
+		<br></br>
+				
+	<h:form id="form">
+	
+	<p:growl id="deleteMessage" for="deleteConfirm" showDetail="true"/> <!-- This growl component is required for rendering the successful deletion message.  -->
+	
+	<!-- If datatable is rendered seperately without embedding in any page, then use - style="font-size: 0.9em;margin-left: 200px;margin-right: 200px;" .. 
+				If the datatable is embedded in any page, then use - style="font-size: 0.9em;margin-left: 200px;margin-right: 200px;" -->
+				
+    <p:dataTable var="teach" value="#{teacherDataTable.lazyDataModel}" paginator="true" rows="10" style="font-size: 0.9em;margin-left: 20px;margin-right: 20px;"
+                 paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+                 rowsPerPageTemplate="5,10,15" selectionMode="single" selection="#{teacherDataTable.selectedTeacherRegisterPojo}" id="teacherTable" lazy="true">
+         
+         <p:ajax event="rowSelect" listener="#{teacherDataTable.onRowSelect}" update=":form:f2:teacherDetail" oncomplete="PF('teacherDialog').show()" />
+         
+           
+        <p:column headerText="Teacher Identifier" sortBy="#{TEACHER_ID}" filterBy="#{TEACHER_ID}">
+            <h:outputText value="#{teach.key}" />
+        </p:column>
+        <p:column headerText="First Name" sortBy="#{TEACHER_FIRST_NAME}" filterBy="#{TEACHER_FIRST_NAME}">
+            <h:outputText value="#{teach.teacherFirstName}" />
+        </p:column>
+        <p:column headerText="Last Name" sortBy="#{TEACHER_LAST_NAME}" filterBy="#{TEACHER_LAST_NAME}">
+            <h:outputText value="#{teach.teacherLastName}" />
+        </p:column>
+         <p:column headerText="Gender" sortBy="#{GENDER}" filterBy="#{GENDER}">
+            <h:outputText value="#{teach.teacherGender eq 'M' ? 'Male' : 'Female'}" />
+        </p:column>
+         <p:column headerText="Specialization" sortBy="#{SPECIALIZATION}" filterBy="#{SPECIALIZATION}">
+            <h:outputText value="#{teach.specialization}" />
+        </p:column>
+        <p:column headerText="Phone Number" sortBy="#{PHONE_NO}" filterBy="#{PHONE_NO}">
+            <h:outputText value="#{teach.phoneNumber}" />
+        </p:column>
+         <p:column headerText="Branch" sortBy="#{BRANCH_NAME}" filterBy="#{BRANCH_NAME}">
+            <h:outputText value="#{teach.branchName}" />
+        </p:column>
+       
+    </p:dataTable>
+ 
+  <p:dialog header="Teacher Detail" widgetVar="teacherDialog" showEffect="fade" hideEffect="fade" closable="false"  resizable="false" style="border:0px" >
+	  <h:form id="f2">
+	  			
+		    <p:outputPanel id="teacherDetail"  style="text-align:center;">
+		    
+				<!-- <p:messages id="saveMessage" autoUpdate="true" for="save"  closable="true"/> -->
+				<p:messages id="deleteConfirmBox"  autoUpdate="true" for="delete" closable="true"/>
+				
+				<p:messages id="validationMessages" autoUpdate="true" closable="true" />
+				
+		        <p:panelGrid  id="pg1" columns="6" rendered="#{not empty teacherDataTable.selectedTeacherRegisterPojo}">
+		            <h:outputText value="Identifier :" />
+		            <h:outputText value="#{teacherDataTable.selectedTeacherRegisterPojo.key}" />
+					<h:panelGroup/>
+					
+					
+					<h:outputText id="o1" value="First Name" ></h:outputText>
+						<h:inputText id="teacherFirstName" maxlength="63" name="teacherFirstName" value="#{teacherDataTable.selectedTeacherRegisterPojo.teacherFirstName}"  style="margin-right:15px;" requiredMessage="Please enter Teacher First Name" required="true" a:placeholder="First Name">
+						</h:inputText>
+						<h:panelGroup/>
+						
+						<h:outputText id="o3" value="Last Name" ></h:outputText>
+			        	<h:inputText id="teacherLastName" maxlength="63" name="teacherLastName" value="#{teacherDataTable.selectedTeacherRegisterPojo.teacherLastName}"  style="margin-right:15px;"  a:placeholder="Last Name"/>
+						<h:panelGroup/>
+						
+						<h:outputText id="o4" value="Date of Birth" ></h:outputText>
+			             <p:calendar id="dob" value="#{teacherDataTable.selectedTeacherRegisterPojo.dateOfBirth}">
+        			    	<p:ajax event="dateSelect" listener="#{teacherDataTable.selectedTeacherRegisterPojo.onDateSelect}"/>
+        				</p:calendar>
+        				<h:panelGroup/>
+						
+						<h:outputText id="og11" value="Gender" ></h:outputText>
+						<h:selectOneRadio id="gender" value="#{teacherDataTable.selectedTeacherRegisterPojo.teacherGender}" style="margin-right:15px;">
+						   	<f:selectItem itemValue="M" itemLabel="Male   &nbsp;&nbsp;" escape="false" />
+						   	<f:selectItem itemValue="F" itemLabel="Female" />
+						</h:selectOneRadio>
+						<h:panelGroup/>
+						
+						<h:outputText id="o11" value="Branch" ></h:outputText>
+			            <h:selectOneMenu id="branches" value="#{teacherDataTable.selectedTeacherRegisterPojo.selectedBranchId}" required="true" requiredMessage="Please select a valid Branch." style="margin-right:15px;" validator="#{teacherDataTable.validateBranchesLOV}">
+	    					<f:selectItems value="#{teacherDataTable.selectedTeacherRegisterPojo.availableBranches}" var="bran" itemValue="#{bran.branchId}" itemLabel="#{bran.branchName}" />
+						 </h:selectOneMenu>
+						<h:panelGroup/>
+						
+						<h:outputText id="o7" value="Address" ></h:outputText>
+			            <h:inputTextarea id="Address" rows="5" cols="5"  name="Address" value="#{teacherDataTable.selectedTeacherRegisterPojo.address}" style="margin-right:15px;"  requiredMessage="Please enter Teacher Address" required="true"  a:placeholder="Address" a:maxlength="510"/>
+						<h:panelGroup/>
+						
+						<h:outputText id="os7" value="Specialization" ></h:outputText>
+			            <h:inputTextarea id="Specialization" rows="5" cols="5"  name="Specialization" value="#{teacherDataTable.selectedTeacherRegisterPojo.specialization}" style="margin-right:15px;"  requiredMessage="Please enter Teacher Specialization" required="true"  a:placeholder="Specialization" a:maxlength="510"/>
+						<h:panelGroup/>
+						
+						
+						
+						
+						<h:outputText id="o8" value="Email" ></h:outputText>
+			            <h:inputText id="email" maxlength="30" name="email" value="#{teacherDataTable.selectedTeacherRegisterPojo.teacherEmail}" style="margin-right:15px;" validator="#{teacherDataTable.validateTeacherEmail}" required="#{teacherDataTable.selectedTeacherRegisterPojo.teacherEmailNotAvail eq null ? true : false}"   requiredMessage="Please enter Email Id or select the checkbox to specify that you don't have an Email."  a:placeholder="Email Id">
+			             </h:inputText>
+						<h:panelGroup/>			              
+			            
+			            <h:outputText id="o9" value="Phone Number (Primary)"></h:outputText>
+			            <h:inputText id="PhoneNumber" maxlength="10" name="PhoneNumber" value="#{teacherDataTable.selectedTeacherRegisterPojo.phoneNumber}" style="margin-right:15px;"  validator="#{teacherDataTable.validatePhNo}" required="true"  requiredMessage="Please enter Phone Number"  a:placeholder="Phone Number"/>
+			            <h:panelGroup/>
+						
+						 
+			           <h:outputText value="&lt;br/&gt;" escape="false" />   
+			              <h:selectManyCheckbox value="#{teacherDataTable.selectedTeacherRegisterPojo.teacherEmailNotAvail}" valueChangeListener="#{teacherDataTable.teacherEmailNotAvailValueChange}" immediate="true" style="margin-top: -8%;">
+						   <f:selectItem itemValue="1" itemLabel="Don't have Email" />
+						</h:selectManyCheckbox> 
+						<h:outputText value="&lt;br/&gt;" escape="false" /> 
+						
+						
+						<h:outputText id="o10" value="Phone Number (Secondary)" ></h:outputText>
+			            <h:inputText id="AlternativePhNo" maxlength="10" name="AlternativePhNo" value="#{teacherDataTable.selectedTeacherRegisterPojo.alternativePhoneNumber}" style="margin-right:15px;"  validator="#{teacherDataTable.validatePhNo}"   requiredMessage="Please enter Secondary Phone Number"  a:placeholder="Secondary Phone Number"/>
+			            <h:panelGroup/>
+						
+					            
+		       </p:panelGrid>
+		       <p:commandButton value="Save" id="save" actionListener="#{teacherDataTable.updateTeacher}" update="teacherDetail" style="font-size: 0.9em;"/>
+		             
+		       <p:commandButton id="delete" value="Delete" actionListener="#{teacherDataTable.deleteTeacher}" update="deleteConfirmBox" style="margin-left: 25px;font-size: 0.9em;">
+				  <p:confirm header="Confirmation" message="Are you sure?" icon="ui-icon-alert" />
+				</p:commandButton>
+				 
+			   <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+				  <p:commandButton value="Yes" id="deleteConfirm" type="button" styleClass="ui-confirmdialog-yes" style=" margin-left: 25px;" update="form"/>
+				  <p:commandButton value="No" styleClass="ui-confirmdialog-no" type="button"/>
+			   </p:confirmDialog>
+			   
+			   <p:commandButton value="Close" id="close" actionListener="#{teacherDataTable.closeTeacherDialog}" immediate="true" style=" margin-left: 25px;font-size: 0.9em;"/>
+			   
+		    </p:outputPanel>
+		    
+		   </h:form>
+	</p:dialog>
+	    
+</h:form>
+	 
+    </body>
+    
+</html>
+

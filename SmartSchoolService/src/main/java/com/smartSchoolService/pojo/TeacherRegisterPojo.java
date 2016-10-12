@@ -1,9 +1,13 @@
 package com.smartSchoolService.pojo;
 
 import java.util.Date;
+import java.util.List;
+
+import com.smartSchoolService.util.ChoiceListPojo;
 
 public class TeacherRegisterPojo {
 
+	private Long key;
 	private String teacherFirstName;
 	private String teacherMiddleName;
 	private String teacherLastName;
@@ -18,6 +22,10 @@ public class TeacherRegisterPojo {
 	private String createdBy;
 	private String lastUpdatedBy;
 	
+	//Below columns are being used for rendering students datatable
+	private String branchName;
+	public String[] teacherEmailNotAvail;
+	private List<ChoiceListPojo.AvailableBranches> availableBranches;
 	
 	public String getTeacherFirstName() {
 		return teacherFirstName;
@@ -96,6 +104,30 @@ public class TeacherRegisterPojo {
 	}
 	public void setLastUpdatedBy(String lastUpdatedBy) {
 		this.lastUpdatedBy = lastUpdatedBy;
+	}
+	public Long getKey() {
+		return key;
+	}
+	public void setKey(Long key) {
+		this.key = key;
+	}
+	public String getBranchName() {
+		return branchName;
+	}
+	public void setBranchName(String branchName) {
+		this.branchName = branchName;
+	}
+	public String[] getTeacherEmailNotAvail() {
+		return teacherEmailNotAvail;
+	}
+	public void setTeacherEmailNotAvail(String[] teacherEmailNotAvail) {
+		this.teacherEmailNotAvail = teacherEmailNotAvail;
+	}
+	public List<ChoiceListPojo.AvailableBranches> getAvailableBranches() {
+		return availableBranches;
+	}
+	public void setAvailableBranches(List<ChoiceListPojo.AvailableBranches> availableBranches) {
+		this.availableBranches = availableBranches;
 	}
 	
 	

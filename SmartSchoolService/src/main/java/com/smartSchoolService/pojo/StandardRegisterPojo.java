@@ -1,12 +1,21 @@
 package com.smartSchoolService.pojo;
 
-public class StandardRegisterPojo {
+import java.util.List;
 
+import com.smartSchoolService.util.ChoiceListPojo;
+
+public class StandardRegisterPojo {
+	
+	private Long key;
 	private String standardName;
 	private String standardDesc;
 	private Long branchId;
 	private String createdByUserName;
 	private String lastUpdatedByUserName;
+	
+	//Below columns are being used for rendering sections datatable
+	private String branchName;
+	private List<ChoiceListPojo.AvailableBranches> availableBranches;
 	
 	
 	public String getLastUpdatedByUserName() {
@@ -38,6 +47,24 @@ public class StandardRegisterPojo {
 	}
 	public void setBranchId(Long branchId) {
 		this.branchId = branchId;
+	}
+	public String getBranchName() {
+		return branchName;
+	}
+	public void setBranchName(String branchName) {
+		this.branchName = branchName;
+	}
+	public List<ChoiceListPojo.AvailableBranches> getAvailableBranches() {
+		return availableBranches;
+	}
+	public void setAvailableBranches(List<ChoiceListPojo.AvailableBranches> availableBranches) {
+		this.availableBranches = availableBranches;
+	}
+	public Long getKey() {
+		return key;
+	}
+	public void setKey(Long key) {
+		this.key = key;
 	}
 	
 	

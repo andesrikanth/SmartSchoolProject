@@ -169,7 +169,13 @@ public class LoginBean implements Serializable {
 		else {
 			SmartSchoolFacade smartSchoolFacade = new SmartSchoolFacade();
 			String status = smartSchoolFacade.submitForgotPassword(userName,registeredEmailId,registeredPhoneNo);
-			FacesContext.getCurrentInstance().addMessage("validationMessages", new FacesMessage(FacesMessage.SEVERITY_INFO, status, "Info"));
+			if(status != null && status.contains("Temporary Password has been sent to your registered email id")){
+				FacesContext.getCurrentInstance().addMessage("validationMessages", new FacesMessage(FacesMessage.SEVERITY_INFO, status, "Info"));
+			}
+			else {
+				FacesContext.getCurrentInstance().addMessage("validationMessages", new FacesMessage(FacesMessage.SEVERITY_ERROR, status, "Info"));
+			}
+			
 		}
 		
 		
