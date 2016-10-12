@@ -1,13 +1,27 @@
 package com.smartSchoolService.pojo;
 
+import java.util.List;
+
+import com.smartSchoolService.util.ChoiceListPojo;
+
 public class SectionRegisterPojo {
 
+	private Long key;
 	private String sectionName;
 	private String sectionDesc;
 	private Long branchId;
 	private Long standardId;
 	private String createdByUserName;
 	private String lastUpdatedByUserName;
+	
+	//Below columns are being used for rendering sections datatable
+	private String branchName;
+	private String standardName;
+	private List<ChoiceListPojo.AvailableBranches> availableBranches;
+	private List<ChoiceListPojo.AvailableStandards> availableStandards;
+	
+	
+	
 	public String getSectionName() {
 		return sectionName;
 	}
@@ -44,6 +58,35 @@ public class SectionRegisterPojo {
 	public void setLastUpdatedByUserName(String lastUpdatedByUserName) {
 		this.lastUpdatedByUserName = lastUpdatedByUserName;
 	}
-	
+	public String getBranchName() {
+		return branchName;
+	}
+	public void setBranchName(String branchName) {
+		this.branchName = branchName;
+	}
+	public String getStandardName() {
+		return standardName;
+	}
+	public void setStandardName(String standardName) {
+		this.standardName = standardName;
+	}
+	public List<ChoiceListPojo.AvailableBranches> getAvailableBranches() {
+		return availableBranches;
+	}
+	public void setAvailableBranches(List<ChoiceListPojo.AvailableBranches> availableBranches) {
+		this.availableBranches = availableBranches;
+	}
+	public Long getKey() {
+		return key;
+	}
+	public void setKey(Long key) {
+		this.key = key;
+	}
+	public List<ChoiceListPojo.AvailableStandards> getAvailableStandards() {
+		return availableStandards;
+	}
+	public void setAvailableStandards(List<ChoiceListPojo.AvailableStandards> availableStandards) {
+		this.availableStandards = availableStandards;
+	}
 	
 }

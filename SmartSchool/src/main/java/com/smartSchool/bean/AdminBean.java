@@ -51,6 +51,13 @@ public class AdminBean  implements Serializable {
         item.setParam("targetPageParam", "SectionRegister.xhtml");
         registerSubmenu.addElement(item);
         
+        item = new DefaultMenuItem("Subject Register");
+        item.setCommand("#{adminBean.selectTargetRenderPage}");
+        item.setUpdate("pg1");
+        item.setParam("targetPageParam", "SubjectRegister.xhtml");
+        registerSubmenu.addElement(item);
+        
+        
         item = new DefaultMenuItem("Student Register");
         item.setCommand("#{adminBean.selectTargetRenderPage}");
         item.setUpdate("pg1");
@@ -62,13 +69,7 @@ public class AdminBean  implements Serializable {
         item.setUpdate("pg1");
         item.setParam("targetPageParam", "TeacherRegister.xhtml");
         registerSubmenu.addElement(item);
-        
-        item = new DefaultMenuItem("Subject Register");
-        item.setCommand("#{adminBean.selectTargetRenderPage}");
-        item.setUpdate("pg1");
-        item.setParam("targetPageParam", "SubjectRegister.xhtml");
-        registerSubmenu.addElement(item);
-        
+       
         model.addElement(registerSubmenu);
         
 		
@@ -85,6 +86,18 @@ public class AdminBean  implements Serializable {
         item.setCommand("#{adminBean.selectTargetRenderPage}");
         item.setUpdate("pg1");
         item.setParam("targetPageParam", "ReviewStudents.xhtml");
+        reviewSubmenu.addElement(item);
+        
+        item = new DefaultMenuItem("Review Teachers");
+        item.setCommand("#{adminBean.selectTargetRenderPage}");
+        item.setUpdate("pg1");
+        item.setParam("targetPageParam", "ReviewTeachers.xhtml");
+        reviewSubmenu.addElement(item);
+        
+        item = new DefaultMenuItem("Review Branches");
+        item.setCommand("#{adminBean.selectTargetRenderPage}");
+        item.setUpdate("pg1");
+        item.setParam("targetPageParam", "ReviewBranches.xhtml");
         reviewSubmenu.addElement(item);
         
         model.addElement(reviewSubmenu);

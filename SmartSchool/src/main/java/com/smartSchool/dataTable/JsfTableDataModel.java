@@ -85,14 +85,14 @@ public class JsfTableDataModel<T> extends LazyDataModel<T> {
 		boolean sortApplied=false;
 		
 		if (filters != null && filters.size()>0) {
-			if(localSelectQuery != null && localSelectQuery.contains(" WHERE ")){
+			if(localSelectQuery != null && (localSelectQuery.contains(" WHERE ") || localSelectQuery.contains(" where "))){
 				localSelectQuery = localSelectQuery+" AND ";
 			}
 			else {
 				localSelectQuery = localSelectQuery+" WHERE ";
 			}
 			
-			if(localCountQuery != null && localCountQuery.contains(" WHERE ")){
+			if(localCountQuery != null && (localCountQuery.contains(" WHERE ") || localCountQuery.contains(" where "))){
 				localCountQuery=localCountQuery+" AND ";
 			}
 			else {

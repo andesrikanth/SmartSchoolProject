@@ -31,7 +31,7 @@
 	    <p:dataTable var="sub" value="#{subjectDataTable.lazyDataModel}" paginator="true" rows="10" style="font-size: 0.9em;margin-left: 20px;margin-right: 20px;"
 	                 paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"	                 
 	                 rowsPerPageTemplate="5,10,15" selectionMode="single" selection="#{subjectDataTable.selectedSubjectRegisterPojo}" id="subjectTable" lazy="true">
-	        <p:ajax event="rowSelect" listener="#{subjectDataTable.onRowSelect}" update=":form:f2:subjectDetail" oncomplete="PF('subjectDialog').show()" /> 
+	        <p:ajax event="rowSelect" update=":form:f2:subjectDetail" oncomplete="PF('subjectDialog').show()" /> 
 	           
 	        <p:column headerText="Subject Identifier" sortBy="#{SUBJECT_ID}" filterBy="#{SUBJECT_ID}">
 	            <h:outputText value="#{sub.key}" />
