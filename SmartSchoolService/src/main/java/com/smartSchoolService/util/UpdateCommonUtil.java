@@ -319,7 +319,7 @@ public class UpdateCommonUtil {
 			java.sql.Date date = new java.sql.Date(new Date().getTime());
 			try{
 				
-				stmt = con.prepareStatement("UPDATE CLASS_AVBL_SECTIONS SET SECTION_NAME= ?, DESCRIPTION = ?, BRANCH_ID=?, STANDARD_ID=?, LAST_UPDATED_BY = ? ,  LAST_UPDATE_DATE = ?  WHERE STANDARD_ID = ? ;");
+				stmt = con.prepareStatement("UPDATE CLASS_AVBL_SECTIONS SET SECTION_NAME= ?, DESCRIPTION = ?, BRANCH_ID=?, STANDARD_ID=?, LAST_UPDATED_BY = ? ,  LAST_UPDATE_DATE = ?  WHERE SECTION_ID = ? ;");
 				
 				stmt.setString(1, sectionRegisterPojo.getSectionName());
 				stmt.setString(2, sectionRegisterPojo.getSectionDesc());

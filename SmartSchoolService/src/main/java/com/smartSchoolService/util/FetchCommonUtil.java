@@ -8,6 +8,8 @@ import java.util.List;
 
 import com.smartSchoolService.dao.DatabaseUtility;
 import com.smartSchoolService.pojo.BranchRegisterPojo;
+import com.smartSchoolService.pojo.SectionRegisterPojo;
+import com.smartSchoolService.pojo.StandardRegisterPojo;
 import com.smartSchoolService.pojo.StudentPojo;
 import com.smartSchoolService.pojo.SubjectRegisterPojo;
 import com.smartSchoolService.pojo.TeacherRegisterPojo;
@@ -222,6 +224,85 @@ public class FetchCommonUtil {
 		}
 		
 		return availableBranches;
+	}
+	
+	public List<StandardRegisterPojo> getAvailableStandardsListForDataTable(int startRow, int endRow, String defaultQuery){
+		List<StandardRegisterPojo> availableStandards = new ArrayList<StandardRegisterPojo>();
+		
+		try {
+			DatabaseUtility databaseUtility =new DatabaseUtility();
+			Connection con=databaseUtility.getConnection();
+			Statement stmt = null;
+			try{
+				
+				stmt = con.createStatement();
+				ResultSet rs = stmt.executeQuery(defaultQuery+" limit "+endRow+" OFFSET "+startRow+";");
+		        while(rs.next()){
+		        	
+		        	StandardRegisterPojo standardRegisterPojo = new StandardRegisterPojo();
+		        	standardRegisterPojo.setKey(rs.getLong("STANDARD_ID"));
+		        	standardRegisterPojo.setStandardName(rs.getString("STANDARD_NAME"));
+		        	standardRegisterPojo.setStandardDesc(rs.getString("DESCRIPTION"));
+		        	standardRegisterPojo.setBranchId(rs.getLong("BRANCH_ID"));
+		        	standardRegisterPojo.setBranchName(rs.getString("BRANCH_NAME"));
+		        	availableStandards.add(standardRegisterPojo);
+		        	
+		        }
+			}
+			catch(Exception e){
+				e.printStackTrace();
+			}
+			finally{
+				stmt.close();
+				databaseUtility.closeConnection(con);
+			}
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return availableStandards;
+	}
+	
+	public List<SectionRegisterPojo> getAvailableSectionsListForDataTable(int startRow, int endRow, String defaultQuery){
+		List<SectionRegisterPojo> availableSections = new ArrayList<SectionRegisterPojo>();
+		
+		try {
+			DatabaseUtility databaseUtility =new DatabaseUtility();
+			Connection con=databaseUtility.getConnection();
+			Statement stmt = null;
+			try{
+				
+				stmt = con.createStatement();
+				ResultSet rs = stmt.executeQuery(defaultQuery+" limit "+endRow+" OFFSET "+startRow+";");
+		        while(rs.next()){
+		        	SectionRegisterPojo sectionRegisterPojo = new SectionRegisterPojo();
+		        	sectionRegisterPojo.setKey(rs.getLong("SECTION_ID"));
+		        	sectionRegisterPojo.setSectionName(rs.getString("SECTION_NAME"));
+		        	sectionRegisterPojo.setBranchId(rs.getLong("BRANCH_ID"));
+		        	sectionRegisterPojo.setBranchName(rs.getString("BRANCH_NAME"));
+		        	sectionRegisterPojo.setStandardId(rs.getLong("STANDARD_ID"));
+		        	sectionRegisterPojo.setStandardName(rs.getString("STANDARD_NAME"));
+		        	sectionRegisterPojo.setSectionDesc(rs.getString("DESCRIPTION"));
+		        	availableSections.add(sectionRegisterPojo);
+		        	
+		        }
+			}
+			catch(Exception e){
+				e.printStackTrace();
+			}
+			finally{
+				stmt.close();
+				databaseUtility.closeConnection(con);
+			}
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return availableSections;
 	}
 	
 }

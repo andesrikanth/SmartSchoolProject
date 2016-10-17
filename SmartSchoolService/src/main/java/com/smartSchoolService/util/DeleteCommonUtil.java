@@ -198,6 +198,12 @@ public class DeleteCommonUtil {
 			}
 			catch(Exception e){
 				status="false";
+				if(e!=null && e.getLocalizedMessage()!=null) {
+					if(e.getLocalizedMessage().contains("violates foreign key constraint \"class_avbl_sections_standard_id_fkey\" on table \"class_avbl_sections\"")){
+						status="There is an active Section associated to the Standard - "+standardId+". Please delete that section before deleting this standard.";
+					}
+				}
+				
 				e.printStackTrace();
 			}
 			finally{
@@ -208,9 +214,6 @@ public class DeleteCommonUtil {
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			status="false";
-			if(e!=null && e.getCause()!=null) {
-				status=e.getCause().toString();
-			}
 			
 			e.printStackTrace();
 		}
@@ -240,6 +243,11 @@ public class DeleteCommonUtil {
 			}
 			catch(Exception e){
 				status="false";
+				if(e!=null && e.getLocalizedMessage()!=null) {
+					if(e.getLocalizedMessage().contains("violates foreign key constraint \"student_details_registered_section_fkey\" on table \"student_details\"")){
+						status="There is an active Student associated to the Section - "+sectionId+". Please delete that student before deleting this section.";
+					}
+				}
 				e.printStackTrace();
 			}
 			finally{

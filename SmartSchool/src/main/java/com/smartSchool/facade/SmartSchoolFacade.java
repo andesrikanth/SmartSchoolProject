@@ -114,7 +114,16 @@ public String resetUserPassword(String userName,String password){
 		FetchCommonUtil fetchCommonUtil = new FetchCommonUtil();
 		return fetchCommonUtil.getAvailableBranchesListForDataTable(startRow, endRow,defaultSelectQuery);
 	}
-
+	
+	public List<StandardRegisterPojo> getAvailableStandardsListForDataTable(Integer startRow, Integer endRow, String defaultSelectQuery /*query should NOT end with semi-colon ';'*/){
+		FetchCommonUtil fetchCommonUtil = new FetchCommonUtil();
+		return fetchCommonUtil.getAvailableStandardsListForDataTable(startRow, endRow,defaultSelectQuery);
+	}
+	
+	public List<SectionRegisterPojo> getAvailableSectionsListForDataTable(Integer startRow, Integer endRow, String defaultSelectQuery /*query should NOT end with semi-colon ';'*/){
+		FetchCommonUtil fetchCommonUtil = new FetchCommonUtil();
+		return fetchCommonUtil.getAvailableSectionsListForDataTable(startRow, endRow,defaultSelectQuery);
+	}
 	
 	public String updateSubject(SubjectRegisterPojo subjectRegisterPojo){
 		UpdateCommonUtil commonUtil =new UpdateCommonUtil();
