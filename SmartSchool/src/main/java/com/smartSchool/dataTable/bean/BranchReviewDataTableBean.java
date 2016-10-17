@@ -14,11 +14,13 @@ import javax.faces.validator.ValidatorException;
 import javax.servlet.http.HttpSession;
 
 import org.primefaces.context.RequestContext;
+import org.primefaces.event.SelectEvent;
 import org.primefaces.model.LazyDataModel;
 
 import com.smartSchool.dataTable.JsfTableDataModel;
 import com.smartSchool.facade.SmartSchoolFacade;
 import com.smartSchoolService.pojo.BranchRegisterPojo;
+import com.smartSchoolService.pojo.StudentPojo;
 import com.smartSchoolService.util.ChoiceListPojo;
 
 @ManagedBean(name="branchDataTable")
@@ -31,6 +33,7 @@ public class BranchReviewDataTableBean  implements Serializable {
 	private List<BranchRegisterPojo> list;
 	    
 	private BranchRegisterPojo selectedBranchRegisterPojo;
+	private BranchRegisterPojo backupSelectedBranchRegisterPojo;
 	private boolean branchUpdateStatus;
 	
 	
@@ -47,6 +50,17 @@ public class BranchReviewDataTableBean  implements Serializable {
 		   lazyDataModel = new JsfTableDataModel(defaultSelectQuery,defaultCountQuery,"getAvailableBranchesListForDataTable");
 	   }
 	 
+	 
+	public BranchRegisterPojo getBackupSelectedBranchRegisterPojo() {
+		return backupSelectedBranchRegisterPojo;
+	}
+
+
+	public void setBackupSelectedBranchRegisterPojo(BranchRegisterPojo backupSelectedBranchRegisterPojo) {
+		this.backupSelectedBranchRegisterPojo = backupSelectedBranchRegisterPojo;
+	}
+
+
 	public LazyDataModel<BranchRegisterPojo> getLazyDataModel() {
 		return lazyDataModel;
 	}
@@ -138,5 +152,16 @@ public class BranchReviewDataTableBean  implements Serializable {
 		
 	}
 
+	public void onRowSelect(SelectEvent event) {
+		
+		System.out.println("selected Branch : "+ this.getBackupSelectedBranchRegisterPojo().getKey());
+		
+		try {
+			this.setSelectedBranchRegisterPojo((BranchRegisterPojo)backupSelectedBranchRegisterPojo.clone());
+		} catch (CloneNotSupportedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}	
 
 }

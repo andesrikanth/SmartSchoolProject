@@ -1,6 +1,6 @@
 package com.smartSchoolService.pojo;
 
-public class BranchRegisterPojo {
+public class BranchRegisterPojo  implements Cloneable{
 
 	private Long key;
 	private String branchName;
@@ -39,5 +39,9 @@ public class BranchRegisterPojo {
 		this.key = key;
 	}
 	
-	
+	@Override
+	public Object clone()throws CloneNotSupportedException{  
+		return super.clone();  
+	}  
+
 }
