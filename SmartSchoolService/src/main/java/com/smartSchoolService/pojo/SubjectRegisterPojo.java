@@ -1,6 +1,6 @@
 package com.smartSchoolService.pojo;
 
-public class SubjectRegisterPojo {
+public class SubjectRegisterPojo implements Cloneable{
 
 	private Long key;
 	private String subjectName;
@@ -41,5 +41,9 @@ public class SubjectRegisterPojo {
 		this.lastUpdatedByUserName = lastUpdatedByUserName;
 	}
 	
-	
+	@Override
+	public Object clone()throws CloneNotSupportedException{  
+		return super.clone();  
+	}  
+
 }

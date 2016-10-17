@@ -5,7 +5,7 @@ import java.util.List;
 
 import com.smartSchoolService.util.ChoiceListPojo;
 
-public class TeacherRegisterPojo {
+public class TeacherRegisterPojo implements Cloneable{
 
 	private Long key;
 	private String teacherFirstName;
@@ -130,5 +130,8 @@ public class TeacherRegisterPojo {
 		this.availableBranches = availableBranches;
 	}
 	
-	
+	@Override
+	public Object clone()throws CloneNotSupportedException{  
+		return super.clone();  
+	}
 }

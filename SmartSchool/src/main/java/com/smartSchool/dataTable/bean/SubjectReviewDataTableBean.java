@@ -16,6 +16,7 @@ import org.primefaces.model.LazyDataModel;
 
 import com.smartSchool.dataTable.JsfTableDataModel;
 import com.smartSchool.facade.SmartSchoolFacade;
+import com.smartSchoolService.pojo.StudentPojo;
 import com.smartSchoolService.pojo.SubjectRegisterPojo;
 
 @ManagedBean(name="subjectDataTable")
@@ -28,6 +29,7 @@ public class SubjectReviewDataTableBean implements Serializable {
 	private List<SubjectRegisterPojo> list;
 	    
 	private SubjectRegisterPojo selectedSubjectRegisterPojo;
+	private SubjectRegisterPojo backupSelectedSubjectRegisterPojo;
 	private boolean subjectUpdateStatus;
 	
 	
@@ -47,6 +49,16 @@ public class SubjectReviewDataTableBean implements Serializable {
    }
 
 	
+	public SubjectRegisterPojo getBackupSelectedSubjectRegisterPojo() {
+		return backupSelectedSubjectRegisterPojo;
+	}
+	
+	
+	public void setBackupSelectedSubjectRegisterPojo(SubjectRegisterPojo backupSelectedSubjectRegisterPojo) {
+		this.backupSelectedSubjectRegisterPojo = backupSelectedSubjectRegisterPojo;
+	}
+
+
 	public LazyDataModel<SubjectRegisterPojo> getLazyDataModel() {
 		return lazyDataModel;
 	}
@@ -77,6 +89,15 @@ public class SubjectReviewDataTableBean implements Serializable {
 
 	public void onRowSelect(SelectEvent event) {
 		//System.out.println("selected Subject : "+ this.getSelectedSubjectRegisterPojo().getKey());
+		
+		
+		try {
+			this.setSelectedSubjectRegisterPojo((SubjectRegisterPojo)backupSelectedSubjectRegisterPojo.clone());
+		} catch (CloneNotSupportedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		
 		//FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add(":form:test1");
 		//RequestContext context = RequestContext.getCurrentInstance();
