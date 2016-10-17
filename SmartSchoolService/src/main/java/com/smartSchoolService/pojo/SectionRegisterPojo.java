@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.smartSchoolService.util.ChoiceListPojo;
 
-public class SectionRegisterPojo {
+public class SectionRegisterPojo implements Cloneable{
 
 	private Long key;
 	private String sectionName;
@@ -89,4 +89,8 @@ public class SectionRegisterPojo {
 		this.availableStandards = availableStandards;
 	}
 	
+	@Override
+	public Object clone()throws CloneNotSupportedException{  
+		return super.clone();  
+	}
 }

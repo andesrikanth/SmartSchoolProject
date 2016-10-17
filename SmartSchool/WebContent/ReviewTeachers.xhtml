@@ -73,51 +73,51 @@
 					<h:panelGroup/>
 					
 					
-					<h:outputText id="o1" value="First Name" ></h:outputText>
+					<h:outputText id="o1" value="First Name : " ></h:outputText>
 						<h:inputText id="teacherFirstName" maxlength="63" name="teacherFirstName" value="#{teacherDataTable.selectedTeacherRegisterPojo.teacherFirstName}"  style="margin-right:15px;" requiredMessage="Please enter Teacher First Name" required="true" a:placeholder="First Name">
 						</h:inputText>
 						<h:panelGroup/>
 						
-						<h:outputText id="o3" value="Last Name" ></h:outputText>
+						<h:outputText id="o3" value="Last Name : " ></h:outputText>
 			        	<h:inputText id="teacherLastName" maxlength="63" name="teacherLastName" value="#{teacherDataTable.selectedTeacherRegisterPojo.teacherLastName}"  style="margin-right:15px;"  a:placeholder="Last Name"/>
 						<h:panelGroup/>
 						
-						<h:outputText id="o4" value="Date of Birth" ></h:outputText>
+						<h:outputText id="o4" value="Date of Birth : " ></h:outputText>
 			             <p:calendar id="dob" value="#{teacherDataTable.selectedTeacherRegisterPojo.dateOfBirth}">
         			    	<p:ajax event="dateSelect" listener="#{teacherDataTable.selectedTeacherRegisterPojo.onDateSelect}"/>
         				</p:calendar>
         				<h:panelGroup/>
 						
-						<h:outputText id="og11" value="Gender" ></h:outputText>
+						<h:outputText id="og11" value="Gender : " ></h:outputText>
 						<h:selectOneRadio id="gender" value="#{teacherDataTable.selectedTeacherRegisterPojo.teacherGender}" style="margin-right:15px;">
 						   	<f:selectItem itemValue="M" itemLabel="Male   &nbsp;&nbsp;" escape="false" />
 						   	<f:selectItem itemValue="F" itemLabel="Female" />
 						</h:selectOneRadio>
 						<h:panelGroup/>
 						
-						<h:outputText id="o11" value="Branch" ></h:outputText>
+						<h:outputText id="o11" value="Branch : " ></h:outputText>
 			            <h:selectOneMenu id="branches" value="#{teacherDataTable.selectedTeacherRegisterPojo.selectedBranchId}" required="true" requiredMessage="Please select a valid Branch." style="margin-right:15px;" validator="#{teacherDataTable.validateBranchesLOV}">
 	    					<f:selectItems value="#{teacherDataTable.selectedTeacherRegisterPojo.availableBranches}" var="bran" itemValue="#{bran.branchId}" itemLabel="#{bran.branchName}" />
 						 </h:selectOneMenu>
 						<h:panelGroup/>
 						
-						<h:outputText id="o7" value="Address" ></h:outputText>
+						<h:outputText id="o7" value="Address : " ></h:outputText>
 			            <h:inputTextarea id="Address" rows="5" cols="5"  name="Address" value="#{teacherDataTable.selectedTeacherRegisterPojo.address}" style="margin-right:15px;"  requiredMessage="Please enter Teacher Address" required="true"  a:placeholder="Address" a:maxlength="510"/>
 						<h:panelGroup/>
 						
-						<h:outputText id="os7" value="Specialization" ></h:outputText>
+						<h:outputText id="os7" value="Specialization : " ></h:outputText>
 			            <h:inputTextarea id="Specialization" rows="5" cols="5"  name="Specialization" value="#{teacherDataTable.selectedTeacherRegisterPojo.specialization}" style="margin-right:15px;"  requiredMessage="Please enter Teacher Specialization" required="true"  a:placeholder="Specialization" a:maxlength="510"/>
 						<h:panelGroup/>
 						
 						
 						
 						
-						<h:outputText id="o8" value="Email" ></h:outputText>
+						<h:outputText id="o8" value="Email : " ></h:outputText>
 			            <h:inputText id="email" maxlength="30" name="email" value="#{teacherDataTable.selectedTeacherRegisterPojo.teacherEmail}" style="margin-right:15px;" validator="#{teacherDataTable.validateTeacherEmail}" required="#{teacherDataTable.selectedTeacherRegisterPojo.teacherEmailNotAvail eq null ? true : false}"   requiredMessage="Please enter Email Id or select the checkbox to specify that you don't have an Email."  a:placeholder="Email Id">
 			             </h:inputText>
 						<h:panelGroup/>			              
 			            
-			            <h:outputText id="o9" value="Phone Number (Primary)"></h:outputText>
+			            <h:outputText id="o9" value="Phone Number (Primary) : "></h:outputText>
 			            <h:inputText id="PhoneNumber" maxlength="10" name="PhoneNumber" value="#{teacherDataTable.selectedTeacherRegisterPojo.phoneNumber}" style="margin-right:15px;"  validator="#{teacherDataTable.validatePhNo}" required="true"  requiredMessage="Please enter Phone Number"  a:placeholder="Phone Number"/>
 			            <h:panelGroup/>
 						
@@ -129,7 +129,7 @@
 						<h:outputText value="&lt;br/&gt;" escape="false" /> 
 						
 						
-						<h:outputText id="o10" value="Phone Number (Secondary)" ></h:outputText>
+						<h:outputText id="o10" value="Phone Number (Secondary) : " ></h:outputText>
 			            <h:inputText id="AlternativePhNo" maxlength="10" name="AlternativePhNo" value="#{teacherDataTable.selectedTeacherRegisterPojo.alternativePhoneNumber}" style="margin-right:15px;"  validator="#{teacherDataTable.validatePhNo}"   requiredMessage="Please enter Secondary Phone Number"  a:placeholder="Secondary Phone Number"/>
 			            <h:panelGroup/>
 						

@@ -20,6 +20,7 @@ import org.primefaces.model.LazyDataModel;
 import com.smartSchool.dataTable.JsfTableDataModel;
 import com.smartSchool.facade.SmartSchoolFacade;
 import com.smartSchoolService.pojo.SectionRegisterPojo;
+import com.smartSchoolService.pojo.StandardRegisterPojo;
 import com.smartSchoolService.util.ChoiceListPojo;
 
 @ManagedBean(name="sectionDataTable")
@@ -32,6 +33,7 @@ public class SectionReviewDataTableBean  implements Serializable {
 	private List<SectionRegisterPojo> list;
 	    
 	private SectionRegisterPojo selectedSectionRegisterPojo;
+	private SectionRegisterPojo backupSelectedSectionRegisterPojo;
 	private boolean sectionUpdateStatus;
 	
 	
@@ -40,7 +42,7 @@ public class SectionReviewDataTableBean  implements Serializable {
 		   
 		 sectionUpdateStatus=false;
 		   
-		   String defaultSelectQuery="select SECTION_ID , SECTION_NAME, sec.BRANCH_ID, bran.BRANCH_NAME, sec.STANDARD_ID, std.STANDARD_NAME FROM CLASS_AVBL_SECTIONS sec, CLASS_AVBL_STANDARDS std, SCHOOL_BRANCHES bran WHERE sec.BRANCH_ID = bran.BRANCH_ID AND sec.STANDARD_ID = std.STANDARD_ID ";
+		   String defaultSelectQuery="select SECTION_ID , SECTION_NAME, sec.BRANCH_ID, sec.DESCRIPTION, bran.BRANCH_NAME, sec.STANDARD_ID, std.STANDARD_NAME FROM CLASS_AVBL_SECTIONS sec, CLASS_AVBL_STANDARDS std, SCHOOL_BRANCHES bran WHERE sec.BRANCH_ID = bran.BRANCH_ID AND sec.STANDARD_ID = std.STANDARD_ID ";
 		   
 		   String defaultCountQuery="select count(*) as range FROM CLASS_AVBL_SECTIONS";
 		   //SmartSchoolFacade smartSchoolFacade = new SmartSchoolFacade();
@@ -49,6 +51,15 @@ public class SectionReviewDataTableBean  implements Serializable {
 		   lazyDataModel = new JsfTableDataModel(defaultSelectQuery,defaultCountQuery,"getAvailableSectionsListForDataTable");
 	   }
 	 
+	 
+	public SectionRegisterPojo getBackupSelectedSectionRegisterPojo() {
+		return backupSelectedSectionRegisterPojo;
+	}
+
+	public void setBackupSelectedSectionRegisterPojo(SectionRegisterPojo backupSelectedSectionRegisterPojo) {
+		this.backupSelectedSectionRegisterPojo = backupSelectedSectionRegisterPojo;
+	}
+
 	public LazyDataModel<SectionRegisterPojo> getLazyDataModel() {
 		return lazyDataModel;
 	}
@@ -76,7 +87,14 @@ public class SectionReviewDataTableBean  implements Serializable {
 	
 	public void onRowSelect(SelectEvent event) {
 		
-		System.out.println("selected Section : "+ this.getSelectedSectionRegisterPojo().getKey());
+		System.out.println("selected Section : "+ this.getBackupSelectedSectionRegisterPojo().getKey());
+		
+		try {
+			this.setSelectedSectionRegisterPojo((SectionRegisterPojo)backupSelectedSectionRegisterPojo.clone());
+		} catch (CloneNotSupportedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		if(selectedSectionRegisterPojo.getAvailableBranches() == null){
 			SmartSchoolFacade smartSchoolFacade = new SmartSchoolFacade();
@@ -115,8 +133,8 @@ public class SectionReviewDataTableBean  implements Serializable {
 	
 	public void deleteSection(){
 		SmartSchoolFacade smartSchoolFacade = new SmartSchoolFacade();
-		Long subjectId=this.getSelectedSectionRegisterPojo().getKey();
-		String out=smartSchoolFacade.deleteSubject(subjectId);
+		Long sectionId=this.getSelectedSectionRegisterPojo().getKey();
+		String out=smartSchoolFacade.deleteSection(sectionId);
 		System.out.println("Section Name"+this.getSelectedSectionRegisterPojo().getSectionName());
 		if(out !=null && out.equals("true")){
 			FacesContext.getCurrentInstance().addMessage("deleteConfirm", new FacesMessage(FacesMessage.SEVERITY_INFO, "Successful", "Section : "+this.getSelectedSectionRegisterPojo().getSectionName()+" deleted!"));
@@ -139,7 +157,7 @@ public class SectionReviewDataTableBean  implements Serializable {
 		
 	}
 	
-	public void closeBranchDialog(){
+	public void closeSectionDialog(){
 		RequestContext context = RequestContext.getCurrentInstance();
 		context.execute("PF('sectionDialog').hide();");
 		if(sectionUpdateStatus){
@@ -167,11 +185,10 @@ public class SectionReviewDataTableBean  implements Serializable {
 		}	
 	}
 	
-	public void validateSectionsLOV(FacesContext context, UIComponent component, Object value) throws ValidatorException {
+	public void validateStandardsLOV(FacesContext context, UIComponent component, Object value) throws ValidatorException {
 		if(value ==null || (Long)value == 0){
-			throw new ValidatorException(new FacesMessage(FacesMessage.SEVERITY_ERROR, "Please select a valid Section", "Please select a valid Section"));
+			throw new ValidatorException(new FacesMessage(FacesMessage.SEVERITY_ERROR, "Please select a valid Standard", "Please select a valid Standard"));
 		}
-		
 	}
 	
 	public void validateBranchesLOV(FacesContext context, UIComponent component, Object value) throws ValidatorException {

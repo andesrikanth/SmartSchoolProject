@@ -99,6 +99,18 @@ public class AdminBean  implements Serializable {
         item.setUpdate("pg1");
         item.setParam("targetPageParam", "ReviewBranches.xhtml");
         reviewSubmenu.addElement(item);
+
+        item = new DefaultMenuItem("Review Standards");
+        item.setCommand("#{adminBean.selectTargetRenderPage}");
+        item.setUpdate("pg1");
+        item.setParam("targetPageParam", "ReviewStandards.xhtml");
+        reviewSubmenu.addElement(item);
+
+        item = new DefaultMenuItem("Review Sections");
+        item.setCommand("#{adminBean.selectTargetRenderPage}");
+        item.setUpdate("pg1");
+        item.setParam("targetPageParam", "ReviewSections.xhtml");
+        reviewSubmenu.addElement(item);
         
         model.addElement(reviewSubmenu);
         

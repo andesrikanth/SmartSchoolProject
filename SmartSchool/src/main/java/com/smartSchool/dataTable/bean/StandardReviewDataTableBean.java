@@ -18,6 +18,7 @@ import org.primefaces.model.LazyDataModel;
 
 import com.smartSchool.dataTable.JsfTableDataModel;
 import com.smartSchool.facade.SmartSchoolFacade;
+import com.smartSchoolService.pojo.BranchRegisterPojo;
 import com.smartSchoolService.pojo.StandardRegisterPojo;
 
 @ManagedBean(name="standardDataTable")
@@ -30,6 +31,7 @@ public class StandardReviewDataTableBean   implements Serializable {
 	private List<StandardRegisterPojo> list;
 	    
 	private StandardRegisterPojo selectedStandardRegisterPojo;
+	private StandardRegisterPojo backupSelectedStandardRegisterPojo;
 	private boolean standardUpdateStatus;
 	
 	@PostConstruct
@@ -45,6 +47,16 @@ public class StandardReviewDataTableBean   implements Serializable {
 		   //list=smartSchoolFacade.getAvailableBranchesListForDataTable(0, 10,defaultSelectQuery);
 		   lazyDataModel = new JsfTableDataModel(defaultSelectQuery,defaultCountQuery,"getAvailableStandardsListForDataTable");
 	   }
+
+	
+	public StandardRegisterPojo getBackupSelectedStandardRegisterPojo() {
+		return backupSelectedStandardRegisterPojo;
+	}
+
+	public void setBackupSelectedStandardRegisterPojo(StandardRegisterPojo backupSelectedStandardRegisterPojo) {
+		this.backupSelectedStandardRegisterPojo = backupSelectedStandardRegisterPojo;
+	}
+
 
 	public LazyDataModel<StandardRegisterPojo> getLazyDataModel() {
 		return lazyDataModel;
@@ -80,7 +92,14 @@ public class StandardReviewDataTableBean   implements Serializable {
 	
 	public void onRowSelect(SelectEvent event) {
 		
-		System.out.println("selected Standard : "+ this.getSelectedStandardRegisterPojo().getKey());
+		System.out.println("selected Standard : "+ this.getBackupSelectedStandardRegisterPojo().getKey());
+		
+		try {
+			this.setSelectedStandardRegisterPojo((StandardRegisterPojo)backupSelectedStandardRegisterPojo.clone());
+		} catch (CloneNotSupportedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		if(selectedStandardRegisterPojo.getAvailableBranches() == null){
 			SmartSchoolFacade smartSchoolFacade = new SmartSchoolFacade();
@@ -119,8 +138,8 @@ public class StandardReviewDataTableBean   implements Serializable {
 	
 	public void deleteStandard(){
 		SmartSchoolFacade smartSchoolFacade = new SmartSchoolFacade();
-		Long subjectId=this.getSelectedStandardRegisterPojo().getKey();
-		String out=smartSchoolFacade.deleteSubject(subjectId);
+		Long standardId=this.getSelectedStandardRegisterPojo().getKey();
+		String out=smartSchoolFacade.deleteStandard(standardId);
 		System.out.println("Standard Name"+this.getSelectedStandardRegisterPojo().getStandardName());
 		if(out !=null && out.equals("true")){
 			FacesContext.getCurrentInstance().addMessage("deleteConfirm", new FacesMessage(FacesMessage.SEVERITY_INFO, "Successful", "Standard : "+this.getSelectedStandardRegisterPojo().getStandardName()+" deleted!"));
