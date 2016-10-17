@@ -30,8 +30,8 @@
 				
 	    <p:dataTable var="bran" value="#{branchDataTable.lazyDataModel}" paginator="true" rows="10" style="font-size: 0.9em;margin-left: 20px;margin-right: 20px;"
 	                 paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"	                 
-	                 rowsPerPageTemplate="5,10,15" selectionMode="single" selection="#{branchDataTable.selectedBranchRegisterPojo}" id="branchTable" lazy="true">
-	        <p:ajax event="rowSelect" update=":form:f2:branchDetail" oncomplete="PF('branchDialog').show()" /> 
+	                 rowsPerPageTemplate="5,10,15" selectionMode="single" selection="#{branchDataTable.backupSelectedBranchRegisterPojo}" id="branchTable" lazy="true">
+	        <p:ajax event="rowSelect" update=":form:f2:branchDetail" listener="#{branchDataTable.onRowSelect}" oncomplete="PF('branchDialog').show()" /> 
 	           
 	        <p:column headerText="Branch Identifier" sortBy="#{BRANCH_ID}" filterBy="#{BRANCH_ID}">
 	            <h:outputText value="#{bran.key}" />
