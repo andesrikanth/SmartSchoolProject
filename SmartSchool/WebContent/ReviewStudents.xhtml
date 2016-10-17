@@ -88,30 +88,30 @@
 		            <h:panelGroup/>
 		            
 		            
-		            <h:outputText id="o5" value="Father Name" ></h:outputText>
+		            <h:outputText id="o5" value="Father Name : " ></h:outputText>
 			            <h:inputText id="StudentFatherName" maxlength="63" name="StudentFatherName" value="#{studentDataTable.selectedStudentRegisterPojo.studentFatherName}"  style="margin-right:15px;"/>
 			            <h:panelGroup/>
 						
 						
-						<h:outputText id="o6" value="Mother Name" ></h:outputText>
+						<h:outputText id="o6" value="Mother Name : " ></h:outputText>
 						<h:inputText id="StudentMotherName" maxlength="63" name="StudentMotherName" value="#{studentDataTable.selectedStudentRegisterPojo.studentMotherName}" style="margin-right:15px;"/>
 			           <h:panelGroup/>
 						
 						
-						<h:outputText id="o7" value="Address" ></h:outputText>
+						<h:outputText id="o7" value="Address : " ></h:outputText>
 			            <h:inputTextarea id="Address" rows="5" cols="5"  name="Address" value="#{studentDataTable.selectedStudentRegisterPojo.address}" style="margin-right:15px;"  requiredMessage="Please enter Student Address" required="true"  a:maxlength="510"/>
 						<h:panelGroup/>
 						
-						<h:outputText id="o9" value="Phone Number (Primary)" style="margin-top:10px;"></h:outputText>
+						<h:outputText id="o9" value="Phone Number (Primary) : " style="margin-top:10px;"></h:outputText>
 			            <h:inputText id="PhoneNumber" maxlength="10" name="PhoneNumber" value="#{studentDataTable.selectedStudentRegisterPojo.phoneNumber}" style="margin-right:15px;"  validator="#{studentDataTable.validatePhNo}" required="true"  requiredMessage="Please enter Phone Number"/>
 			            <h:panelGroup/>
 			            
-						<h:outputText id="o8" value="Email" ></h:outputText>
+						<h:outputText id="o8" value="Email : " ></h:outputText>
 			            <h:inputText id="email" maxlength="30" name="email" value="#{studentDataTable.selectedStudentRegisterPojo.studentEmail}" style="margin-right:15px;" validator="#{studentDataTable.validateStudentEmail}" required="#{studentDataTable.selectedStudentRegisterPojo.studentEmailNotAvail eq null ? true : false}"    requiredMessage="Please enter Email Id or select the checkbox to specify that you don't have an Email." >
 			             </h:inputText>
 			              <h:panelGroup/>
 			              
-			             <h:outputText id="o10" value="Phone Number (Secondary)" ></h:outputText>
+			             <h:outputText id="o10" value="Phone Number (Secondary) : " ></h:outputText>
 			            <h:inputText id="AlternativePhNo" maxlength="10" name="AlternativePhNo" value="#{studentDataTable.selectedStudentRegisterPojo.alternativePhoneNumber}" style="margin-right:15px;"  validator="#{studentDataTable.validatePhNo}"   requiredMessage="Please enter Secondary Phone Number"/>
 			            <h:panelGroup/>
 						
@@ -124,7 +124,7 @@
 						
 						
 						
-						<h:outputText id="o11" value="Branch" ></h:outputText>
+						<h:outputText id="o11" value="Branch : " ></h:outputText>
 			            <h:selectOneMenu id="branches" value="#{studentDataTable.selectedStudentRegisterPojo.selectedBranchId}" valueChangeListener="#{studentDataTable.branchesLOVChange}" required="true" requiredMessage="Please select a valid Branch." style="margin-right:15px;" validator="#{studentDataTable.validateBranchesLOV}">
 			            	<!-- <f:selectItem  itemValue="#{studentDataTable.selectedStudentRegisterPojo.selectedBranchId}" itemLabel="#{studentDataTable.selectedStudentRegisterPojo.branchName}"></f:selectItem> -->
 	    					<f:selectItems value="#{studentDataTable.selectedStudentRegisterPojo.availableBranches}" var="bran" itemValue="#{bran.branchId}" itemLabel="#{bran.branchName}" />
@@ -133,7 +133,7 @@
 						 </h:selectOneMenu>
 						<h:panelGroup/>
 						
-						<h:outputText id="o12" value="Standard" ></h:outputText>
+						<h:outputText id="o12" value="Standard : " ></h:outputText>
 			            <h:selectOneMenu id="standards" value="#{studentDataTable.selectedStudentRegisterPojo.selectedStandardId}" style="margin-right:15px;"  required="true" requiredMessage="Please select a valid Standard."  valueChangeListener="#{studentDataTable.standardsLOVChange}"  validator="#{studentDataTable.validateStandardsLOV}">
 			            	<f:selectItem  itemValue="#{studentDataTable.selectedStudentRegisterPojo.selectedStandardId}" itemLabel="#{studentDataTable.selectedStudentRegisterPojo.standardName}"></f:selectItem>
 	    					<f:selectItems value="#{studentDataTable.selectedStudentRegisterPojo.availableStandards}" var="stand" itemValue="#{stand.standardId}" itemLabel="#{stand.standardName}" />
@@ -141,7 +141,7 @@
 						 </h:selectOneMenu>
 						<h:panelGroup/>
 						
-						<h:outputText id="o13" value="Section" ></h:outputText>
+						<h:outputText id="o13" value="Section : " ></h:outputText>
 						<h:selectOneMenu id="sections" value="#{studentDataTable.selectedStudentRegisterPojo.selectedSectionId}" style="margin-right:15px;"  required="true" requiredMessage="Please select a valid Section."  validator="#{studentDataTable.validateSectionsLOV}">
 							<f:selectItem  itemValue="#{studentDataTable.selectedStudentRegisterPojo.selectedSectionId}" itemLabel="#{studentDataTable.selectedStudentRegisterPojo.sectionName}"></f:selectItem>
 	    					<f:selectItems value="#{studentDataTable.selectedStudentRegisterPojo.availableSections}" var="sec" itemValue="#{sec.sectionId}" itemLabel="#{sec.sectionName}" />

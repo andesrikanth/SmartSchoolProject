@@ -67,7 +67,7 @@
 		
 					<h:outputText value="Branch Address : " />
 					<h:inputTextarea id="BranchAddress" rows="5" cols="5"  name="BranchAddress" value="#{branchDataTable.selectedBranchRegisterPojo.branchAddress}" style="margin-right:15px;"  a:maxlength="254"/>
-		            <h:message for="BranchAddress" style="color:red" />
+		            <p:message for="BranchAddress" style="color:red" />
 		            
 		       </p:panelGrid>
 		       <p:commandButton value="Save" id="save" actionListener="#{branchDataTable.updateBranch}" update="branchDetail" style="font-size: 0.9em;"/>
@@ -81,7 +81,7 @@
 				  <p:commandButton value="No" styleClass="ui-confirmdialog-no" type="button"/>
 			   </p:confirmDialog>
 			   
-			   <p:commandButton value="Close" id="close" actionListener="#{branchDataTable.closeBranchDialog}" style=" margin-left: 25px;font-size: 0.9em;"/>
+			   <p:commandButton value="Close" id="close"  immediate="true"  actionListener="#{branchDataTable.closeBranchDialog}" style=" margin-left: 25px;font-size: 0.9em;"/>
 			   
 		    </p:outputPanel>
 		    

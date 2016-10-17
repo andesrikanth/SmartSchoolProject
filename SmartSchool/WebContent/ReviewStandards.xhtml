@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"      
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:p="http://primefaces.org/ui" >
+    <h:head></h:head>
+    
+    <f:metadata>
+	    <f:viewAction action="#{commonBean.reviewSessionStatusCheck}" />
+	</f:metadata>
+	
+	<body>
+	    
+		<h4>Review Standards</h4>
+		<br></br>
+		<br></br>
+		
+	<h:form id="form">
+		
+		<p:growl id="deleteMessage" for="deleteConfirm" showDetail="true"/> <!-- This growl component is required for rendering the successful deletion message.  -->
+		
+		
+		
+		<!-- If datatable is rendered seperately without embedding in any page, then use - style="font-size: 0.9em;margin-left: 200px;margin-right: 200px;" .. 
+				If the datatable is embedded in any page, then use - style="font-size: 0.9em;margin-left: 200px;margin-right: 200px;" -->
+				
+	    <p:dataTable var="std" value="#{standardDataTable.lazyDataModel}" paginator="true" rows="10" style="font-size: 0.9em;margin-left: 20px;margin-right: 20px;"
+	                 paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"	                 
+	                 rowsPerPageTemplate="5,10,15" selectionMode="single" selection="#{standardDataTable.backupSelectedStandardRegisterPojo}" id="standardTable" lazy="true">
+	        <p:ajax event="rowSelect" listener="#{standardDataTable.onRowSelect}" update=":form:f2:standardDetail" oncomplete="PF('standardDialog').show()" /> 
+	           
+	        <p:column headerText="Standard Identifier" sortBy="#{STANDARD_ID}" filterBy="#{STANDARD_ID}">
+	            <h:outputText value="#{std.key}" />
+	        </p:column>
+	        <p:column headerText="Standard Name" sortBy="#{STANDARD_NAME}" filterBy="#{STANDARD_NAME}">
+	            <h:outputText value="#{std.standardName}" />
+	        </p:column>
+	        <p:column headerText="Standard Desc" sortBy="#{DESCRIPTION}" filterBy="#{DESCRIPTION}">
+	            <h:outputText value="#{std.standardDesc}" />
+	        </p:column>
+	        <p:column headerText="Branch" sortBy="#{BRANCH_NAME}" filterBy="#{BRANCH_NAME}">
+	        	<h:outputText value="#{std.branchName}"/>
+	        </p:column>
+	       
+	    </p:dataTable>
+	 
+	 
+	<p:dialog header="Standards Detail" widgetVar="standardDialog"  showEffect="fade" hideEffect="fade" closable="false" resizable="false" style="border:0px" >
+	    
+	  <h:form id="f2">
+	  			
+		    <p:outputPanel id="standardDetail" style="text-align:center;">
+		    
+				<p:messages id="saveMessage" autoUpdate="true" for="save"  closable="true"/>
+				<p:messages id="deleteConfirmBox"  autoUpdate="true" for="delete" closable="true"/>
+				
+		        <p:panelGrid  columns="3" rendered="#{not empty standardDataTable.selectedStandardRegisterPojo}">
+		            <h:outputText value="Identifier :" />
+		            <h:outputText value="#{standardDataTable.selectedStandardRegisterPojo.key}" />
+					<h:panelGroup/>
+					
+		            <h:outputText value="Standard Name : " />
+		           <h:inputText id="StandardName" maxlength="63"  name="StandardName" value="#{standardDataTable.selectedStandardRegisterPojo.standardName}" style="margin-right:15px; margin-top:15px;"  requiredMessage="Please enter the Standard Name" required="true"/>
+					<p:message for="StandardName" style="color:red" />
+		            
+		
+					<h:outputText value="Standard Description : " />
+					<h:inputTextarea id="Description" rows="5" cols="5"  name="Description" value="#{standardDataTable.selectedStandardRegisterPojo.standardDesc}" style="margin-right:15px;"  a:maxlength="254"/>
+		            <p:message for="Description" style="color:red" />
+		            
+		            <h:outputText value="Branch Name : " />
+		            <h:selectOneMenu id="branches" value="#{standardDataTable.selectedStandardRegisterPojo.branchId}" required="true" requiredMessage="Please select a valid Branch." style="margin-right:15px;" validator="#{standardDataTable.validateBranchesLOV}">
+	    					<f:selectItems value="#{standardDataTable.selectedStandardRegisterPojo.availableBranches}" var="bran" itemValue="#{bran.branchId}" itemLabel="#{bran.branchName}" />
+					</h:selectOneMenu>
+		            <p:message for="branches" style="color:red" />
+		            
+		       </p:panelGrid>
+		       <p:commandButton value="Save" id="save" actionListener="#{standardDataTable.updateStandard}" update="standardDetail" style="font-size: 0.9em;"/>
+		             
+		       <p:commandButton id="delete" value="Delete" actionListener="#{standardDataTable.deleteStandard}" update="deleteConfirmBox" style="margin-left: 25px;font-size: 0.9em;">
+				  <p:confirm header="Confirmation" message="Are you sure?" icon="ui-icon-alert" />
+				</p:commandButton>
+				 
+			   <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+				  <p:commandButton value="Yes" id="deleteConfirm" type="button" styleClass="ui-confirmdialog-yes" style=" margin-left: 25px;" update="form"/>
+				  <p:commandButton value="No" styleClass="ui-confirmdialog-no" type="button"/>
+			   </p:confirmDialog>
+			   
+			   <p:commandButton value="Close" id="close" immediate="true"  actionListener="#{standardDataTable.closeStandardDialog}" style=" margin-left: 25px;font-size: 0.9em;"/>
+			   
+		    </p:outputPanel>
+		    
+		   </h:form>
+	    </p:dialog>
+	 
+	</h:form>
+		
+    </body>
+    
+</html>
+
