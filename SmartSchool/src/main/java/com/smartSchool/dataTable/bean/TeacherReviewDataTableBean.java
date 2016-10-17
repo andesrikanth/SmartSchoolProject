@@ -19,6 +19,7 @@ import org.primefaces.model.LazyDataModel;
 
 import com.smartSchool.dataTable.JsfTableDataModel;
 import com.smartSchool.facade.SmartSchoolFacade;
+import com.smartSchoolService.pojo.StudentPojo;
 import com.smartSchoolService.pojo.TeacherRegisterPojo;
 
 @ManagedBean(name="teacherDataTable")
@@ -31,6 +32,7 @@ public class TeacherReviewDataTableBean  implements Serializable {
 	private List<TeacherRegisterPojo> list;
 	    
 	private TeacherRegisterPojo selectedTeacherRegisterPojo;
+	private TeacherRegisterPojo backupSelectedTeacherRegisterPojo;
 	private boolean teacherUpdateStatus;
 	
 	@PostConstruct
@@ -43,6 +45,17 @@ public class TeacherReviewDataTableBean  implements Serializable {
 		   
 		   lazyDataModel = new JsfTableDataModel(defaultSelectQuery,defaultCountQuery,"getAvailableTeachersListForDataTable");
 	   }
+
+	
+	public TeacherRegisterPojo getBackupSelectedTeacherRegisterPojo() {
+		return backupSelectedTeacherRegisterPojo;
+	}
+
+
+	public void setBackupSelectedTeacherRegisterPojo(TeacherRegisterPojo backupSelectedTeacherRegisterPojo) {
+		this.backupSelectedTeacherRegisterPojo = backupSelectedTeacherRegisterPojo;
+	}
+
 
 	public LazyDataModel<TeacherRegisterPojo> getLazyDataModel() {
 		return lazyDataModel;
@@ -78,7 +91,15 @@ public class TeacherReviewDataTableBean  implements Serializable {
 
 	public void onRowSelect(SelectEvent event) {
 		
-		System.out.println("selected Teacher : "+ this.getSelectedTeacherRegisterPojo().getKey());
+		System.out.println("selected Teacher : "+ this.getBackupSelectedTeacherRegisterPojo().getKey());
+		
+		try {
+			this.setSelectedTeacherRegisterPojo((TeacherRegisterPojo)backupSelectedTeacherRegisterPojo.clone());
+		} catch (CloneNotSupportedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		if(selectedTeacherRegisterPojo.getAvailableBranches() == null){
 			SmartSchoolFacade smartSchoolFacade = new SmartSchoolFacade();
 			selectedTeacherRegisterPojo.setAvailableBranches(smartSchoolFacade.getAvailableBranchesList());

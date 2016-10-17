@@ -32,6 +32,8 @@ public class StudentReviewDataTableBean implements Serializable {
 	private List<StudentPojo> list;
 	    
 	private StudentPojo selectedStudentRegisterPojo;
+	private StudentPojo backupSelectedStudentRegisterPojo;
+	
 	private boolean studentUpdateStatus;
 	
 	 @PostConstruct
@@ -79,7 +81,14 @@ public class StudentReviewDataTableBean implements Serializable {
 
 	public void onRowSelect(SelectEvent event) {
 		
-		System.out.println("selected Student : "+ this.getSelectedStudentRegisterPojo().getKey());
+		System.out.println("selected Student : "+ this.getBackupSelectedStudentRegisterPojo().getKey());
+		
+		try {
+			this.setSelectedStudentRegisterPojo((StudentPojo)backupSelectedStudentRegisterPojo.clone());
+		} catch (CloneNotSupportedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		if(selectedStudentRegisterPojo.getAvailableBranches() == null){
 			SmartSchoolFacade smartSchoolFacade = new SmartSchoolFacade();
@@ -159,13 +168,17 @@ public class StudentReviewDataTableBean implements Serializable {
 			SmartSchoolFacade smartSchoolFacade = new SmartSchoolFacade();
 			List<ChoiceListPojo.AvailableStandards> avblStandards = smartSchoolFacade.getAvailableStandardsList(selectedStudentRegisterPojo.getSelectedBranchId(),selectedStudentRegisterPojo.getSelectedStandardId());
 			selectedStudentRegisterPojo.setAvailableStandards(avblStandards);
-			if(avblStandards.size()==0){
+			
+			/*if(avblStandards.size()==0){
 				selectedStudentRegisterPojo.setSelectedStandardId(null);
 				selectedStudentRegisterPojo.setStandardName(null);
 			}
 			else {
 				selectedStudentRegisterPojo.setSelectedStandardId(avblStandards.get(0).getStandardId());
 			}
+			*/
+			selectedStudentRegisterPojo.setSelectedStandardId(null);
+			selectedStudentRegisterPojo.setStandardName(null);
 			selectedStudentRegisterPojo.setAvailableSections(null);
 			selectedStudentRegisterPojo.setSelectedSectionId(null);
 			selectedStudentRegisterPojo.setSectionName(null);
@@ -283,6 +296,18 @@ public class StudentReviewDataTableBean implements Serializable {
 		
 		studentUpdateStatus=false;
 		
+	}
+
+
+
+	public StudentPojo getBackupSelectedStudentRegisterPojo() {
+		return backupSelectedStudentRegisterPojo;
+	}
+
+
+
+	public void setBackupSelectedStudentRegisterPojo(StudentPojo backupSelectedStudentRegisterPojo) {
+		this.backupSelectedStudentRegisterPojo = backupSelectedStudentRegisterPojo;
 	}
 	
 	
