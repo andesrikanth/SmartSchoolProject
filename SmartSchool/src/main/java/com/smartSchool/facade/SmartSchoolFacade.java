@@ -10,6 +10,7 @@ import com.smartSchoolService.pojo.StandardRegisterPojo;
 import com.smartSchoolService.pojo.StudentPojo;
 import com.smartSchoolService.pojo.SubjectRegisterPojo;
 import com.smartSchoolService.pojo.TeacherRegisterPojo;
+import com.smartSchoolService.pojo.TimeTablePojoBean;
 import com.smartSchoolService.util.ChoiceListPojo;
 import com.smartSchoolService.util.DeleteCommonUtil;
 import com.smartSchoolService.util.FetchCommonUtil;
@@ -31,7 +32,7 @@ public class SmartSchoolFacade {
 		
 	}
 	
-public String resetUserPassword(String userName,String password){
+	public String resetUserPassword(String userName,String password){
 		
 		LoginHelper loginHelper =new LoginHelper();
 		String status=loginHelper.resetUserPassword(userName,password);
@@ -183,5 +184,10 @@ public String resetUserPassword(String userName,String password){
 	public String deleteSection(Long sectionId){
 		DeleteCommonUtil commonUtil =new DeleteCommonUtil();
 		return commonUtil.deleteSection(sectionId);
+	}
+	
+	public String createTimeTableTemplate(List<TimeTablePojoBean> timeTableTemplateEntries, int noOfBlockedSlots, String userName){
+		RegisterCommonUtil commonUtil =new RegisterCommonUtil();
+		return commonUtil.createTimeTableTemplate(timeTableTemplateEntries, noOfBlockedSlots, userName);
 	}
 }

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"      
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:pe="http://primefaces.org/ui/extensions">
+ <!-- Test URL : http://localhost:8080/SmartSchool/home.jsf -->
+ <h:head></h:head>
+ 
+  <f:metadata>
+	    <f:viewAction action="#{commonBean.adminSessionStatusCheck}" />
+	</f:metadata>
+ 
+    <h:body>
+		    <h:form id="form">
+		   
+		   <p:messages id="saveMessage" autoUpdate="true" for="create"  closable="true"/>
+		   
+		    <p:dataGrid var="timeTable" value="#{timeTableTemplateView.timeTableBean}" paginator="true" paginatorTemplate="{CurrentPageReport} {PageLinks}" rows="12" columns="12" layout="grid"
+		        id="timeTables" class="timeTables">
+		 
+		        <f:facet name="header">
+		            Timetable Template
+		        </f:facet>
+		 
+		 		<p:panel header="Slot-#{timeTable.id}" id="timeTableTemplatePanel"  style="text-align: center; border: 1px solid #a8a8a8;"  >
+		            <h:panelGrid columns="1">
+	                    
+	                    <pe:timePicker value="#{timeTable.fromTime}" alt="Start Time"  id="fromTime" mode="popup" widgetVar="popupTimeWidget" style="width: 35px;"
+	                   		label="Popup time picker">
+	                   	</pe:timePicker>
+	                   	
+			            <h:outputText value="to"/>
+			            
+			           <pe:timePicker value="#{timeTable.toTime}" alt="End Time" id="toTime" mode="popup" widgetVar="popupTimeWidget" style="width: 35px; margin-top: 15%;"
+	                   		label="Popup time picker"/>
+	                   		
+	                   	<!-- DON'T REMOVE ::: DUMMY CODE START : The below panelGroup code is written just to workaround a bug in primefaces. Bug is that if we select the "fromTime", then the last column in the grid will be auto-populated with the selected "fromTime" value. Keeping the below
+	                   	code will do the autoPopulating to the below hidden column and end user will not see the autoPopulated value. -->
+	                   	<h:panelGroup style="display:none">
+	                   		<pe:timePicker id="dummy" mode="popup" widgetVar="popupTimeWidget"  style="width: 35px;"
+	                   		label="Popup time picker"/>
+	                   	</h:panelGroup> 
+	                   	<!--  END OF DUMMY CODE TO WORK AROUND THE BUG IN PRIMEFACES -->  
+	                   	
+		            </h:panelGrid>
+		        </p:panel>
+		     
+		    </p:dataGrid>
+		  	
+		 <!-- <h:commandButton class="button submit-btn" actionListener="#{timeTableTemplateView.validateTimeTableTemplate}" value="Validate" style="margin-top: 10px;"  /> -->
+		 <h:commandButton class="button submit-btn" id="create" action="#{timeTableTemplateView.createTimeTableTemplate}" value="Validate and Create" disabled="#{timeTableTemplateView.validationStatus}" style="margin-top: 10px;"  />
+		 
+		<!--  <h:message for="timeTables" style="color: green;" rendered="#{ timeTableTemplateView.validationStatus}}"/>
+		 <h:message for="timeTables" style="color: red;" rendered="#{!timeTableTemplateView.validationStatus}}"/> -->
+					
+		</h:form>
+    </h:body>
+</html>

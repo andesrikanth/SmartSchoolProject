@@ -29,7 +29,7 @@ public class AdminBean  implements Serializable {
 		
 		model = new DefaultMenuModel();
         
-		//Register submenu
+		//<!------------------    Register submenu -----c--->
 		DefaultSubMenu registerSubmenu = new DefaultSubMenu("Register");
         
         DefaultMenuItem item = new DefaultMenuItem("Branch Register");
@@ -73,7 +73,7 @@ public class AdminBean  implements Serializable {
         model.addElement(registerSubmenu);
         
 		
-		
+		//<!-----------------------------    Review  submenu --------------------------->
         DefaultSubMenu reviewSubmenu = new DefaultSubMenu("Review");
          
         item = new DefaultMenuItem("Review Subjects");
@@ -114,7 +114,21 @@ public class AdminBean  implements Serializable {
         
         model.addElement(reviewSubmenu);
         
-      //Second submenu
+        //<!-----------------------------    Create submenu --------------------------->
+        DefaultSubMenu createSubmenu = new DefaultSubMenu("Create");
+        
+        item = new DefaultMenuItem("Create Timetable Template");
+        item.setCommand("#{adminBean.selectTargetRenderPage}");
+        item.setUpdate("pg1");
+        item.setParam("targetPageParam", "TimeTableTemplate.xhtml");
+        createSubmenu.addElement(item);
+        
+        model.addElement(createSubmenu);
+        
+       
+        
+        
+        //Second submenu
         DefaultSubMenu secondSubmenu = new DefaultSubMenu("Dynamic Actions");
  
         item = new DefaultMenuItem("Save");
@@ -154,6 +168,7 @@ public class AdminBean  implements Serializable {
 		FacesContext.getCurrentInstance().getViewRoot().getViewMap().remove("branchRegisterBean");
 		FacesContext.getCurrentInstance().getViewRoot().getViewMap().remove("subjectRegisterBean");
 		FacesContext.getCurrentInstance().getViewRoot().getViewMap().remove("teacherBean");
+		FacesContext.getCurrentInstance().getViewRoot().getViewMap().remove("timeTableTemplateView");
 		
 		Map<String,String> params =	FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
 		Object out=params.get("targetPageParam");

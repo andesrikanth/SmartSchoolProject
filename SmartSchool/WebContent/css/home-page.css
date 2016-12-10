@@ -5,6 +5,32 @@
 
 /* Start : Below styles classes for primefaces customizations*/
 
+/* below are for TimeTable dataGrid */
+
+.timeTables .ui-widget-content {
+    border: 1px solid #a8a8a8 !important;
+}
+
+.timeTables .ui-panel-content {
+    border:0px !important;
+}
+
+.ui-inputfield {
+	font-size: 12px !important;
+}
+
+.pe-timepicker input {
+	font-size: 13px !important;
+}
+
+.ui-panel-title {
+    margin: 0.1em 0.5px 0.2em 0  !important;
+    font-size: 0.9em  !important;
+}
+
+/* End of TimeTable dataGrid related changes */
+
+
 /* below are for datatable*/
 .ui-widget-content {
 	border:0px !important;

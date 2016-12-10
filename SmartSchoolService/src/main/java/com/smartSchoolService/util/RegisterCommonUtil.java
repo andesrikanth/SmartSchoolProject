@@ -4,7 +4,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.sql.Time;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -17,6 +19,7 @@ import com.smartSchoolService.pojo.StandardRegisterPojo;
 import com.smartSchoolService.pojo.StudentPojo;
 import com.smartSchoolService.pojo.SubjectRegisterPojo;
 import com.smartSchoolService.pojo.TeacherRegisterPojo;
+import com.smartSchoolService.pojo.TimeTablePojoBean;
 
 public class RegisterCommonUtil {
 
@@ -483,6 +486,77 @@ public class RegisterCommonUtil {
 			e.printStackTrace();
 		}
 		
+		return status;
+	}
+	
+	public String createTimeTableTemplate(List<TimeTablePojoBean> timeTableTemplateEntries,int noOfBlockedSlots, String userName){
+		String status = "true";
+		try {
+			StringBuilder dynamicQuery = new StringBuilder("INSERT INTO TIME_TABLE_TEMPLATES (NO_OF_SLOTS_USED, CREATED_BY, LAST_UPDATED_BY ");
+			for(int i =1;i<=noOfBlockedSlots;i++){
+				dynamicQuery.append(", SLOT"+i+"_FROM, SLOT"+i+"_TO");
+			}
+			
+			dynamicQuery.append(") VALUES(?,?,?");
+			
+			for(int i =1;i<=noOfBlockedSlots;i++){
+				dynamicQuery.append(",?,?");
+			}
+			dynamicQuery.append(");");
+			
+			System.out.println("Generated dynamicQuery "+dynamicQuery);
+			DatabaseUtility databaseUtility =new DatabaseUtility();
+			Connection con=databaseUtility.getConnection();
+			PreparedStatement stmt = null;
+			try{
+				
+				stmt = con.prepareStatement(dynamicQuery.toString());
+				stmt.setLong(1, new Long(noOfBlockedSlots));
+				stmt.setString(2, userName);
+				stmt.setString(3, userName);
+				
+				int backupValue=3;
+				for(int i =1;i<=noOfBlockedSlots;i++){
+					
+					Date fromDate=timeTableTemplateEntries.get(i-1).getFromTime();
+					Date toDate = timeTableTemplateEntries.get(i-1).getToTime();
+					
+					
+					Time fromTime = new Time(fromDate.getTime());
+					Time toTime = new Time(toDate.getTime());
+					
+					stmt.setTime(backupValue+i,fromTime );
+					stmt.setTime(backupValue+1+i,toTime );
+					backupValue=backupValue+1;
+				}
+				
+				
+				int out=stmt.executeUpdate();
+				//int out = stmt.executeUpdate("INSERT INTO CLASS_AVBL_STANDARDS(STANDARD_NAME, DESCRIPTION, CREATED_BY,  LAST_UPDATED_BY) VALUES('"+standardRegisterPojo.getStandardName()+"', '"+standardRegisterPojo.getStandardDesc()+"','"+standardRegisterPojo.getCreatedByUserName()+"','"+standardRegisterPojo.getCreatedByUserName()+"');" );
+		        if(out == 0){
+		        	status="false";
+		        }
+		        
+		        con.commit();
+			}
+			catch(Exception e){
+				status="false";
+				e.printStackTrace();
+			}
+			finally{
+				stmt.close();
+				databaseUtility.closeConnection(con);
+			}
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			status="false";
+			if(e!=null && e.getCause()!=null) {
+				status=e.getCause().toString();
+			}
+			
+			e.printStackTrace();
+		}
 		return status;
 	}
 
