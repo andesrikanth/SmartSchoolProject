@@ -69,7 +69,8 @@ public class AdminBean  implements Serializable {
         item.setUpdate("pg1");
         item.setParam("targetPageParam", "TeacherRegister.xhtml");
         registerSubmenu.addElement(item);
-       
+        
+        registerSubmenu.setExpanded(true);
         model.addElement(registerSubmenu);
         
 		
@@ -112,6 +113,26 @@ public class AdminBean  implements Serializable {
         item.setParam("targetPageParam", "ReviewSections.xhtml");
         reviewSubmenu.addElement(item);
         
+        item = new DefaultMenuItem("Review Section Timetable");
+        item.setCommand("#{adminBean.selectTargetRenderPage}");
+        item.setUpdate("pg1");
+        item.setParam("targetPageParam", "ReviewSections.xhtml");
+        reviewSubmenu.addElement(item);
+        
+        item = new DefaultMenuItem("Review Teacher Timetable");
+        item.setCommand("#{adminBean.selectTargetRenderPage}");
+        item.setUpdate("pg1");
+        item.setParam("targetPageParam", "ReviewSections.xhtml");
+        reviewSubmenu.addElement(item);
+        
+        item = new DefaultMenuItem("Review Fee Defaulters");
+        item.setCommand("#{adminBean.selectTargetRenderPage}");
+        item.setUpdate("pg1");
+        item.setParam("targetPageParam", "ReviewSections.xhtml");
+        reviewSubmenu.addElement(item);
+        
+        
+        reviewSubmenu.setExpanded(false);
         model.addElement(reviewSubmenu);
         
         //<!-----------------------------    Create submenu --------------------------->
@@ -122,28 +143,42 @@ public class AdminBean  implements Serializable {
         item.setUpdate("pg1");
         item.setParam("targetPageParam", "TimeTableTemplate.xhtml");
         createSubmenu.addElement(item);
-        
+       
+        item = new DefaultMenuItem("Create Section Timetable");
+        item.setCommand("#{adminBean.selectTargetRenderPage}");
+        item.setUpdate("pg1");
+        item.setParam("targetPageParam", "SectionTimeTable.xhtml");
+        createSubmenu.addElement(item);
+       
+        createSubmenu.setExpanded(false);
         model.addElement(createSubmenu);
         
        
         
         
         //Second submenu
-        DefaultSubMenu secondSubmenu = new DefaultSubMenu("Dynamic Actions");
+        DefaultSubMenu secondSubmenu = new DefaultSubMenu("Actions");
  
-        item = new DefaultMenuItem("Save");
-        //item.setIcon("ui-icon-home");
-        item.setUrl("http://www.primefaces.org");
-        item.setParam("targetPageParam", "");
-        secondSubmenu.addElement(item);
-         
-        item = new DefaultMenuItem("Delete");
-        //item.setIcon("ui-icon-close");
-        item.setCommand("#{menuView.delete}");
-        item.setAjax(false);
-        item.setParam("targetPageParam", "");
+        
+        item = new DefaultMenuItem("Homework");
+        item.setCommand("#{adminBean.selectTargetRenderPage}");
+        item.setUpdate("pg1");
+        item.setParam("targetPageParam", "TimeTableTemplate.xhtml");
         secondSubmenu.addElement(item);
         
+        item = new DefaultMenuItem("Evaluation Scores");
+        item.setCommand("#{adminBean.selectTargetRenderPage}");
+        item.setUpdate("pg1");
+        item.setParam("targetPageParam", "TimeTableTemplate.xhtml");
+        secondSubmenu.addElement(item);
+        
+        item = new DefaultMenuItem("Student Fee Payments");
+        item.setCommand("#{adminBean.selectTargetRenderPage}");
+        item.setUpdate("pg1");
+        item.setParam("targetPageParam", "TimeTableTemplate.xhtml");
+        secondSubmenu.addElement(item);
+        
+        secondSubmenu.setExpanded(false);
         model.addElement(secondSubmenu);
 	}
 
@@ -169,6 +204,7 @@ public class AdminBean  implements Serializable {
 		FacesContext.getCurrentInstance().getViewRoot().getViewMap().remove("subjectRegisterBean");
 		FacesContext.getCurrentInstance().getViewRoot().getViewMap().remove("teacherBean");
 		FacesContext.getCurrentInstance().getViewRoot().getViewMap().remove("timeTableTemplateView");
+		FacesContext.getCurrentInstance().getViewRoot().getViewMap().remove("sectionTimetable");
 		
 		Map<String,String> params =	FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
 		Object out=params.get("targetPageParam");

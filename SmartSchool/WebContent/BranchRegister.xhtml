@@ -20,11 +20,11 @@
 						
 		        <h:form id="register">
 				    <h:panelGrid id="panel" columns="3" border="1" cellpadding="100" cellspacing="10" rendered="#{!branchRegisterBean.branchRegisterStatus}" >
-						<h:outputText id="o1" value="Branch Name" style="margin-right:15px;font-weight:bold;"></h:outputText>
+						<h:outputText id="o1" value="Branch Name"  styleClass="required" style="margin-right:15px;font-weight:bold;"></h:outputText>
 						<h:inputText id="BranchName" maxlength="63" name="BranchName" value="#{branchRegisterBean.branchName}" style="margin-right:15px;"  requiredMessage="Please enter the Branch Name" required="true" a:placeholder="Branch Name"/>
 						<h:message for="BranchName" style="color:red" />
 						
-						<h:outputText id="o2" value="Address" style="margin-right:15px;font-weight:bold;"></h:outputText>
+						<h:outputText id="o2" value="&nbsp;  Address"  escape="false"  style="margin-right:15px;font-weight:bold;"></h:outputText>
 						<h:inputTextarea id="Address" rows="5" cols="5"  name="Address" value="#{branchRegisterBean.branchAddress}" style="margin-right:15px; margin-top:15px;"  a:placeholder="Address" a:maxlength="510"/>
 			        	<h:message for="Address" style="color:red" />
 						

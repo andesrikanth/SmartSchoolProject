@@ -21,7 +21,7 @@
 		        <h:form id="register">
 				    <h:panelGrid id="panel" columns="3" border="1" cellpadding="100" cellspacing="10" rendered="#{!registerBean.standardRegisterStatus}" >
 						
-						<h:outputText id="o11" value="Branch" style="margin-right:15px;font-weight:bold;"></h:outputText>
+						<h:outputText id="o11" value="Branch" escape="false"  styleClass="required"  style="margin-right:15px;font-weight:bold;"></h:outputText>
 			            <h:selectOneMenu id="branches" value="#{registerBean.selectedBranchId}" valueChangeListener="#{registerBean.branchesLOVChange}" style="margin-right:15px; margin-top:15px;" validator="#{registerBean.validateBranchesLOV}">
 			            	<f:selectItem  itemValue="0" itemLabel="Select a Branch.."></f:selectItem>
 	    					<f:selectItems value="#{registerBean.availableBranches}" var="bran" itemValue="#{bran.branchId}" itemLabel="#{bran.branchName}" />
@@ -29,11 +29,11 @@
 						<h:message for="branches" style="color: red;" />
 						
 												
-						<h:outputText id="o1" value="Standard Name" style="margin-right:15px;font-weight:bold;"></h:outputText>
+						<h:outputText id="o1" value="Standard Name"  styleClass="required"   style="margin-right:15px;font-weight:bold;"></h:outputText>
 						<h:inputText id="StandardName" maxlength="63" name="StandardName" value="#{registerBean.standardName}" style="margin-right:15px; margin-top:15px;"  requiredMessage="Please enter the Standard Name" required="true" a:placeholder="Standard Name"/>
 						<h:message for="StandardName" style="color:red" />
 						
-						<h:outputText id="o2" value="Description" style="margin-right:15px;font-weight:bold;"></h:outputText>
+						<h:outputText id="o2" value="&nbsp; Description" escape="false" style="margin-right:15px;font-weight:bold;"></h:outputText>
 						<h:inputTextarea id="Description" rows="5" cols="5"  name="Description" value="#{registerBean.standardDesc}" style="margin-right:15px;"  a:placeholder="Description" a:maxlength="254"/>
 			        	<h:message for="Description" style="color:red" />
 						

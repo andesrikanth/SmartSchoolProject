@@ -6,6 +6,7 @@ import java.util.List;
 import com.smartSchoolService.login.LoginHelper;
 import com.smartSchoolService.pojo.BranchRegisterPojo;
 import com.smartSchoolService.pojo.SectionRegisterPojo;
+import com.smartSchoolService.pojo.SectionTimeTablePojo;
 import com.smartSchoolService.pojo.StandardRegisterPojo;
 import com.smartSchoolService.pojo.StudentPojo;
 import com.smartSchoolService.pojo.SubjectRegisterPojo;
@@ -47,17 +48,17 @@ public class SmartSchoolFacade {
 	}
 	
 	public List<ChoiceListPojo.AvailableBranches> getAvailableBranchesList(){
-		RegisterCommonUtil commonUtil =new RegisterCommonUtil();
+		FetchCommonUtil commonUtil =new FetchCommonUtil();
 		return commonUtil.getAvailableBranchesList();
 	}
 	
 	public List<ChoiceListPojo.AvailableStandards> getAvailableStandardsList(Long branchId, Long ignoreStandardId){
-		RegisterCommonUtil commonUtil =new RegisterCommonUtil();
+		FetchCommonUtil commonUtil =new FetchCommonUtil();
 		return commonUtil.getAvailableStandardsList(branchId,ignoreStandardId);
 	}
 	
 	public List<ChoiceListPojo.AvailableSections> getAvailableSectionsList(Long selectedBranchId, Long standardId, Long ignoreSectionId){
-		RegisterCommonUtil commonUtil =new RegisterCommonUtil();
+		FetchCommonUtil commonUtil =new FetchCommonUtil();
 		return commonUtil.getAvailableSectionsList(selectedBranchId,standardId,ignoreSectionId);
 	}
 	
@@ -186,8 +187,40 @@ public class SmartSchoolFacade {
 		return commonUtil.deleteSection(sectionId);
 	}
 	
-	public String createTimeTableTemplate(List<TimeTablePojoBean> timeTableTemplateEntries, int noOfBlockedSlots, String userName){
+	public String createTimeTableTemplate(List<TimeTablePojoBean> timeTableTemplateEntries, int noOfBlockedSlots, String userName, String templateName){
 		RegisterCommonUtil commonUtil =new RegisterCommonUtil();
-		return commonUtil.createTimeTableTemplate(timeTableTemplateEntries, noOfBlockedSlots, userName);
+		return commonUtil.createTimeTableTemplate(timeTableTemplateEntries, noOfBlockedSlots, userName, templateName);
 	}
+	
+	public String createSectionTimeTableTemplate(List<SectionTimeTablePojo> sectionTimeTableList, Long selectedTimeTableTemplateId, Long selectedSectionId, String[] dayOfWeek, String userName){
+		RegisterCommonUtil commonUtil =new RegisterCommonUtil();
+		return commonUtil.createSectionTimeTableTemplate(sectionTimeTableList, selectedTimeTableTemplateId, selectedSectionId, dayOfWeek, userName);
+	}
+	
+	public List<ChoiceListPojo.AvailableTimetableTemplates> getAvailableTimetableTemplatesList(){
+		FetchCommonUtil commonUtil =new FetchCommonUtil();
+		return commonUtil.getAvailableTimetableTemplatesList();
+	}
+	
+	public List<SubjectRegisterPojo> getAvailableSubjectsListForBranch(Long branchId){
+		FetchCommonUtil commonUtil =new FetchCommonUtil();
+		return commonUtil.getAvailableSubjectsListForBranch(branchId);
+	}
+	
+	public List<TeacherRegisterPojo> getAvailableTeachersListForBranch(Long branchId){
+		FetchCommonUtil commonUtil =new FetchCommonUtil();
+		return commonUtil.getAvailableTeachersListForBranch(branchId);
+	}
+	
+	public List<SectionTimeTablePojo> getTimeTableTemplateDetailsForId(Long timeTableTemplateId){
+		FetchCommonUtil commonUtil =new FetchCommonUtil();
+		return commonUtil.getTimeTableTemplateDetailsForId(timeTableTemplateId);
+	}
+	
+	public boolean checkForExistingTimeTableForSection(Long sectionId){
+		FetchCommonUtil commonUtil =new FetchCommonUtil();
+		return commonUtil.checkForExistingTimeTableForSection(sectionId);
+	}
+	
+	
 }

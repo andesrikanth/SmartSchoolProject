@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"      
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:pe="http://primefaces.org/ui/extensions"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
+ <!-- Test URL : http://localhost:8080/SmartSchool/home.jsf -->
+ <h:head>
+
+ </h:head>
+ 
+ <!--  <f:metadata>
+	    <f:viewAction action="#{commonBean.adminSessionStatusCheck}" />
+	</f:metadata> -->
+ 
+    <h:body>
+	   <h:form id="sectionTimeTable" style="margin: 0 0 0px;">
+	   				<p:messages id="initializeMessage" autoUpdate="true" for="initialize"  closable="true"/>
+				    <h:panelGrid id="panel" columns="3" border="1" cellpadding="100" cellspacing="10" >
+						
+						<h:outputText id="o11" value="Branch"  styleClass="required" style="margin-right:15px;font-weight:bold;"></h:outputText>
+			            <h:selectOneMenu id="branches" value="#{sectionTimetable.selectedBranchId}" disabled="#{sectionTimetable.initializeStatus}" valueChangeListener="#{sectionTimetable.branchesLOVChange}" style="margin-right:15px; margin-top:15px;" validator="#{sectionTimetable.validateBranchesLOV}">
+			            	<f:selectItem  itemValue="0" itemLabel="Select a Branch.."></f:selectItem>
+	    					<f:selectItems value="#{sectionTimetable.availableBranches}" var="bran" itemValue="#{bran.branchId}" itemLabel="#{bran.branchName}" />
+	    					<f:ajax render="standards"/>
+	    					<f:ajax render="sections"/>
+						 </h:selectOneMenu>
+						<h:message for="branches" style="color: red;" />
+						
+						<h:outputText id="o12" value="Standard" styleClass="required"  style="margin-right:15px;font-weight:bold;"></h:outputText>
+			            <h:selectOneMenu id="standards" value="#{sectionTimetable.selectedStandardId}" disabled="#{sectionTimetable.initializeStatus}" style="margin-right:15px; margin-top:15px;"  valueChangeListener="#{sectionTimetable.standardsLOVChange}"  validator="#{sectionTimetable.validateStandardsLOV}">
+			            	<f:selectItem  itemValue="0" itemLabel="Select a Standard.."></f:selectItem>
+	    					<f:selectItems value="#{sectionTimetable.availableStandards}" var="stand" itemValue="#{stand.standardId}" itemLabel="#{stand.standardName}" />
+	    					<f:ajax render="sections"/>
+						 </h:selectOneMenu>
+						<h:message for="standards" style="color: red;" />
+						
+						<h:outputText id="o13" value="Section"  styleClass="required" style="margin-right:15px;font-weight:bold;"></h:outputText>
+						<h:selectOneMenu id="sections" value="#{sectionTimetable.selectedSectionId}" disabled="#{sectionTimetable.initializeStatus}" style="margin-right:15px; margin-top:15px;"  validator="#{sectionTimetable.validateSectionsLOV}">
+							<f:selectItem  itemValue="0" itemLabel="Select a Section.."></f:selectItem>
+	    					<f:selectItems value="#{sectionTimetable.availableSections}" var="sec" itemValue="#{sec.sectionId}" itemLabel="#{sec.sectionName}" />
+						 </h:selectOneMenu>
+						 <h:message for="sections" style="color: red;" />
+						 
+						 <h:outputText id="o14" value="Timetable Template"  styleClass="required" style="margin-right:15px;font-weight:bold;"></h:outputText>
+						<h:selectOneMenu id="templates" value="#{sectionTimetable.selectedTimetableTemplateId}" disabled="#{sectionTimetable.initializeStatus}" style="margin-right:15px; margin-top:15px;"  validator="#{sectionTimetable.validateTimetableTemplateLOV}">
+							<f:selectItem  itemValue="0" itemLabel="Select a Timetable Template.."></f:selectItem>
+	    					<f:selectItems value="#{sectionTimetable.availableTimetableTemplates}" var="sec" itemValue="#{sec.templateId}" itemLabel="#{sec.templateName}" />
+						 </h:selectOneMenu>
+						 <h:message for="templates" style="color: red;" />
+						 
+						  <h:outputText id="o15" value="Day of Week"  styleClass="required" style="margin-right:15px;font-weight:bold;"></h:outputText>
+						 <p:selectCheckboxMenu  id="dayOfWeek" value="#{sectionTimetable.selectedDayOfWeek}" filter="true" label="Day Of Week" disabled="#{sectionTimetable.initializeStatus}" required="true" requiredMessage="Please select atleast one day of the week for creating the timetable." style="margin-right:15px; margin-top:15px;">
+							<f:selectItems value="#{sectionTimetable.dayOfWeekList}"  var="day" itemValue="#{day.dayCode}" itemLabel="#{day.dayMeaning}"/>
+						 </p:selectCheckboxMenu>
+						 <h:message for="dayOfWeek" style="color: red;" />
+						 
+						 <f:facet name="footer">
+						   <h:panelGroup style="display:block; text-align:center">
+						   <p><h:commandButton id="initialize" class="button submit-btn" actionListener="#{sectionTimetable.initializeTimetable}" rendered="#{! sectionTimetable.initializeStatus}" value="Initialize" style="margin-top: 10px;"  /></p>
+						   <p><h:commandButton id="reset" class="button submit-btn" actionListener="#{sectionTimetable.resetTimetable}" rendered="#{sectionTimetable.initializeStatus}" value="Reset" style="margin-top: 10px;"  /></p>
+						   <!-- <h:message for="initialize" style="color: red;" /> -->
+						   </h:panelGroup>
+						</f:facet>
+					</h:panelGrid>
+		        </h:form>
+		        
+		        <h:form id="timetableForm" rendered="#{sectionTimetable.initializeStatus}"  style="margin: 0 0 0px;">
+		   
+				   <p:messages id="saveMessage" autoUpdate="true" for="create"  closable="true"/>
+				   
+				    <p:dataGrid var="timeTable" value="#{sectionTimetable.sectionTimeTableList}"  paginator="true" paginatorTemplate="{CurrentPageReport} {PageLinks}" rows="12" columns="12" layout="grid"
+				        id="timeTables" class="sectiontimeTables">
+				 
+				        <f:facet name="header">
+				            Section Timetable
+				        </f:facet>
+				 
+				 		<p:panel header="#{timeTable.fromTimeString} - #{timeTable.toTimeString}" id="timeTableTemplatePanel" styleClass="sectionTimeTableHeader" style="text-align: center; border: 1px solid #a8a8a8;"  >
+				            <h:panelGrid columns="1">
+								<h:selectOneMenu id="subjects"  value="#{timeTable.subjectId}" styleClass="sectionTimeTableLov" style="margin-right:15px; margin-top:15px;">
+					            	<f:selectItem  itemValue="0" itemLabel="Select a Subject.."></f:selectItem>
+			    					<f:selectItems id="items" value="#{sectionTimetable.availableSubjects}" var="sub" itemValue="#{sub.key}" itemLabel="#{sub.subjectName}" >
+			    					</f:selectItems>
+								</h:selectOneMenu>
+								<h:outputText/>
+						 		<h:selectOneMenu id="teachers" value="#{timeTable.teacherId}" styleClass="sectionTimeTableLov" style="margin-right:15px; margin-top:15px;">
+					            	<f:selectItem  itemValue="0" itemLabel="Select a Teacher.."></f:selectItem>
+			    					<f:selectItems value="#{sectionTimetable.availableTeachers}" var="teach" itemValue="#{teach.key}" itemLabel="#{teach.teacherFirstName} #{teach.teacherLastName}" />
+						 		</h:selectOneMenu>
+				            </h:panelGrid>
+				        </p:panel>
+				     
+				    </p:dataGrid>
+				  	<br></br>
+				  	
+				 <h:commandButton class="button submit-btn" id="create" action="#{sectionTimetable.createSectionTimeTable}" value="Validate and Create" disabled="#{sectionTimetable.timeTableCreationStatus}" style="margin-top: 10px;"  />
+				 
+		</h:form>
+			
+    </h:body>
+</html>

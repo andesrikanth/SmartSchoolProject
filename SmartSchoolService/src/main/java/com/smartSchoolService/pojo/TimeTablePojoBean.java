@@ -1,18 +1,15 @@
 package com.smartSchoolService.pojo;
 
-import java.sql.Time;
 import java.util.Date;
 
 public class TimeTablePojoBean {
 	
 	public TimeTablePojoBean(Long id){
 		this.id = id;
-		/*this.time6 = new Date();*/  
 	}
 	private Date fromTime;
 	private Date toTime;
 	private Long id;
-	private Date time6; 
 	
 	
 	public Long getId() {

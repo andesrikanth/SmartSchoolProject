@@ -21,15 +21,30 @@
 		        <h:form id="register">
 				    <h:panelGrid id="panel" columns="3" border="1" cellpadding="100" cellspacing="10" rendered="#{!subjectRegisterBean.subjectRegisterStatus}" >
 						
-						<h:outputText id="o1" value="Subject Name" style="margin-right:15px;font-weight:bold;"></h:outputText>
+						<h:outputText id="o11" value="Branch" styleClass="required"  style="margin-right:15px;font-weight:bold;"></h:outputText>
+			            <h:selectOneMenu id="branches" value="#{subjectRegisterBean.selectedBranchId}" style="margin-right:15px; margin-top:15px;" validator="#{subjectRegisterBean.validateBranchesLOV}">
+			            	<f:selectItem  itemValue="0" itemLabel="Select a Branch.."></f:selectItem>
+	    					<f:selectItems value="#{subjectRegisterBean.availableBranches}" var="bran" itemValue="#{bran.branchId}" itemLabel="#{bran.branchName}" />
+						 </h:selectOneMenu>
+						<h:message for="branches" style="color: red;" />
+						
+						<h:outputText id="o1" value="Subject Name"  styleClass="required" style="margin-right:15px;font-weight:bold;"></h:outputText>
 						<h:inputText id="SubjectName" maxlength="63"  name="SectionName" value="#{subjectRegisterBean.subjectName}" style="margin-right:15px; margin-top:15px;"  requiredMessage="Please enter the Subject Name" required="true" a:placeholder="Subject Name"/>
 						<h:message for="SubjectName" style="color:red" />
 						
-						<h:outputText id="o2" value="Description" style="margin-right:15px;font-weight:bold;"></h:outputText>
+						<h:outputText id="o2" value="&nbsp; Description" escape="false" style="margin-right:15px;font-weight:bold;"></h:outputText>
 						<h:inputTextarea id="Description" rows="5" cols="5"  name="Description" value="#{subjectRegisterBean.subjectDesc}" style="margin-right:15px;"  a:placeholder="Description" a:maxlength="254"/>
 			        	<h:message for="Description" style="color:red" />
 						
-										
+						<h:outputText value="&lt;br/&gt;" escape="false" />   
+    		            <h:selectManyCheckbox value="#{subjectRegisterBean.subjectType}" valueChangeListener="#{subjectRegisterBean.subjectTypeValueChange}" immediate="true">
+						   <f:selectItem itemValue="SPECIAL" itemLabel="Check this box only if this subject is not a regular subject." />
+						</h:selectManyCheckbox> 
+						<h:outputText value="&lt;br/&gt;" escape="false" /> 
+						
+						<h:outputText value="&lt;br/&gt;" escape="false" /> 
+						<h:outputText value="For example, you need to check this box if the subject type is Lunch/Break time etc" style="font-size: 14px;font-weight: normal;" escape="false" />  	
+						
 						<f:facet name="footer">
 						   <h:panelGroup style="display:block; text-align:center">
 						   <p><h:commandButton class="button submit-btn" action="#{subjectRegisterBean.registerSubject}" value="Save" disabled="#{subjectRegisterBean.subjectRegisterStatus}" style="margin-top: 10px;"  /></p>

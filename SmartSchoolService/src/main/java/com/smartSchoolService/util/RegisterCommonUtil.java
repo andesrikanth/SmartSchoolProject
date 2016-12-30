@@ -5,6 +5,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.sql.Time;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -15,6 +17,7 @@ import com.smartSchoolService.login.RandomPasswordGenerator;
 import com.smartSchoolService.login.SmartSchoolHash;
 import com.smartSchoolService.pojo.BranchRegisterPojo;
 import com.smartSchoolService.pojo.SectionRegisterPojo;
+import com.smartSchoolService.pojo.SectionTimeTablePojo;
 import com.smartSchoolService.pojo.StandardRegisterPojo;
 import com.smartSchoolService.pojo.StudentPojo;
 import com.smartSchoolService.pojo.SubjectRegisterPojo;
@@ -63,125 +66,7 @@ public class RegisterCommonUtil {
 		return status;
 	}
 	
-	public List<ChoiceListPojo.AvailableBranches> getAvailableBranchesList(){
-		ChoiceListPojo choiceListPojo =new ChoiceListPojo();
-		List<ChoiceListPojo.AvailableBranches> availableBranches = new ArrayList<ChoiceListPojo.AvailableBranches>();
-		
-		try {
-			DatabaseUtility databaseUtility =new DatabaseUtility();
-			Connection con=databaseUtility.getConnection();
-			Statement stmt = null;
-			try{
-				
-				stmt = con.createStatement();
-				ResultSet rs = stmt.executeQuery("select BRANCH_ID, BRANCH_NAME FROM SCHOOL_BRANCHES;");
-		        while(rs.next()){
-		        	ChoiceListPojo.AvailableBranches bran= choiceListPojo.new AvailableBranches();
-		        	Long branId = rs.getLong("BRANCH_ID");
-		        	
-		        		bran.setBranchId(branId);
-		        		bran.setBranchName(rs.getString("BRANCH_NAME"));
-		        		availableBranches.add(bran);
-		        			        	
-		        	
-		        }
-			}
-			catch(Exception e){
-				e.printStackTrace();
-			}
-			finally{
-				stmt.close();
-				databaseUtility.closeConnection(con);
-			}
-			
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		return availableBranches;
-	}
 	
-	public List<ChoiceListPojo.AvailableStandards> getAvailableStandardsList(Long branchId, Long ignoreStandardId){
-		ChoiceListPojo choiceListPojo =new ChoiceListPojo();
-		List<ChoiceListPojo.AvailableStandards> availableStandards = new ArrayList<ChoiceListPojo.AvailableStandards>();
-		
-		try {
-			DatabaseUtility databaseUtility =new DatabaseUtility();
-			Connection con=databaseUtility.getConnection();
-			Statement stmt = null;
-			try{
-				
-				stmt = con.createStatement();
-				ResultSet rs = stmt.executeQuery("select STANDARD_ID, STANDARD_NAME FROM CLASS_AVBL_STANDARDS where BRANCH_ID = "+branchId+ ";");
-		        while(rs.next()){
-		        	ChoiceListPojo.AvailableStandards stand= choiceListPojo.new AvailableStandards();
-		        	
-		        	Long standardId =rs.getLong("STANDARD_ID");
-		        	
-		        	//We are having the below condition just to skip the Standard name having the same value as input parameter.
-		        	if(ignoreStandardId==null || (ignoreStandardId !=null && !ignoreStandardId.equals(standardId))){
-		        		stand.setStandardId(standardId);
-			        	stand.setStandardName(rs.getString("STANDARD_NAME"));
-			        	availableStandards.add(stand);
-		        	}
-		        	
-		        }
-			}
-			catch(Exception e){
-				e.printStackTrace();
-			}
-			finally{
-				stmt.close();
-				databaseUtility.closeConnection(con);
-			}
-			
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		return availableStandards;
-	}
-	
-	public List<ChoiceListPojo.AvailableSections> getAvailableSectionsList(Long selectedBranchId, Long standardId, Long ignoreSectionId){
-		ChoiceListPojo choiceListPojo =new ChoiceListPojo();
-		List<ChoiceListPojo.AvailableSections> availableSections = new ArrayList<ChoiceListPojo.AvailableSections>();
-		try {
-			DatabaseUtility databaseUtility =new DatabaseUtility();
-			Connection con=databaseUtility.getConnection();
-			Statement stmt = null;
-			try{
-				
-				stmt = con.createStatement();
-				ResultSet rs = stmt.executeQuery("select SECTION_ID,SECTION_NAME from CLASS_AVBL_SECTIONS where BRANCH_ID= "+selectedBranchId+" AND STANDARD_ID="+standardId+";");
-		        while(rs.next()){
-		        	ChoiceListPojo.AvailableSections stand= choiceListPojo.new AvailableSections();
-		        	Long secId = rs.getLong("SECTION_ID");
-		        	//We are having the below condition just to skip the section name having the same value as input parameter.
-		        	if(ignoreSectionId==null || (ignoreSectionId !=null && !ignoreSectionId.equals(secId))){
-		        		stand.setSectionId(secId);
-			        	stand.setSectionName(rs.getString("SECTION_NAME"));
-			        	availableSections.add(stand);
-		        	}
-		        	
-		        	
-		        }
-			}
-			catch(Exception e){
-				e.printStackTrace();
-			}
-			finally{
-				stmt.close();
-				databaseUtility.closeConnection(con);
-			}
-			
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return availableSections;
-	}
 	
 	public HashMap<String,String> registerStudentDetails(StudentPojo studentPojo){
 		String status = "true";
@@ -446,12 +331,14 @@ public class RegisterCommonUtil {
 			PreparedStatement stmt = null;
 			try{
 				
-				stmt = con.prepareStatement("INSERT INTO SUBJECTS_DETAILS(SUBJECT_NAME, SUBJECT_DESC, CREATED_BY,  LAST_UPDATED_BY) VALUES(?,?,?,?);");
+				stmt = con.prepareStatement("INSERT INTO SUBJECTS_DETAILS(SUBJECT_NAME, SUBJECT_DESC, SUBJECT_TYPE, BRANCH_ID, CREATED_BY,  LAST_UPDATED_BY) VALUES(?,?,?,?,?,?);");
 				
 				stmt.setString(1, subjectRegisterPojo.getSubjectName());
 				stmt.setString(2, subjectRegisterPojo.getSubjectDesc());
-				stmt.setString(3, subjectRegisterPojo.getCreatedByUserName());
-				stmt.setString(4, subjectRegisterPojo.getLastUpdatedByUserName());
+				stmt.setString(3, subjectRegisterPojo.getSubjectType());
+				stmt.setLong(4, subjectRegisterPojo.getSelectedBranchId());
+				stmt.setString(5, subjectRegisterPojo.getCreatedByUserName());
+				stmt.setString(6, subjectRegisterPojo.getLastUpdatedByUserName());
 				
 				int out=stmt.executeUpdate();
 				//int out = stmt.executeUpdate("INSERT INTO CLASS_AVBL_STANDARDS(STANDARD_NAME, DESCRIPTION, CREATED_BY,  LAST_UPDATED_BY) VALUES('"+standardRegisterPojo.getStandardName()+"', '"+standardRegisterPojo.getStandardDesc()+"','"+standardRegisterPojo.getCreatedByUserName()+"','"+standardRegisterPojo.getCreatedByUserName()+"');" );
@@ -464,7 +351,7 @@ public class RegisterCommonUtil {
 			catch(Exception e){
 				status="false";
 				if(e !=null && e.getLocalizedMessage()!=null){
-					if(e.getLocalizedMessage().contains("violates unique constraint \"subjects_details_subject_name_key\"")){
+					if(e.getLocalizedMessage().contains("violates unique constraint \"subjects_details_branch_id_subject_name_key\"")){
 						status="Same subject already exists. Please enter a different Subject Name";
 					}
 				}
@@ -489,15 +376,15 @@ public class RegisterCommonUtil {
 		return status;
 	}
 	
-	public String createTimeTableTemplate(List<TimeTablePojoBean> timeTableTemplateEntries,int noOfBlockedSlots, String userName){
+	public String createTimeTableTemplate(List<TimeTablePojoBean> timeTableTemplateEntries,int noOfBlockedSlots, String userName,String templateName){
 		String status = "true";
 		try {
-			StringBuilder dynamicQuery = new StringBuilder("INSERT INTO TIME_TABLE_TEMPLATES (NO_OF_SLOTS_USED, CREATED_BY, LAST_UPDATED_BY ");
+			StringBuilder dynamicQuery = new StringBuilder("INSERT INTO TIME_TABLE_TEMPLATES (NO_OF_SLOTS_USED, CREATED_BY, LAST_UPDATED_BY,TEMPLATE_NAME ");
 			for(int i =1;i<=noOfBlockedSlots;i++){
 				dynamicQuery.append(", SLOT"+i+"_FROM, SLOT"+i+"_TO");
 			}
 			
-			dynamicQuery.append(") VALUES(?,?,?");
+			dynamicQuery.append(") VALUES(?,?,?,?");
 			
 			for(int i =1;i<=noOfBlockedSlots;i++){
 				dynamicQuery.append(",?,?");
@@ -514,8 +401,9 @@ public class RegisterCommonUtil {
 				stmt.setLong(1, new Long(noOfBlockedSlots));
 				stmt.setString(2, userName);
 				stmt.setString(3, userName);
+				stmt.setString(4, templateName);
 				
-				int backupValue=3;
+				int backupValue=4;
 				for(int i =1;i<=noOfBlockedSlots;i++){
 					
 					Date fromDate=timeTableTemplateEntries.get(i-1).getFromTime();
@@ -541,6 +429,12 @@ public class RegisterCommonUtil {
 			}
 			catch(Exception e){
 				status="false";
+				if(e !=null && e.getLocalizedMessage()!=null){
+					if(e.getLocalizedMessage().contains("violates unique constraint \"time_table_templates_template_name_key\"")){
+						status="Same Template Name already exists. Please enter a different Template Name";
+					}
+				}
+				
 				e.printStackTrace();
 			}
 			finally{
@@ -555,6 +449,203 @@ public class RegisterCommonUtil {
 				status=e.getCause().toString();
 			}
 			
+			e.printStackTrace();
+		}
+		return status;
+	}
+	
+	public Long getNextValueForSequence(String sequenceName)
+	{
+		Long nextval = new Long(1);
+		
+		try {
+			DatabaseUtility databaseUtility =new DatabaseUtility();
+			Connection con=databaseUtility.getConnection();
+			Statement stmt = null;
+			try{
+				
+				stmt = con.createStatement();
+				ResultSet rs = stmt.executeQuery("select NEXTVAL('"+sequenceName+"');");
+		        while(rs.next()){
+		        	nextval=rs.getLong(1);
+		        }
+			}
+			catch(Exception e){
+				e.printStackTrace();
+			}
+			finally{
+				stmt.close();
+				databaseUtility.closeConnection(con);
+			}
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		return nextval;
+	}
+	public String createSectionTimeTableTemplate(List<SectionTimeTablePojo> sectionTimeTableList, Long selectedTimeTableTemplateId, Long selectedSectionId, String[] dayOfWeek, String userName){
+		
+		String status = "true";
+		if(sectionTimeTableList != null && sectionTimeTableList.size()>0){
+			int noOfBlockedSlots= sectionTimeTableList.size();
+			try {
+				String dayOfWeekStr="";
+				
+				if(dayOfWeek != null){
+					for (int k=0;k<dayOfWeek.length;k++){
+						if(k==0){
+							dayOfWeekStr=dayOfWeek[k];
+						}
+						else {
+							dayOfWeekStr=dayOfWeekStr+","+dayOfWeek[k];
+						}
+						
+					}
+				}
+				
+				Long sequenceNextVal = this.getNextValueForSequence("SECTION_SUBJECT_TIME_TABLE_ID_SEQ");
+				
+				boolean localStatus = createSectionTimeTableTemplateChildMethod(sectionTimeTableList,  selectedTimeTableTemplateId,  selectedSectionId, dayOfWeek,  userName,noOfBlockedSlots, sequenceNextVal,dayOfWeekStr);
+				if(!localStatus){
+					sequenceNextVal = this.getNextValueForSequence("SECTION_SUBJECT_TIME_TABLE_ID_SEQ");
+					localStatus = createSectionTimeTableTemplateChildMethod(sectionTimeTableList,  selectedTimeTableTemplateId,  selectedSectionId, dayOfWeek,  userName,noOfBlockedSlots, sequenceNextVal,dayOfWeekStr);
+				}
+				if(localStatus){
+					String sqlQuery = "INSERT INTO TEACHER_SUBJECT_TIME_TABLE (TIME_TABLE_TEMPLATE_ID, SECTION_SUBJECT_TIME_TABLE_ID, TEACHER_ID, SLOT_NUMBER, CREATED_BY, LAST_UPDATED_BY) VALUES (?,?,?,?,?,?);";
+					DatabaseUtility databaseUtility =new DatabaseUtility();
+					Connection con=databaseUtility.getConnection();
+					PreparedStatement stmt = null;
+					try{
+						
+						stmt = con.prepareStatement(sqlQuery);
+						
+						for (int i=1;i<=noOfBlockedSlots;i++){
+							
+							Long localTeacherId = sectionTimeTableList.get(i-1).getTeacherId();
+							stmt.setLong(1, selectedTimeTableTemplateId);
+							stmt.setLong(2, sequenceNextVal);
+							if(localTeacherId != null && localTeacherId == 0){
+								stmt.setNull(3, java.sql.Types.NULL);
+							}
+							else {
+								stmt.setLong(3, localTeacherId);
+							}
+							
+							stmt.setLong(4, i);
+							stmt.setString(5, userName);
+							stmt.setString(6, userName);
+							
+							stmt.addBatch();
+						}
+						
+						
+						stmt.executeBatch();
+				        
+				        con.commit();
+					}
+					catch(Exception e){
+						status="false";
+						//e.printStackTrace();
+						if (e instanceof java.sql.SQLException) {
+						       java.sql.SQLException ne = ((java.sql.SQLException) e).getNextException();
+						       if (ne != null) {
+						    	   ne.printStackTrace();
+						       } 
+						   } else {
+						      e.printStackTrace();
+						   }
+						
+					}
+					finally{
+						stmt.close();
+						databaseUtility.closeConnection(con);
+					}
+				}
+				else {
+					status="false";
+				}
+				
+				
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				status="false";
+				if(e!=null && e.getCause()!=null) {
+					status=e.getCause().toString();
+				}
+				
+				e.printStackTrace();
+			}
+		}
+		else {
+			status ="There are no timeslots defined in the timetable. Please contact product support for assistance.";
+		}
+		
+		return status;
+	}
+	
+	public boolean createSectionTimeTableTemplateChildMethod(List<SectionTimeTablePojo> sectionTimeTableList, Long selectedTimeTableTemplateId, Long selectedSectionId, String[] dayOfWeek, String userName, int noOfBlockedSlots, Long sequenceNextVal, String dayOfWeekStr){
+		boolean status = true;
+		
+		try {
+			
+			StringBuilder dynamicQuery = new StringBuilder("INSERT INTO SECTION_SUBJECT_TIME_TABLE (SECTION_SUBJECT_TIME_TABLE_ID,TEMPLATE_ID, NO_OF_SLOTS_USED, SECTION_ID, DAY_OF_WEEK, CREATED_BY, LAST_UPDATED_BY ");
+			for(int i =1;i<=noOfBlockedSlots;i++){
+				dynamicQuery.append(", SLOT"+i);
+			}
+			
+			dynamicQuery.append(") VALUES(?,?,?,?,?,?,?");
+			
+			for(int i =1;i<=noOfBlockedSlots;i++){
+				dynamicQuery.append(",?");
+			}
+			dynamicQuery.append(");");
+			
+			System.out.println("Generated dynamicQuery "+dynamicQuery);
+			DatabaseUtility databaseUtility =new DatabaseUtility();
+			Connection con=databaseUtility.getConnection();
+			PreparedStatement stmt = null;
+			try{
+				
+				stmt = con.prepareStatement(dynamicQuery.toString());
+				stmt.setLong(1, sequenceNextVal);
+				stmt.setLong(2, selectedTimeTableTemplateId);
+				stmt.setLong(3, new Long(noOfBlockedSlots));
+				stmt.setLong(4, selectedSectionId);
+				stmt.setString(5, dayOfWeekStr);
+				stmt.setString(6, userName);
+				stmt.setString(7, userName);
+				
+				for(int i =1;i<=noOfBlockedSlots;i++){
+					
+					Long subjectId = sectionTimeTableList.get(i-1).getSubjectId();
+					
+					stmt.setLong(7+i,subjectId);
+				}
+				
+				
+				int out=stmt.executeUpdate();
+				//int out = stmt.executeUpdate("INSERT INTO CLASS_AVBL_STANDARDS(STANDARD_NAME, DESCRIPTION, CREATED_BY,  LAST_UPDATED_BY) VALUES('"+standardRegisterPojo.getStandardName()+"', '"+standardRegisterPojo.getStandardDesc()+"','"+standardRegisterPojo.getCreatedByUserName()+"','"+standardRegisterPojo.getCreatedByUserName()+"');" );
+		        if(out == 0){
+		        	status=false;
+		        }
+		        
+		        con.commit();
+			}
+			catch(Exception e){
+	        	status=false;
+				e.printStackTrace();
+			}
+			finally{
+				stmt.close();
+				databaseUtility.closeConnection(con);
+			}
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			status=false;
 			e.printStackTrace();
 		}
 		return status;

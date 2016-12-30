@@ -24,8 +24,8 @@ public class TimeTableGridViewBean implements Serializable {
 
 	private List<TimeTablePojoBean> timeTableBean;
      
-    private TimeTablePojoBean selectedBeanEntry;
     private boolean validationStatus=false;
+    private String templateName;
 
      
     @PostConstruct
@@ -48,15 +48,6 @@ public class TimeTableGridViewBean implements Serializable {
 	}
 
 
-	public TimeTablePojoBean getSelectedBeanEntry() {
-		return selectedBeanEntry;
-	}
-
-
-	public void setSelectedBeanEntry(TimeTablePojoBean selectedBeanEntry) {
-		this.selectedBeanEntry = selectedBeanEntry;
-	}
-	
 	public int validateTimeTableTemplate(){
 		int noOfBlockedSlots=0;
 		//Below variable is used for comparison to make sure that all dates are given incremental order. So that all timeslots will increase incrementally.
@@ -150,20 +141,36 @@ public class TimeTableGridViewBean implements Serializable {
 			HttpSession session = (HttpSession)FacesContext.getCurrentInstance().getExternalContext().getSession(true);
 			String loggedUserName=(String)session.getAttribute("cur_user_name");
 			SmartSchoolFacade smartSchoolFacade = new SmartSchoolFacade();
-			String status = smartSchoolFacade.createTimeTableTemplate(timeTableBean, noOfBlockedSlots, loggedUserName);
+			String status = smartSchoolFacade.createTimeTableTemplate(timeTableBean, noOfBlockedSlots, loggedUserName,templateName);
 			if(status!=null && status.equals("true")){
 				FacesContext.getCurrentInstance().addMessage("create", new FacesMessage(FacesMessage.SEVERITY_INFO,  "Validation Successful! Timetable Template is now created in the system.","Info"));
 				
 			}
-			else {
+			else if(status!=null && status.equals("false")){
 				validationStatus=false;
 				FacesContext.getCurrentInstance().addMessage("create", new FacesMessage(FacesMessage.SEVERITY_ERROR,  "Timetable Template creation Failed! Please contact product support.","Info"));
+			}
+			else {
+				validationStatus=false;
+				FacesContext.getCurrentInstance().addMessage("create", new FacesMessage(FacesMessage.SEVERITY_ERROR,  status,"Info"));
 			}
 			
 		}
 		//FacesContext.getCurrentInstance().addMessage("create", new FacesMessage(FacesMessage.SEVERITY_INFO,  "Validation Successful! Timetable Template is now created in the system.","Info"));
 		return null;
- }
+	}
+
+
+	public String getTemplateName() {
+		return templateName;
+	}
+
+
+	public void setTemplateName(String templateName) {
+		this.templateName = templateName;
+	}
+	
+	
 	
 	
 }

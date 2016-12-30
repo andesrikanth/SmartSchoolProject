@@ -164,9 +164,11 @@ public class TeacherRegisterBean  implements Serializable {
 			
 		}
 		public void validateEmail(FacesContext context, UIComponent component, Object value) throws ValidatorException {
-			String selectedValue = (String) value;
-			if(!selectedValue.contains("@") || !selectedValue.contains(".")){
-				throw new ValidatorException(new FacesMessage(FacesMessage.SEVERITY_ERROR, "Please enter valid email id", "Please enter valid email id"));
+			if(value != null){
+				String selectedValue = (String) value;
+				if(!selectedValue.contains("@") || !selectedValue.contains(".")){
+					throw new ValidatorException(new FacesMessage(FacesMessage.SEVERITY_ERROR, "Please enter valid email id", "Please enter valid email id"));
+				}
 			}
 			
 		}

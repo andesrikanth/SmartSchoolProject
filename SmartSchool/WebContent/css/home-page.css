@@ -5,7 +5,7 @@
 
 /* Start : Below styles classes for primefaces customizations*/
 
-/* below are for TimeTable dataGrid */
+/* below are for TimeTable Template dataGrid */
 
 .timeTables .ui-widget-content {
     border: 1px solid #a8a8a8 !important;
@@ -28,7 +28,35 @@
     font-size: 0.9em  !important;
 }
 
-/* End of TimeTable dataGrid related changes */
+/* End of TimeTable Template dataGrid related changes */
+
+
+/* below are for Section TimeTable Template dataGrid */
+
+.sectionTimeTableLov{
+	width: 165px;
+}
+
+div.sectionTimeTableHeader{
+	width: 190px;
+}
+
+.sectiontimeTables {
+	width: 2400px;
+}
+.sectiontimeTables .ui-widget-content {
+    border: 1px solid #a8a8a8 !important;
+}
+
+.sectiontimeTables .ui-panel-content {
+    border:0px !important;
+}
+
+.sectiontimeTables .ui-datagrid-column{
+	width: 200px;
+}
+
+/* End of Section TimeTable Template dataGrid related changes */
 
 
 /* below are for datatable*/
@@ -146,7 +174,11 @@ color:#212121 !important;
 
 /* End :::: The below customizations are for primefaces date calendar component */
 
+/* Start of required field symbol (use styleClass="required" */
 
+.required:before { content:"* ";color: red; }
+
+/* End of required field symbol */
 
 #box-table-a {
     font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;

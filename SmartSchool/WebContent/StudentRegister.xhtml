@@ -25,16 +25,16 @@
 				    <h:panelGrid id="panel" columns="3" border="1" cellpadding="100" cellspacing="10" rendered="#{!registerBean.studentRegistrationStatus}" >
 						
 						
-						<h:outputText id="o1" value="First Name" style="margin-right:15px;font-weight:bold;"></h:outputText>
+						<h:outputText id="o1" value="First Name" styleClass="required"  style="margin-right:15px;font-weight:bold;"></h:outputText>
 						<h:inputText id="StudentFirstName" maxlength="63" name="StudentFirstName" value="#{registerBean.studentFirstName}"  style="margin-right:15px;" requiredMessage="Please enter Student First Name" required="true" a:placeholder="First Name">
 						</h:inputText>
 						<h:message for="StudentFirstName" style="color:red" />
 						
-						<h:outputText id="o2" value="Middle Name" style="margin-right:15px;font-weight:bold;"></h:outputText>
+						<h:outputText id="o2" value="&nbsp; Middle Name" escape="false" style="margin-right:15px;font-weight:bold;"></h:outputText>
 			        	<h:inputText id="StudentMiddleName" maxlength="63" name="StudentMiddleName" value="#{registerBean.studentMiddleName}" style="margin-right:15px;"   a:placeholder="Middle Name"/>
 			        	<h:message for="StudentMiddleName" style="color:red" />
 						
-						<h:outputText id="o3" value="Last Name" style="margin-right:15px;font-weight:bold;"></h:outputText>
+						<h:outputText id="o3" value="&nbsp; Last Name" escape="false" style="margin-right:15px;font-weight:bold;"></h:outputText>
 			        	<h:inputText id="StudentLastName" maxlength="63" name="StudentLastName" value="#{registerBean.studentLastName}"  style="margin-right:15px;"  a:placeholder="Last Name"/>
 			           	<h:message for="StudentLastName" style="color:red" />
 						
@@ -42,56 +42,56 @@
 						<rich:calendar id="dob" value="#{registerBean.dateOfBirth}" defaultLabel="Date of Birth"  cellWidth="24px" cellHeight="22px" style="width:200px;margin-right:15px;" required="true" requiredMessage="Please select Date of Birth"/>
 			            <h:message for="dob" style="color:red" /> -->
 						
-						<h:outputText id="o4" value="Date of Birth" style="margin-right:15px;font-weight:bold;"></h:outputText>
+						<h:outputText id="o4" value="Date of Birth"  styleClass="required"  style="margin-right:15px;font-weight:bold;"></h:outputText>
 			             <p:calendar id="dob" value="#{registerBean.dateOfBirth}">
         			    	<p:ajax event="dateSelect" listener="#{registerBean.onDateSelect}"/>
         				</p:calendar>
         				<h:message for="dob" style="color:red" />
         				
         				
-						<h:outputText id="og11" value="Gender" style="margin-right:15px;font-weight:bold;"></h:outputText>
+						<h:outputText id="og11" value="&nbsp; Gender" escape="false" style="margin-right:15px;font-weight:bold;"></h:outputText>
 						<h:selectOneRadio id="gender" value="#{registerBean.selectedStudentGender}" style="margin-right:15px;">
 						   	<f:selectItem itemValue="M" itemLabel="Male   &nbsp;&nbsp;" escape="false" />
 						   	<f:selectItem itemValue="F" itemLabel="Female" />
 						</h:selectOneRadio>
 						<h:message for="gender" style="color: red;" />
 						
-			            <h:outputText id="o5" value="Father Name" style="margin-right:15px;font-weight:bold;"></h:outputText>
+			            <h:outputText id="o5" value="&nbsp; Father Name" escape="false" style="margin-right:15px;font-weight:bold;"></h:outputText>
 			            <h:inputText id="StudentFatherName" maxlength="63" name="StudentFatherName" value="#{registerBean.studentFatherName}"  style="margin-right:15px;"    a:placeholder="Father Name"/>
 			            <h:message for="StudentFatherName" style="color:red" />
 						
 						
-						<h:outputText id="o6" value="Mother Name" style="margin-right:15px;font-weight:bold;"></h:outputText>
+						<h:outputText id="o6" value="&nbsp; Mother Name" escape="false" style="margin-right:15px;font-weight:bold;"></h:outputText>
 						<h:inputText id="StudentMotherName" maxlength="63" name="StudentMotherName" value="#{registerBean.studentMotherName}" style="margin-right:15px;"  a:placeholder="Mother Name"/>
 			           <h:message for="StudentMotherName" style="color:red" />
 						
 						
-						<h:outputText id="o7" value="Address" style="margin-right:15px;font-weight:bold;"></h:outputText>
+						<h:outputText id="o7" value="Address"  styleClass="required" style="margin-right:15px;font-weight:bold;"></h:outputText>
 			            <h:inputTextarea id="Address" rows="5" cols="5"  name="Address" value="#{registerBean.address}" style="margin-right:15px;"  requiredMessage="Please enter Student Address" required="true"  a:placeholder="Address" a:maxlength="510"/>
 						<h:message for="Address" style="color:red" />
 						
 						
-						<h:outputText id="o8" value="Email" style="margin-right:15px;font-weight:bold;"></h:outputText>
+						<h:outputText id="o8" value="Email"  styleClass="required"  style="margin-right:15px;font-weight:bold;"></h:outputText>
 			            <h:inputText id="email" maxlength="30" name="email" value="#{registerBean.studentEmail}" style="margin-right:15px;" validator="#{registerBean.validateStudentEmail}" required="#{registerBean.studentEmailNotAvail eq null ? true : false}"   requiredMessage="Please enter Email Id or select the checkbox to specify that you don't have an Email."  a:placeholder="Email Id">
 			             </h:inputText>
 			              <h:message for="email" style="color:red" />
 			              
 			             
 			           <h:outputText value="&lt;br/&gt;" escape="false" />   
-			              <h:selectManyCheckbox value="#{registerBean.studentEmailNotAvail}" valueChangeListener="#{registerBean.studentEmailNotAvailValueChange}" immediate="true">
+    		            <h:selectManyCheckbox value="#{registerBean.studentEmailNotAvail}" valueChangeListener="#{registerBean.studentEmailNotAvailValueChange}" immediate="true">
 						   <f:selectItem itemValue="1" itemLabel="Don't have Email" />
 						</h:selectManyCheckbox> 
 						<h:outputText value="&lt;br/&gt;" escape="false" /> 
 						
-						<h:outputText id="o9" value="Phone Number (Primary)" style="margin-right:15px;margin-top:10px;font-weight:bold;"></h:outputText>
+						<h:outputText id="o9" value="Phone Number (Primary)"  styleClass="required"  style="margin-right:15px;margin-top:10px;font-weight:bold;"></h:outputText>
 			            <h:inputText id="PhoneNumber" maxlength="10" name="PhoneNumber" value="#{registerBean.phoneNumber}" style="margin-right:15px; margin-top:10px"  validator="#{registerBean.validatePhNo}" required="true"  requiredMessage="Please enter Phone Number"  a:placeholder="Phone Number"/>
 			            <h:message for="PhoneNumber" style="color: red;" />
 						
-						<h:outputText id="o10" value="Phone Number (Secondary)" style="margin-right:15px;font-weight:bold;"></h:outputText>
-			            <h:inputText id="AlternativePhNo" maxlength="10" name="AlternativePhNo" value="#{registerBean.alternativePhoneNumber}" style="margin-right:15px;"  validator="#{registerBean.validatePhNo}"   requiredMessage="Please enter Secondary Phone Number"  a:placeholder="Secondary Phone Number"/>
+						<h:outputText id="o10" value="&nbsp; Phone Number (Secondary)" escape="false" style="margin-right:15px;font-weight:bold;"></h:outputText>
+			            <h:inputText id="AlternativePhNo" maxlength="10" name="AlternativePhNo" value="#{registerBean.alternativePhoneNumber}" style="margin-right:15px;"  validator="#{registerBean.validatePhNo}"  a:placeholder="Secondary Phone Number"/>
 			            <h:message for="AlternativePhNo" style="color: red;" />
 						
-						<h:outputText id="o11" value="Branch" style="margin-right:15px;font-weight:bold;"></h:outputText>
+						<h:outputText id="o11" value="Branch"  styleClass="required" style="margin-right:15px;font-weight:bold;"></h:outputText>
 			            <h:selectOneMenu id="branches" value="#{registerBean.selectedBranchId}" valueChangeListener="#{registerBean.branchesLOVChange}" style="margin-right:15px; margin-top:15px;" validator="#{registerBean.validateBranchesLOV}">
 			            	<f:selectItem  itemValue="0" itemLabel="Select a Branch.."></f:selectItem>
 	    					<f:selectItems value="#{registerBean.availableBranches}" var="bran" itemValue="#{bran.branchId}" itemLabel="#{bran.branchName}" />
@@ -100,7 +100,7 @@
 						 </h:selectOneMenu>
 						<h:message for="branches" style="color: red;" />
 						
-						<h:outputText id="o12" value="Standard" style="margin-right:15px;font-weight:bold;"></h:outputText>
+						<h:outputText id="o12" value="Standard" styleClass="required"  style="margin-right:15px;font-weight:bold;"></h:outputText>
 			            <h:selectOneMenu id="standards" value="#{registerBean.selectedStandardId}" style="margin-right:15px; margin-top:15px;"  valueChangeListener="#{registerBean.standardsLOVChange}"  validator="#{registerBean.validateStandardsLOV}">
 			            	<f:selectItem  itemValue="0" itemLabel="Select a Standard.."></f:selectItem>
 	    					<f:selectItems value="#{registerBean.availableStandards}" var="stand" itemValue="#{stand.standardId}" itemLabel="#{stand.standardName}" />
@@ -108,7 +108,7 @@
 						 </h:selectOneMenu>
 						<h:message for="standards" style="color: red;" />
 						
-						<h:outputText id="o13" value="Section" style="margin-right:15px;font-weight:bold;"></h:outputText>
+						<h:outputText id="o13" value="Section"  styleClass="required" style="margin-right:15px;font-weight:bold;"></h:outputText>
 						<h:selectOneMenu id="sections" value="#{registerBean.selectedSectionId}" style="margin-right:15px; margin-top:15px;"  validator="#{registerBean.validateSectionsLOV}">
 							<f:selectItem  itemValue="0" itemLabel="Select a Section.."></f:selectItem>
 	    					<f:selectItems value="#{registerBean.availableSections}" var="sec" itemValue="#{sec.sectionId}" itemLabel="#{sec.sectionName}" />

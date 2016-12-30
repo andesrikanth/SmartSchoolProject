@@ -21,7 +21,7 @@
 		        <h:form id="register">
 				    <h:panelGrid id="panel" columns="3" border="1" cellpadding="100" cellspacing="10" rendered="#{!registerBean.sectionRegisterStatus}" >
 						
-						<h:outputText id="o11" value="Branch" style="margin-right:15px;font-weight:bold;"></h:outputText>
+						<h:outputText id="o11" value="Branch" styleClass="required" style="margin-right:15px;font-weight:bold;"></h:outputText>
 			            <h:selectOneMenu id="branches" value="#{registerBean.selectedBranchId}" valueChangeListener="#{registerBean.branchesLOVChange}" style="margin-right:15px; margin-top:15px;" validator="#{registerBean.validateBranchesLOV}">
 			            	<f:selectItem  itemValue="0" itemLabel="Select a Branch.."></f:selectItem>
 	    					<f:selectItems value="#{registerBean.availableBranches}" var="bran" itemValue="#{bran.branchId}" itemLabel="#{bran.branchName}" />
@@ -29,18 +29,18 @@
 						 </h:selectOneMenu>
 						<h:message for="branches" style="color: red;" />
 						
-						<h:outputText id="o12" value="Standard" style="margin-right:15px;font-weight:bold;"></h:outputText>
+						<h:outputText id="o12" value="Standard" styleClass="required" style="margin-right:15px;font-weight:bold;"></h:outputText>
 			            <h:selectOneMenu id="standards" value="#{registerBean.selectedStandardId}" style="margin-right:15px; margin-top:15px;"  valueChangeListener="#{registerBean.standardsLOVChange}"  validator="#{registerBean.validateStandardsLOV}">
 			            	<f:selectItem  itemValue="0" itemLabel="Select a Standard.."></f:selectItem>
 	    					<f:selectItems value="#{registerBean.availableStandards}" var="stand" itemValue="#{stand.standardId}" itemLabel="#{stand.standardName}" />
 						 </h:selectOneMenu>
 						<h:message for="standards" style="color: red;" />
 						
-						<h:outputText id="o1" value="Section Name" style="margin-right:15px;font-weight:bold;"></h:outputText>
+						<h:outputText id="o1" value="Section Name" styleClass="required"  style="margin-right:15px;font-weight:bold;"></h:outputText>
 						<h:inputText id="SectionName" maxlength="63" name="SectionName" value="#{registerBean.sectionName}" style="margin-right:15px; margin-top:15px;"  requiredMessage="Please enter the Section Name" required="true" a:placeholder="Section Name"/>
 						<h:message for="SectionName" style="color:red" />
 						
-						<h:outputText id="o2" value="Description" style="margin-right:15px;font-weight:bold;"></h:outputText>
+						<h:outputText id="o2" value="&nbsp; Description" escape="false" style="margin-right:15px;font-weight:bold;"></h:outputText>
 						<h:inputTextarea id="Description" rows="5" cols="5"  name="Description" value="#{registerBean.sectionDesc}" style="margin-right:15px;"  a:placeholder="Description" a:maxlength="254"/>
 			        	<h:message for="Description" style="color:red" />
 						
