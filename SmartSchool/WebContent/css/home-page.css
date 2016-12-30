@@ -3,6 +3,31 @@
 /* Custom starts -- Srikanth*/
 
 
+
+/* Start : Below styles classes for Admin Page rendering*/
+#footer {
+    clear: both !important;
+    position: relative !important;
+    /* z-index: 10 !important;
+    height: 3em !important;
+    margin-top: -3em !important; */
+}
+
+#unit1 .ui-widget-content {
+	height: initial !important;
+}
+
+#unit1-resizer{
+	height:850px !important;
+}
+
+#center .ui-layout-unit-content {
+	height: 960px !important;
+}
+
+/* End of Admin Page rendering related changes */
+
+
 /* Start : Below styles classes for primefaces customizations*/
 
 /* below are for TimeTable Template dataGrid */

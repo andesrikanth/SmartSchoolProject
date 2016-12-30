@@ -29,6 +29,7 @@
     
 	
     <body onload="setStaticValues()">
+    <div id="test" style="height: auto;min-height: 100%;">
      <script language="JavaScript1.2">mmLoadMenus();</script>
         <!-- Header -->
         <div class="container">
@@ -57,7 +58,7 @@
         <hr style="border-width: 2px 2px 0; "></hr>
         <br></br>
         
-        <center>
+        <center style="height:100%;min-height:100%;">
 	     
 	    <ui:insert name="custom-body">
 		</ui:insert>
@@ -74,7 +75,7 @@
                 </div>
             </div> 
 
-        <footer style="margin-top: 5%;">
+        <footer id="footer" style="margin-top: 5%;">
             <div class="container">
                 <!-- <div class="row">
                      <div class="span4 testimonials" style="width:500px">
@@ -141,7 +142,7 @@
 		<!-- below 2 javascripts are related to primefaces data table -->
 		<h:outputScript library="primefaces" name="jquery/jquery.js" target="head" />
 		<h:outputScript library="primefaces" name="jquery/jquery-plugins.js" target="head" />
-
+	</div>
     </body>
 
 </html>

@@ -153,8 +153,6 @@ public class AdminBean  implements Serializable {
         createSubmenu.setExpanded(false);
         model.addElement(createSubmenu);
         
-       
-        
         
         //Second submenu
         DefaultSubMenu secondSubmenu = new DefaultSubMenu("Actions");
@@ -180,6 +178,7 @@ public class AdminBean  implements Serializable {
         
         secondSubmenu.setExpanded(false);
         model.addElement(secondSubmenu);
+        
 	}
 
 	public MenuModel getModel() {
