@@ -28,12 +28,12 @@
 		<!-- If datatable is rendered seperately without embedding in any page, then use - style="font-size: 0.9em;margin-left: 200px;margin-right: 200px;" .. 
 				If the datatable is embedded in any page, then use - style="font-size: 0.9em;margin-left: 200px;margin-right: 200px;" -->
 				
-	    <p:dataTable var="sec" value="#{sectionDataTable.lazyDataModel}" paginator="true" rows="10" style="font-size: 0.9em;margin-left: 20px;margin-right: 20px;"
+	    <p:dataTable var="sec" value="#{sectionDataTable.lazyDataModel}" paginator="true" rows="15" style="font-size: 0.9em;margin-left: 20px;margin-right: 20px;"
 	                 paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"	                 
-	                 rowsPerPageTemplate="5,10,15" selectionMode="single" selection="#{sectionDataTable.backupSelectedSectionRegisterPojo}" id="sectionTable" lazy="true">
+	                 rowsPerPageTemplate="10,15,20" selectionMode="single" selection="#{sectionDataTable.backupSelectedSectionRegisterPojo}" id="sectionTable" lazy="true">
 	        <p:ajax event="rowSelect" listener="#{sectionDataTable.onRowSelect}" update=":form:f2:sectionDetail" oncomplete="PF('sectionDialog').show()" /> 
 	           
-	        <p:column headerText="Section Identifier" sortBy="#{SECTION_ID}" filterBy="#{SECTION_ID}">
+	        <p:column headerText="Section Identifier" sortBy="#{SECTION_ID}">
 	            <h:outputText value="#{sec.key}" />
 	        </p:column>
 	        <p:column headerText="Section Name" sortBy="#{SECTION_NAME}" filterBy="#{SECTION_NAME}">

@@ -14,6 +14,10 @@
 		<base-name>com.smartSchool.resourceBundle.InfoMessages</base-name>
 		<var>InfoMsgBundle</var>
 	   </resource-bundle>
+	   <resource-bundle>
+		<base-name>com.smartSchool.resourceBundle.CommonMessages</base-name>
+		<var>CommonMessages</var>
+	   </resource-bundle>
      </application>
       <!-- <navigation-rule>
 	<from-view-id>/home.xhtml</from-view-id>

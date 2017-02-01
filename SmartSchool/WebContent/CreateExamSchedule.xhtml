@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"      
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:pe="http://primefaces.org/ui/extensions"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
+ <!-- Test URL : http://localhost:8080/SmartSchool/home.jsf -->
+ <h:head>
+
+ </h:head>
+ 
+    <f:metadata>
+	    <f:viewAction action="#{commonBean.adminSessionStatusCheck}" />
+	</f:metadata> 
+ 
+    <h:body>
+    	<h4>Create Exam Schedule</h4>
+				<br></br>
+	   <h:form id="examSchedule" style="margin: 0 0 0px;">
+	   				<p:messages id="initializeMessage" autoUpdate="true" for="initialize"  closable="true"/>
+				    <h:panelGrid id="panel" columns="3" border="1" cellpadding="100" cellspacing="10" >
+						
+						<h:outputText id="o11" value="Branch"  styleClass="required" style="margin-right:15px;font-weight:bold;"></h:outputText>
+			            <h:selectOneMenu id="branches" value="#{examSchedule.selectedBranchId}" disabled="#{examSchedule.initializeStatus}" valueChangeListener="#{examSchedule.branchesLOVChange}" style="margin-right:15px; margin-top:15px;" validator="#{examSchedule.validateBranchesLOV}">
+			            	<f:selectItem  itemValue="0" itemLabel="Select a Branch.."></f:selectItem>
+	    					<f:selectItems value="#{examSchedule.availableBranches}" var="bran" itemValue="#{bran.branchId}" itemLabel="#{bran.branchName}" />
+	    					<f:ajax render="standards"/>
+	    					<f:ajax render="sections"/>
+						 </h:selectOneMenu>
+						<h:message for="branches" style="color: red;" />
+						
+						<h:outputText id="o12" value="Standard" styleClass="required"  style="margin-right:15px;font-weight:bold;"></h:outputText>
+			            <h:selectOneMenu id="standards" value="#{examSchedule.selectedStandardId}" disabled="#{examSchedule.initializeStatus}" style="margin-right:15px; margin-top:15px;"  valueChangeListener="#{examSchedule.standardsLOVChange}"  validator="#{examSchedule.validateStandardsLOV}">
+			            	<f:selectItem  itemValue="0" itemLabel="Select a Standard.."></f:selectItem>
+	    					<f:selectItems value="#{examSchedule.availableStandards}" var="stand" itemValue="#{stand.standardId}" itemLabel="#{stand.standardName}" />
+	    					<f:ajax render="sections"/>
+						 </h:selectOneMenu>
+						<h:message for="standards" style="color: red;" />
+						
+						<h:outputText id="o13" value="Section"  styleClass="required" style="margin-right:15px;font-weight:bold;"></h:outputText>
+						<h:selectOneMenu id="sections" value="#{examSchedule.selectedSectionId}" disabled="#{examSchedule.initializeStatus}" style="margin-right:15px; margin-top:15px;"  validator="#{examSchedule.validateSectionsLOV}">
+							<f:selectItem  itemValue="0" itemLabel="Select a Section.."></f:selectItem>
+	    					<f:selectItems value="#{examSchedule.availableSections}" var="sec" itemValue="#{sec.sectionId}" itemLabel="#{sec.sectionName}" />
+						 </h:selectOneMenu>
+						 <h:message for="sections" style="color: red;" />
+						 
+						 <h:outputText id="o1" value="Exam Details" styleClass="required"   style="margin-right:15px;font-weight:bold;"></h:outputText>
+						<h:inputText id="examDetails" maxlength="63" name="SectionName"  disabled="#{examSchedule.initializeStatus}" value="#{examSchedule.examsDetails}" style="margin-right:15px; margin-top:15px;"  requiredMessage="Please enter the Exam Details" required="true" a:placeholder="Exam Details"/>
+						<h:message for="examDetails" style="color:red" />
+						 
+						 <h:outputText id="o4" value="Exams Start Date"  styleClass="required"  style="margin-right:15px;font-weight:bold;"></h:outputText>
+			             <p:calendar id="startDate" value="#{examSchedule.examsStartDate}"  disabled="#{examSchedule.initializeStatus}"  required="true" requiredMessage="Please provide valid Start Date.">
+        			    	<p:ajax event="dateSelect" listener="#{examSchedule.onStartDateSelect}"/>
+        				</p:calendar>
+        				<h:message for="startDate" style="color:red" />
+        				
+        				<h:outputText id="o5" value="Exams End Date"  styleClass="required"  style="margin-right:15px;font-weight:bold;"></h:outputText>
+			             <p:calendar id="endDate" value="#{examSchedule.examsEndDate}"  required="true"  disabled="#{examSchedule.initializeStatus}" requiredMessage="Please provide valid End Date.">
+        			    	<p:ajax event="dateSelect" listener="#{examSchedule.oneEndDateSelect}"/>
+        				</p:calendar>
+        				<h:message for="endDate" style="color:red" />
+        				
+        				
+						 <f:facet name="footer">
+						   <h:panelGroup style="display:block; text-align:center">
+						   <p><h:commandButton id="initialize" class="button submit-btn" actionListener="#{examSchedule.initializeExamScheduleTable}" rendered="#{! examSchedule.initializeStatus}" value="Initialize" style="margin-top: 10px;"  /></p>
+						   <p><h:commandButton id="reset" class="button submit-btn" actionListener="#{examSchedule.resetExamScheduleTable}" rendered="#{examSchedule.initializeStatus}" value="Reset" style="margin-top: 10px;"  /></p>
+						   </h:panelGroup>
+						</f:facet>
+					</h:panelGrid>
+		        </h:form>
+		        
+		        <h:form id="examScheduleForm" rendered="#{examSchedule.initializeStatus}"  style="margin: 0 0 0px;">
+		   
+				   <p:messages id="saveMessage" autoUpdate="true" for="create"  closable="true"/>
+				   
+				    <p:dataGrid var="subjectSchedule" value="#{examSchedule.examScheduleSubjectPojoList}"  paginator="true" paginatorTemplate="{CurrentPageReport} {PageLinks}" rows="12" columns="12" layout="grid"
+				        id="timeTables" class="sectiontimeTables">
+				 
+				        <f:facet name="header">
+				            Subjects Exam Schedule
+				        </f:facet>
+				 
+				 		<p:panel header="#{subjectSchedule.subjectName}" id="timeTableTemplatePanel" styleClass="sectionTimeTableHeader" style="text-align: center; border: 1px solid #a8a8a8;width:150px;"  >
+				            
+				            <h:panelGrid columns="1">
+	                             
+	                             <p:calendar id="examDate" value="#{subjectSchedule.subjectExamDate}" mindate="#{examSchedule.examsStartDate}" maxdate="#{examSchedule.examsEndDate}">
+		        			    	<p:ajax event="dateSelect"/>
+		        			    	<p:watermark for="examDate" value="Exam Date" />
+		        				</p:calendar>
+	                             <h:outputText/>
+			                    <pe:timePicker value="#{subjectSchedule.subjectExamStartTime}" id="fromTime" mode="popup" widgetVar="popupTimeWidget" style="width: 35px;"
+			                   		label="Popup time picker">
+			                   		<p:watermark for="fromTime" value="Start" />
+			                   	</pe:timePicker>
+			                   	
+					            <h:outputText value="to"/>
+					            
+					           <pe:timePicker value="#{subjectSchedule.subjectExamEndTime}" alt="End Time" id="toTime" mode="popup" widgetVar="popupTimeWidget" style="width: 35px; margin-top: 15%;"
+			                   		label="Popup time picker">
+			                   		<p:watermark for="toTime" value="End" />
+			                   	</pe:timePicker>
+			                   		
+			                   	<!-- DON'T REMOVE ::: DUMMY CODE START : The below panelGroup code is written just to workaround a bug in primefaces. Bug is that if we select the "fromTime", then the last column in the grid will be auto-populated with the selected "fromTime" value. Keeping the below
+			                   	code will do the autoPopulating to the below hidden column and end user will not see the autoPopulated value. -->
+			                   	
+					                   	<h:panelGroup style="display:none">
+					                   		<pe:timePicker id="dummy" mode="popup" widgetVar="popupTimeWidget"  style="width: 35px;"
+					                   		label="Popup time picker"/>
+					                   	</h:panelGroup> 
+			                   	
+			                   	<!--  END OF DUMMY CODE TO WORK AROUND THE BUG IN PRIMEFACES -->  
+	                   	
+		           		 	</h:panelGrid>
+		            
+				        </p:panel>
+				     
+				    </p:dataGrid>
+				  	<br></br>
+				  	
+				 <h:commandButton class="button submit-btn" id="create" action="#{examSchedule.createExamScheduleTable}" value="Validate and Create" disabled="#{examSchedule.scheduleTableCreationStatus}" style="margin-top: 10px;"  />
+				 
+		</h:form>
+			
+    </h:body>
+</html>

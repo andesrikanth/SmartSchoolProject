@@ -5,6 +5,8 @@ public class SubjectRegisterPojo implements Cloneable{
 	private Long key;
 	private String subjectName;
 	private String subjectDesc;
+	private String subjectType;
+	private Long selectedBranchId;
 	private String createdByUserName;
 	private String lastUpdatedByUserName;
 	
@@ -41,6 +43,20 @@ public class SubjectRegisterPojo implements Cloneable{
 		this.lastUpdatedByUserName = lastUpdatedByUserName;
 	}
 	
+	public Long getSelectedBranchId() {
+		return selectedBranchId;
+	}
+	public void setSelectedBranchId(Long selectedBranchId) {
+		this.selectedBranchId = selectedBranchId;
+	}
+	
+	
+	public String getSubjectType() {
+		return subjectType;
+	}
+	public void setSubjectType(String subjectType) {
+		this.subjectType = subjectType;
+	}
 	@Override
 	public Object clone()throws CloneNotSupportedException{  
 		return super.clone();  

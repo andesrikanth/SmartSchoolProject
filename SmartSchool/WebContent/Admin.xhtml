@@ -19,10 +19,10 @@
 				
 			<ui:define name="custom-body">
 
-			<p:layout id="side-menu-layout">
-		    <p:layoutUnit position="west">
+			<p:layout id="side-menu-layout" stateful="false" style="height:100%;">
+		    <p:layoutUnit id="unit1" position="west" style="height:100%">
 			    <h:form>
-			    	<p:menu toggleable="true" model="#{adminBean.model}" style="margin-top:30px;" />
+			    	<p:menu toggleable="true" model="#{adminBean.model}" style="margin-top:30px;height:100%" />
 					
 					<!--     <p:menu toggleable="true" style="margin-top:30px;">
 					    
@@ -41,9 +41,9 @@
 			    </h:form>
 		    </p:layoutUnit>
 		 
-		    <p:layoutUnit position="center" id="center" style="height:100%">
+		    <p:layoutUnit  position="center" id="center" style="height:100%;">
 		    
-		    <h:panelGroup id="pg1"> 
+		    <h:panelGroup id="pg1" style="height:100%"> 
 			    <ui:include  src="#{adminBean.renderUiComponentTarget}" />
 		    </h:panelGroup>
 		    

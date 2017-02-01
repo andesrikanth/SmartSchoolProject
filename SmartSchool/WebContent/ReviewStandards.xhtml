@@ -28,12 +28,12 @@
 		<!-- If datatable is rendered seperately without embedding in any page, then use - style="font-size: 0.9em;margin-left: 200px;margin-right: 200px;" .. 
 				If the datatable is embedded in any page, then use - style="font-size: 0.9em;margin-left: 200px;margin-right: 200px;" -->
 				
-	    <p:dataTable var="std" value="#{standardDataTable.lazyDataModel}" paginator="true" rows="10" style="font-size: 0.9em;margin-left: 20px;margin-right: 20px;"
+	    <p:dataTable var="std" value="#{standardDataTable.lazyDataModel}" paginator="true" rows="15" style="font-size: 0.9em;margin-left: 20px;margin-right: 20px;"
 	                 paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"	                 
-	                 rowsPerPageTemplate="5,10,15" selectionMode="single" selection="#{standardDataTable.backupSelectedStandardRegisterPojo}" id="standardTable" lazy="true">
+	                 rowsPerPageTemplate="10,15,20" selectionMode="single" selection="#{standardDataTable.backupSelectedStandardRegisterPojo}" id="standardTable" lazy="true">
 	        <p:ajax event="rowSelect" listener="#{standardDataTable.onRowSelect}" update=":form:f2:standardDetail" oncomplete="PF('standardDialog').show()" /> 
 	           
-	        <p:column headerText="Standard Identifier" sortBy="#{STANDARD_ID}" filterBy="#{STANDARD_ID}">
+	        <p:column headerText="Standard Identifier" sortBy="#{STANDARD_ID}">
 	            <h:outputText value="#{std.key}" />
 	        </p:column>
 	        <p:column headerText="Standard Name" sortBy="#{STANDARD_NAME}" filterBy="#{STANDARD_NAME}">

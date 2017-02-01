@@ -3,7 +3,92 @@
 /* Custom starts -- Srikanth*/
 
 
+
+/* Start : Below styles classes for Admin Page rendering*/
+#footer {
+    clear: both !important;
+    position: relative !important;
+    /* z-index: 10 !important;
+    height: 3em !important;
+    margin-top: -3em !important; */
+}
+
+#unit1 .ui-widget-content {
+	height: initial !important;
+}
+
+#unit1-resizer{
+	height:850px !important;
+}
+
+#center .ui-layout-unit-content {
+	height: 960px !important;
+}
+
+/* End of Admin Page rendering related changes */
+
+
+/* Start : Below styles class is for Create Exam Schedule page*/
+#examScheduleForm .hasDatepicker{
+	width:100px;
+}
+/* End of styles class is for Create Exam Schedule page */
+
 /* Start : Below styles classes for primefaces customizations*/
+
+/* below are for TimeTable Template dataGrid */
+
+.timeTables .ui-widget-content {
+    border: 1px solid #a8a8a8 !important;
+}
+
+.timeTables .ui-panel-content {
+    border:0px !important;
+}
+
+.ui-inputfield {
+	font-size: 12px !important;
+}
+
+.pe-timepicker input {
+	font-size: 13px !important;
+}
+
+.ui-panel-title {
+    margin: 0.1em 0.5px 0.2em 0  !important;
+    font-size: 0.9em  !important;
+}
+
+/* End of TimeTable Template dataGrid related changes */
+
+
+/* below are for Section TimeTable Template dataGrid */
+
+.sectionTimeTableLov{
+	width: 165px;
+}
+
+div.sectionTimeTableHeader{
+	width: 190px;
+}
+
+.sectiontimeTables {
+	width: 2400px;
+}
+.sectiontimeTables .ui-widget-content {
+    border: 1px solid #a8a8a8 !important;
+}
+
+.sectiontimeTables .ui-panel-content {
+    border:0px !important;
+}
+
+.sectiontimeTables .ui-datagrid-column{
+	width: 200px;
+}
+
+/* End of Section TimeTable Template dataGrid related changes */
+
 
 /* below are for datatable*/
 .ui-widget-content {
@@ -120,7 +205,11 @@ color:#212121 !important;
 
 /* End :::: The below customizations are for primefaces date calendar component */
 
+/* Start of required field symbol (use styleClass="required" */
 
+.required:before { content:"* ";color: red; }
+
+/* End of required field symbol */
 
 #box-table-a {
     font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;

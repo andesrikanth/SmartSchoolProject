@@ -57,4 +57,23 @@ public class ChoiceListPojo {
 		
 	}
 	
+	public class AvailableTimetableTemplates{
+		private String templateName;
+		private Long templateId;
+		public String getTemplateName() {
+			return templateName;
+		}
+		public void setTemplateName(String templateName) {
+			this.templateName = templateName;
+		}
+		public Long getTemplateId() {
+			return templateId;
+		}
+		public void setTemplateId(Long templateId) {
+			this.templateId = templateId;
+		}
+		
+		
+	}
+	
 }

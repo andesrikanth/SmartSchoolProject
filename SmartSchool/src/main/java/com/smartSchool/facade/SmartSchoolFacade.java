@@ -1,15 +1,20 @@
 package com.smartSchool.facade;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
 import com.smartSchoolService.login.LoginHelper;
 import com.smartSchoolService.pojo.BranchRegisterPojo;
+import com.smartSchoolService.pojo.ExamSchedulePojo;
+import com.smartSchoolService.pojo.HomeworkPojo;
 import com.smartSchoolService.pojo.SectionRegisterPojo;
+import com.smartSchoolService.pojo.SectionTimeTablePojo;
 import com.smartSchoolService.pojo.StandardRegisterPojo;
 import com.smartSchoolService.pojo.StudentPojo;
 import com.smartSchoolService.pojo.SubjectRegisterPojo;
 import com.smartSchoolService.pojo.TeacherRegisterPojo;
+import com.smartSchoolService.pojo.TimeTablePojoBean;
 import com.smartSchoolService.util.ChoiceListPojo;
 import com.smartSchoolService.util.DeleteCommonUtil;
 import com.smartSchoolService.util.FetchCommonUtil;
@@ -31,7 +36,7 @@ public class SmartSchoolFacade {
 		
 	}
 	
-public String resetUserPassword(String userName,String password){
+	public String resetUserPassword(String userName,String password){
 		
 		LoginHelper loginHelper =new LoginHelper();
 		String status=loginHelper.resetUserPassword(userName,password);
@@ -46,17 +51,17 @@ public String resetUserPassword(String userName,String password){
 	}
 	
 	public List<ChoiceListPojo.AvailableBranches> getAvailableBranchesList(){
-		RegisterCommonUtil commonUtil =new RegisterCommonUtil();
+		FetchCommonUtil commonUtil =new FetchCommonUtil();
 		return commonUtil.getAvailableBranchesList();
 	}
 	
 	public List<ChoiceListPojo.AvailableStandards> getAvailableStandardsList(Long branchId, Long ignoreStandardId){
-		RegisterCommonUtil commonUtil =new RegisterCommonUtil();
+		FetchCommonUtil commonUtil =new FetchCommonUtil();
 		return commonUtil.getAvailableStandardsList(branchId,ignoreStandardId);
 	}
 	
 	public List<ChoiceListPojo.AvailableSections> getAvailableSectionsList(Long selectedBranchId, Long standardId, Long ignoreSectionId){
-		RegisterCommonUtil commonUtil =new RegisterCommonUtil();
+		FetchCommonUtil commonUtil =new FetchCommonUtil();
 		return commonUtil.getAvailableSectionsList(selectedBranchId,standardId,ignoreSectionId);
 	}
 	
@@ -184,4 +189,67 @@ public String resetUserPassword(String userName,String password){
 		DeleteCommonUtil commonUtil =new DeleteCommonUtil();
 		return commonUtil.deleteSection(sectionId);
 	}
+	
+	public String createTimeTableTemplate(List<TimeTablePojoBean> timeTableTemplateEntries, int noOfBlockedSlots, String userName, String templateName){
+		RegisterCommonUtil commonUtil =new RegisterCommonUtil();
+		return commonUtil.createTimeTableTemplate(timeTableTemplateEntries, noOfBlockedSlots, userName, templateName);
+	}
+	
+	public String createSectionTimeTableTemplate(List<SectionTimeTablePojo> sectionTimeTableList, Long selectedTimeTableTemplateId, Long selectedSectionId, String[] dayOfWeek, String userName){
+		RegisterCommonUtil commonUtil =new RegisterCommonUtil();
+		return commonUtil.createSectionTimeTableTemplate(sectionTimeTableList, selectedTimeTableTemplateId, selectedSectionId, dayOfWeek, userName);
+	}
+	
+	public List<ChoiceListPojo.AvailableTimetableTemplates> getAvailableTimetableTemplatesList(){
+		FetchCommonUtil commonUtil =new FetchCommonUtil();
+		return commonUtil.getAvailableTimetableTemplatesList();
+	}
+	
+	public List<SubjectRegisterPojo> getAvailableSubjectsListForBranch(Long branchId){
+		FetchCommonUtil commonUtil =new FetchCommonUtil();
+		return commonUtil.getAvailableSubjectsListForBranch(branchId);
+	}
+	
+	public List<TeacherRegisterPojo> getAvailableTeachersListForBranch(Long branchId){
+		FetchCommonUtil commonUtil =new FetchCommonUtil();
+		return commonUtil.getAvailableTeachersListForBranch(branchId);
+	}
+	
+	public List<SectionTimeTablePojo> getTimeTableTemplateDetailsForId(Long timeTableTemplateId){
+		FetchCommonUtil commonUtil =new FetchCommonUtil();
+		return commonUtil.getTimeTableTemplateDetailsForId(timeTableTemplateId);
+	}
+	
+	public boolean checkForExistingTimeTableForSection(Long sectionId){
+		FetchCommonUtil commonUtil =new FetchCommonUtil();
+		return commonUtil.checkForExistingTimeTableForSection(sectionId);
+	}
+	
+	public String createHomework(HomeworkPojo homeworkPojo){
+		RegisterCommonUtil commonUtil =new RegisterCommonUtil();
+		return commonUtil.createHomework(homeworkPojo);
+	}
+	
+	public List<SubjectRegisterPojo> getAvailableSubjectsListForSection(Long sectionId){
+		FetchCommonUtil commonUtil =new FetchCommonUtil();
+		return commonUtil.getAvailableSubjectsListForSection(sectionId);
+	}
+	
+	public List<StudentPojo> getAvailableStudentsListForSection(Long sectionId){
+		FetchCommonUtil commonUtil =new FetchCommonUtil();
+		return commonUtil.getAvailableStudentsListForSection(sectionId);
+	}
+	
+	public ExamSchedulePojo checkForExistingExamsScheduleForSection(Long sectionId, Date startDate, Date endDate){
+		java.sql.Date startSqldate = new java.sql.Date(startDate.getTime());
+		java.sql.Date endSqldate = new java.sql.Date(endDate.getTime());
+		FetchCommonUtil commonUtil =new FetchCommonUtil();
+		return commonUtil.checkForExistingExamsScheduleForSection(sectionId, startSqldate, endSqldate);
+	}
+	
+	public String createExamScheduleTable(List<ExamSchedulePojo.ExamScheduleSubjectPojo> examScheduleSubjectPojoList, ExamSchedulePojo examSchedulePojo){
+		RegisterCommonUtil commonUtil =new RegisterCommonUtil();
+		return commonUtil.createExamScheduleTable(examScheduleSubjectPojoList, examSchedulePojo);
+	}
+	
 }

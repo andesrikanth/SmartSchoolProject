@@ -12,7 +12,7 @@
 		<script type="text/javascript" src="js/mm_menu.js"></script>
 		
 	    <meta charset="utf-8"></meta>
-        <title>Boston Public Schools</title>
+        <title>#{CommonMessages.schoolName}</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
         <meta name="description" content=""></meta>
         <meta name="author" content=""></meta>
@@ -22,7 +22,7 @@
         <link rel="stylesheet" href="css/bootstrap2.css"></link>
         <!-- <link rel="stylesheet" href="css/font.css"></link> -->
         <link rel="stylesheet" href="css/home-page.css"></link>
-
+		<link rel="stylesheet" href="css/imagesOverlay.css"></link>
     </h:head>
     
 	<f:metadata>
@@ -37,7 +37,7 @@
         <div class="container">
             <div class="header row">
                 <div class="span4">
-                    <h2><img src="img/SchoolLogo1.png" id="schoolLogo" align="middle" alt="Boston Schools" style="width:80px;height:70px;margin-left:0px;"/><a href="Welcome.jsf" id="schoolName" class="schoolName" style="padding-left: 10px;">Dummy</a></h2>
+                    <h2><img src="img/SchoolLogo1.png" id="schoolLogo" align="middle" style="width:80px;height:70px;margin-left:0px;"/><a href="Welcome.jsf" id="schoolName" class="schoolName" style="padding-left: 10px;">#{CommonMessages.schoolName}</a></h2>
                 </div>
                 <div class="tel-skype span8">
                     <p>
@@ -46,7 +46,6 @@
 	                    <a href="Welcome.jsf" class ="menu-item" name="home" id="home" onmouseover="hideActiveMenus();">Home</a>
 	                    <a href="#" class ="menu-item" name="menu1" id="menu1" onmouseover="MM_showMenu(menu1_values,0,20,null,'menu1')" onmouseout="MM_startTimeout();" >Dummy</a>
 	                    <a href="#" class ="menu-item"  name="menu2" id="menu2" onmouseover="MM_showMenu(menu2_values,0,20,null,'menu2')" onmouseout="MM_startTimeout();"  >Dummy</a>
-	                    <!-- <h:link id="admin" rendered="#{cur_user_role_type == 'Admin'}"> <a href="#" class ="menu-item" name="menu3" id="menu3" onmouseover="MM_showMenu(menu3_values,0,20,null,'menu3')" onmouseout="MM_startTimeout();" >Dummy</a></h:link> -->
 	                    <h:link id="admin" rendered="#{cur_user_role_type == 'Admin'}"> <a href="Admin.jsf" class ="menu-item" name="menu3" id="menu3">Dummy</a></h:link>
 	                    <h:commandLink id="logout" action="logout" actionListener="#{loginBean.logout}" class ="menu-item"  value="Logout"  onmouseover="hideActiveMenus();"> </h:commandLink>
 	                    <a><b><h:outputText class="nameDisplay" value="Welcome #{cur_user_display_name}!" /></b></a> 
@@ -63,6 +62,8 @@
                 <div class="container">
                 <br></br>
                     <div class="row">
+                    <!-- The speed of the the below slide show can be changed in the javascript "slider-custom.js" file. Search for the text "slick slider call" & "slick slider2 call". These 2 functions
+                          will have the time set in the variable "speed".. The default value we set is 2500 (milli seconds) -->
                      <div class="slick_slider">
               <div class="single_iteam"><img src="http://localhost/our-schols-our-future.png" alt=""></img> <!-- Need the image size to be : 960 x 334 -->
               </div>
@@ -80,8 +81,8 @@
         <!-- Content -->
         <div class="container">
  		<marquee style="white-space: nowrap; display: inline-block;margin-left: -40px; " bgcolor="#0088cc" direction="left" scrollamount="4" onmouseover="this.stop();" onmouseout="this.start();">
-	 		<font color="#FFFFFF" style="text-align:center; margin-left:20px; margin-right:20px;" >Boston School is ranked No.1 in United States.</font>
- 			<font color="#FFFFFF" style="text-align:center;margin-left:20px; margin-right:20px;">Boston School is now sponsoring free education for backward students.</font>
+	 		<font color="#FFFFFF" style="text-align:center; margin-left:20px; margin-right:20px;" >Vision School is ranked No.1 in United States.</font>
+ 			<font color="#FFFFFF" style="text-align:center;margin-left:20px; margin-right:20px;">Vision School is now sponsoring free education for backward students.</font>
  		</marquee>
        
        <!-- features -->
@@ -94,7 +95,7 @@
                             <div class="span4 single-feature features-left-span" style="width: 850px;">
                                 <div class="feature-text">
                                     <h4>About Us</h4>
-                                    <p>Our responsibility is to ensure every child has great teachers and great school leaders. In the Boston Public Schools we tailor instruction to meet the individual needs of every student. Together, we are:</p>
+                                    <p>Our responsibility is to ensure every child has great teachers and great school leaders. In the Vision Public Schools we tailor instruction to meet the individual needs of every student. Together, we are:</p>
                                     <p>1. Strengthening teaching and school leadership</p>
                                     <p>2. Replicating success and turning around low- performing schools</p>
                         			<p>3. Deepening partnerships with parents, students, and the community</p>
@@ -135,7 +136,7 @@
                     <!-- about us -->
                     <div class="about-us_2">
                         <h3>About Us</h3>
-                        <h5>Our responsibility is to ensure every child has great teachers and great school leaders. In the Boston Public Schools we tailor instruction to meet the individual needs of every student. Together, we are:</h5>
+                        <h5>Our responsibility is to ensure every child has great teachers and great school leaders. In the Vision Public Schools we tailor instruction to meet the individual needs of every student. Together, we are:</h5>
                         <p>1. Strengthening teaching and school leadership</p>
                         <p>2. Replicating success and turning around low- performing schools</p>
                         <p>3. Deepening partnerships with parents, students, and the community</p>
@@ -220,12 +221,12 @@
                     <!-- gallery -->
                     <div class="gallery_2">
                         <h3>Latest News</h3>
-                        <h5>BOSTON PUBLIC SCHOOLS PARTNERS WITH MUSEUM OF FINE ARTS</h5>
-                        <p>Boston Public Schools (BPS) partnered with the Museum of Fine Arts, Boston (MFA) to celebrate the 10th anniversary of the Teen Arts Council to present HOMiE:In Our Eyes. The exhibit made its debut this past Saturday, July 16, 2016</p>
-                        <h5>THREE BOSTON PUBLIC SCHOOLS TEACHERS NAMED TEACHER-RANGER-TEACHERS BY NATIONAL PARK SERVICE</h5>
-                        <p>The Boston Public Schools (BPS) is pleased to announce that three BPS teachers have been named Teacher-Ranger-Teachers by the National Park Service. As Teacher-Ranger-Teachers, Cindy Muenkel and Danielle Aucoin of Harvard-Kent Elementary School in Charlestown and Emma Fialka-Feldman from Dudley Street Neighborhood Charter School in Roxbury will spend six weeks this summer earning 6 graduate credits studying place-based education, and working with historic sites around Boston to develop teacher curricular resources for supporting site visits by Boston Public Schools students</p>
-                        <h5>BPS KICKS OFF FREE SUMMER MEAL PROGRAM FOR KIDS</h5>
-                        <p>BOSTON — Boston Public Schools’ (BPS) Food and Nutrition Services Department celebrated the beginning of the Summer Food Service Program on Tuesday, July 12, with a free barbecue kickoff event at the Joseph Lee K-8 School in Dorchester in partnership with Project Bread and various organizations</p>
+                        <h5>VISION PUBLIC SCHOOLS PARTNERS WITH MUSEUM OF FINE ARTS</h5>
+                        <p>Vision Public Schools (VPS) partnered with the Museum of Fine Arts, Utah (MFA) to celebrate the 10th anniversary of the Teen Arts Council to present HOMiE:In Our Eyes. The exhibit made its debut this past Saturday, July 16, 2016</p>
+                        <h5>THREE VISION PUBLIC SCHOOLS TEACHERS NAMED TEACHER-RANGER-TEACHERS BY NATIONAL PARK SERVICE</h5>
+                        <p>The Vision Public Schools (VPS) is pleased to announce that three VPS teachers have been named Teacher-Ranger-Teachers by the National Park Service. As Teacher-Ranger-Teachers, Cindy Muenkel and Danielle Aucoin of Harvard-Kent Elementary School in Charlestown and Emma Fialka-Feldman from Dudley Street Neighborhood Charter School in Roxbury will spend six weeks this summer earning 6 graduate credits studying place-based education, and working with historic sites around Utah to develop teacher curricular resources for supporting site visits by Vision Public Schools students</p>
+                        <h5>VPS KICKS OFF FREE SUMMER MEAL PROGRAM FOR KIDS</h5>
+                        <p>VISION — Vision Public Schools’ (VPS) Food and Nutrition Services Department celebrated the beginning of the Summer Food Service Program on Tuesday, July 12, with a free barbecue kickoff event at the Joseph Lee K-8 School in Dorchester in partnership with Project Bread and various organizations</p>
                         
                     </div>
                     </div>
@@ -294,9 +295,8 @@
                 </div>
             </div> <!-- end row -->
            
-            <div class="row">
+           <!--  <div class="row">
             <div class="features_2">
-                <!-- as seen on -->
                 <div class="span12 using-this">
                     <h3>Follow Us On</h3>
                     <div class="using-this-container">
@@ -308,11 +308,11 @@
                     </div>
                 </div>
                 </div>
-            </div> <!-- end row -->
-
+            </div> --> 
+            
         </div> <!-- end container -->
 
-        <footer>
+        <footer id="footer">
             <div class="container">
                 <div class="row">
                      <div class="span4 testimonials" style="width:500px">
@@ -335,8 +335,8 @@
                     </div>
                 </div> 
                 <!-- end row -->
-                <div class="row">
-                    <div class="span12">
+                <!-- <div class="row">
+                     <div class="span12">
                         <div class="social-links">
                             <a class="facebook" href="#"></a>
                             <a class="twitter" href="#"></a>
@@ -349,8 +349,8 @@
                             <a class="forrst" href="#"></a>
                             <a class="email" href="#"></a>
                         </div>
-                    </div>
-                </div> <!-- end row -->
+                    </div> 
+                </div>  -->
                 <div class="row">
                     <div class="span12 copyright">
                         <p><a class="copyrightText">Copyright 2016. Developed by Srikanth Ande</a></p>
@@ -365,7 +365,7 @@
         <script src="js/jquery-1.8.2.min.js"></script>
         <script src="js/jquery.backstretch.min.js"></script>
         <script src="js/jquery.tweet.js"></script>
-        <script src="js/jquery.prettyPhoto.js"></script>
+        <script src="js/jquery.imageOverlay.js"></script>
         <script src="js/home-page.js"></script>
         
         <!-- below 2 javascripts are related to images sliders -->
