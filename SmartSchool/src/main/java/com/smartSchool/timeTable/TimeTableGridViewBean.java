@@ -77,7 +77,7 @@ public class TimeTableGridViewBean implements Serializable {
 				}
 				
 				//Below validation is used for comparison to make sure that all dates are given incremental order. So that all timeslots will increase incrementally.
-				else if (maxDate != null && timeTablePojoBean.getFromTime()!= null && timeTablePojoBean.getFromTime().compareTo(maxDate)<=0){
+				else if (maxDate != null && timeTablePojoBean.getFromTime()!= null && timeTablePojoBean.getFromTime().compareTo(maxDate)<0){
 					validationStatus=false;
 					FacesContext.getCurrentInstance().addMessage("create", new FacesMessage(FacesMessage.SEVERITY_ERROR,  "Validation Failed! Please correct the entry in Slot-"+(i+1)+" . Start Time in Slot-"+(i+1)+" is less than End Time in Slot-"+i+". Slots should be created in incremental order of time.","Info"));
 					break;

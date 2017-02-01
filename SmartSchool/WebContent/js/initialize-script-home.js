@@ -1,7 +1,7 @@
 
 //Global Variables
-var schoolName="Boston Public School";
-var schoolLogoPath="img/SchoolLogo.png";
+var schoolName="Vision Public School";
+var schoolLogoPath="img/TreeVision.png";
 
 var menu1="Academics";
 var menu2="Branches";
@@ -14,10 +14,10 @@ var menu2_options_location = ["#", "#"];
 var menu3_options = ["Branch Register","Standard Register", "Section Register" , "Student Register", "Teacher Register", "Subject Register"];
 var menu3_options_location = ["BranchRegister.xhtml","StandardRegister.xhtml", "SectionRegister.xhtml", "StudentRegister.xhtml","TeacherRegister.xhtml","SubjectRegister.xhtml"];
 
-var OfficeAddress1="2300 Washington Street";
-var OfficeAddress2="Roxbury, MA 02119";
-var OfficePhone="Phone : 617-635-9000";
-var OfficeFax="Fax : 617-635-9059";
+var OfficeAddress1="South State Street";
+var OfficeAddress2="Sandy, UT 84070";
+var OfficePhone="Phone : 617-111-1100";
+var OfficeFax="Fax : 617-111-1101";
 
 
 //Method that will replace values on the jsf page dynamically based on the values set in the above global variables.
@@ -25,7 +25,7 @@ function setStaticValues() {
 	
 	//Below are the standard static menu items.(common for every page)
 	document.getElementById("schoolLogo").src=schoolLogoPath;
-	document.getElementById("schoolName").innerHTML=schoolName;
+	//document.getElementById("schoolName").innerHTML=schoolName;
 	
 	document.getElementById("menu1").innerHTML=menu1;
 	document.getElementById("menu2").innerHTML=menu2;

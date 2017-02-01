@@ -5,8 +5,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.sql.Time;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -16,6 +14,8 @@ import com.smartSchoolService.dao.DatabaseUtility;
 import com.smartSchoolService.login.RandomPasswordGenerator;
 import com.smartSchoolService.login.SmartSchoolHash;
 import com.smartSchoolService.pojo.BranchRegisterPojo;
+import com.smartSchoolService.pojo.ExamSchedulePojo;
+import com.smartSchoolService.pojo.HomeworkPojo;
 import com.smartSchoolService.pojo.SectionRegisterPojo;
 import com.smartSchoolService.pojo.SectionTimeTablePojo;
 import com.smartSchoolService.pojo.StandardRegisterPojo;
@@ -23,6 +23,7 @@ import com.smartSchoolService.pojo.StudentPojo;
 import com.smartSchoolService.pojo.SubjectRegisterPojo;
 import com.smartSchoolService.pojo.TeacherRegisterPojo;
 import com.smartSchoolService.pojo.TimeTablePojoBean;
+import com.smartSchoolService.pojo.ExamSchedulePojo.ExamScheduleSubjectPojo;
 
 public class RegisterCommonUtil {
 
@@ -636,6 +637,192 @@ public class RegisterCommonUtil {
 			}
 			catch(Exception e){
 	        	status=false;
+				e.printStackTrace();
+			}
+			finally{
+				stmt.close();
+				databaseUtility.closeConnection(con);
+			}
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			status=false;
+			e.printStackTrace();
+		}
+		return status;
+	}
+
+	public String createHomework(HomeworkPojo homeworkPojo){
+		String status="true";
+		try {
+			
+			java.sql.Date date = new java.sql.Date(homeworkPojo.getAssignmentDate().getTime());
+			
+			DatabaseUtility databaseUtility =new DatabaseUtility();
+			Connection con=databaseUtility.getConnection();
+			PreparedStatement stmt = null;
+			try{
+				
+				stmt = con.prepareStatement("INSERT INTO SCHOOL_HOMEWORK(BRANCH_ID, STANDARD_ID, SECTION_ID, ASSIGNMENT_DATE, SUBJECT_ID,  STUDENT_ID, HOMEWORK_DETAILS, CREATED_BY,  LAST_UPDATED_BY) VALUES(?,?,?,?,?,?,?,?,?);");
+				
+				stmt.setLong(1, homeworkPojo.getBranchId());
+				stmt.setLong(2, homeworkPojo.getStandardId());
+				stmt.setLong(3, homeworkPojo.getSectionId());
+				stmt.setDate(4, date);
+				stmt.setLong(5, homeworkPojo.getSubjectId());
+				stmt.setLong(6, homeworkPojo.getStudentId());
+				stmt.setString(7, homeworkPojo.getAssignmentDetails());
+				stmt.setString(8, homeworkPojo.getCreatedByUserName());
+				stmt.setString(9, homeworkPojo.getLastUpdatedByUserName());
+				
+				int out=stmt.executeUpdate();
+				//int out = stmt.executeUpdate("INSERT INTO CLASS_AVBL_STANDARDS(STANDARD_NAME, DESCRIPTION, CREATED_BY,  LAST_UPDATED_BY) VALUES('"+standardRegisterPojo.getStandardName()+"', '"+standardRegisterPojo.getStandardDesc()+"','"+standardRegisterPojo.getCreatedByUserName()+"','"+standardRegisterPojo.getCreatedByUserName()+"');" );
+		        if(out == 0){
+		        	status="false";
+		        }
+		        
+		        con.commit();
+			}
+			catch(Exception e){
+				System.out.println("e.getMessage() "+ e.getMessage());
+				System.out.println("e.getCause() "+e.getCause());
+				System.out.println("e.getLocalizedMessage() "+e.getLocalizedMessage());
+				status="false";
+				e.printStackTrace();
+			}
+			finally{
+				stmt.close();
+				databaseUtility.closeConnection(con);
+			}
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			status="false";
+			e.printStackTrace();
+		}
+		
+		return status;
+	}
+	
+	public String createExamScheduleTable(List<ExamSchedulePojo.ExamScheduleSubjectPojo> examScheduleSubjectPojoList, ExamSchedulePojo examSchedulePojo){
+		String status = "true";
+		int noOfSubjects=0;
+		if(examScheduleSubjectPojoList != null){
+			noOfSubjects=examScheduleSubjectPojoList.size();
+		}
+		Long sequenceNextVal = this.getNextValueForSequence("SCHOOL_EXAMS_ID_SEQ");
+		
+		boolean localStatus = createExamScheduleTableChildMethod(examSchedulePojo, sequenceNextVal);
+		if(!localStatus){
+			sequenceNextVal = this.getNextValueForSequence("SCHOOL_EXAMS_ID_SEQ");
+			localStatus = createExamScheduleTableChildMethod(examSchedulePojo, sequenceNextVal);
+		}
+		
+		try{
+			if(localStatus && noOfSubjects >0){
+				String sqlQuery = "INSERT INTO SCHOOL_EXAMS_DETAILS (SCHOOL_EXAMS_ID, SUBJECT_ID, SUB_EXAM_DATE, SUB_EXAM_START_TIME, SUB_EXAM_END_TIME, CREATED_BY, LAST_UPDATED_BY) VALUES (?,?,?,?,?,?,?);";
+				DatabaseUtility databaseUtility =new DatabaseUtility();
+				Connection con=databaseUtility.getConnection();
+				PreparedStatement stmt = null;
+				try{
+					
+					stmt = con.prepareStatement(sqlQuery);
+					
+					for (int i=0;i<noOfSubjects;i++){
+						ExamSchedulePojo.ExamScheduleSubjectPojo examScheduleSubjectPojo = examScheduleSubjectPojoList.get(i); 
+						
+						java.sql.Date examDate = new java.sql.Date(examScheduleSubjectPojo.getSubjectExamDate().getTime());
+						
+						Time startTime = new Time(examScheduleSubjectPojo.getSubjectExamStartTime().getTime());
+						Time endTime = new Time(examScheduleSubjectPojo.getSubjectExamEndTime().getTime());
+
+						stmt.setLong(1, sequenceNextVal);
+						stmt.setLong(2, examScheduleSubjectPojo.getSubjectId());
+						stmt.setDate(3, examDate);
+						stmt.setTime(4,startTime);
+						stmt.setTime(5,endTime);
+						stmt.setString(6, examScheduleSubjectPojo.getCreatedByUserName());
+						stmt.setString(7, examScheduleSubjectPojo.getLastUpdatedByUserName());
+						
+						stmt.addBatch();
+					}
+					
+					
+					stmt.executeBatch();
+			        
+			        con.commit();
+				}
+				catch(Exception e){
+					status="false";
+					//e.printStackTrace();
+					if (e instanceof java.sql.SQLException) {
+					       java.sql.SQLException ne = ((java.sql.SQLException) e).getNextException();
+					       if (ne != null) {
+					    	   ne.printStackTrace();
+					       } 
+					   } else {
+					      e.printStackTrace();
+					   }
+					
+				}
+				finally{
+					stmt.close();
+					databaseUtility.closeConnection(con);
+				}
+			}
+			else {
+				if(noOfSubjects==0){
+					status="There are no subjects defined for the Exam Schedule. Please provide atleast one subject for the timetable. If you need assistance, please contact product support.";
+				}
+				else {
+					status="false";
+				}
+				
+			}
+		}
+		catch (Exception e) {
+			// TODO Auto-generated catch block
+			status="false";
+			e.printStackTrace();
+		}
+		
+		return status;
+	}
+	
+	public boolean createExamScheduleTableChildMethod( ExamSchedulePojo examSchedulePojo, Long sequenceNextVal){
+		boolean status = true;
+		
+		try {
+			
+			java.sql.Date startDate = new java.sql.Date(examSchedulePojo.getExamStartDate().getTime());
+			java.sql.Date endDate = new java.sql.Date(examSchedulePojo.getExamEndDate().getTime());
+			
+			DatabaseUtility databaseUtility =new DatabaseUtility();
+			Connection con=databaseUtility.getConnection();
+			PreparedStatement stmt = null;
+			try{
+				
+				stmt = con.prepareStatement("INSERT INTO SCHOOL_EXAMS(SCHOOL_EXAMS_ID,BRANCH_ID, STANDARD_ID, SECTION_ID, EXAM_START_DATE, EXAM_END_DATE, EXAM_DETAILS, CREATED_BY,  LAST_UPDATED_BY) VALUES(?,?,?,?,?,?,?,?,?);");
+				
+				stmt.setLong(1, sequenceNextVal);
+				stmt.setLong(2, examSchedulePojo.getBranchId());
+				stmt.setLong(3, examSchedulePojo.getStandardId());
+				stmt.setLong(4, examSchedulePojo.getSectionId());
+				stmt.setDate(5, startDate);
+				stmt.setDate(6, endDate);
+				stmt.setString(7, examSchedulePojo.getExamDetails());
+				stmt.setString(8, examSchedulePojo.getCreatedByUserName());
+				stmt.setString(9, examSchedulePojo.getLastUpdatedByUserName());
+				
+				int out=stmt.executeUpdate();
+		        if(out == 0){
+		        	status=false;
+		        }
+		        
+		        con.commit();
+			}
+			catch(Exception e){
+				status=false;
 				e.printStackTrace();
 			}
 			finally{

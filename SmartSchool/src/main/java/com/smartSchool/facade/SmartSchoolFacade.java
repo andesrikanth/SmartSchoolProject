@@ -1,10 +1,13 @@
 package com.smartSchool.facade;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
 import com.smartSchoolService.login.LoginHelper;
 import com.smartSchoolService.pojo.BranchRegisterPojo;
+import com.smartSchoolService.pojo.ExamSchedulePojo;
+import com.smartSchoolService.pojo.HomeworkPojo;
 import com.smartSchoolService.pojo.SectionRegisterPojo;
 import com.smartSchoolService.pojo.SectionTimeTablePojo;
 import com.smartSchoolService.pojo.StandardRegisterPojo;
@@ -222,5 +225,31 @@ public class SmartSchoolFacade {
 		return commonUtil.checkForExistingTimeTableForSection(sectionId);
 	}
 	
+	public String createHomework(HomeworkPojo homeworkPojo){
+		RegisterCommonUtil commonUtil =new RegisterCommonUtil();
+		return commonUtil.createHomework(homeworkPojo);
+	}
+	
+	public List<SubjectRegisterPojo> getAvailableSubjectsListForSection(Long sectionId){
+		FetchCommonUtil commonUtil =new FetchCommonUtil();
+		return commonUtil.getAvailableSubjectsListForSection(sectionId);
+	}
+	
+	public List<StudentPojo> getAvailableStudentsListForSection(Long sectionId){
+		FetchCommonUtil commonUtil =new FetchCommonUtil();
+		return commonUtil.getAvailableStudentsListForSection(sectionId);
+	}
+	
+	public ExamSchedulePojo checkForExistingExamsScheduleForSection(Long sectionId, Date startDate, Date endDate){
+		java.sql.Date startSqldate = new java.sql.Date(startDate.getTime());
+		java.sql.Date endSqldate = new java.sql.Date(endDate.getTime());
+		FetchCommonUtil commonUtil =new FetchCommonUtil();
+		return commonUtil.checkForExistingExamsScheduleForSection(sectionId, startSqldate, endSqldate);
+	}
+	
+	public String createExamScheduleTable(List<ExamSchedulePojo.ExamScheduleSubjectPojo> examScheduleSubjectPojoList, ExamSchedulePojo examSchedulePojo){
+		RegisterCommonUtil commonUtil =new RegisterCommonUtil();
+		return commonUtil.createExamScheduleTable(examScheduleSubjectPojoList, examSchedulePojo);
+	}
 	
 }
