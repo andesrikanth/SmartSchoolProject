@@ -24,7 +24,7 @@ var OfficeFax="Fax : 617-111-1101";
 function setStaticValues() {
 	
 	//Below are the standard static menu items.(common for every page)
-	document.getElementById("schoolLogo").src=schoolLogoPath;
+	//document.getElementById("schoolLogo").src=schoolLogoPath;
 	//document.getElementById("schoolName").innerHTML=schoolName;
 	
 	document.getElementById("menu1").innerHTML=menu1;
