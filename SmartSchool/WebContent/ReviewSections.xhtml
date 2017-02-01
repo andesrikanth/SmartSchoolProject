@@ -33,7 +33,7 @@
 	                 rowsPerPageTemplate="10,15,20" selectionMode="single" selection="#{sectionDataTable.backupSelectedSectionRegisterPojo}" id="sectionTable" lazy="true">
 	        <p:ajax event="rowSelect" listener="#{sectionDataTable.onRowSelect}" update=":form:f2:sectionDetail" oncomplete="PF('sectionDialog').show()" /> 
 	           
-	        <p:column headerText="Section Identifier" sortBy="#{SECTION_ID}" filterBy="#{SECTION_ID}">
+	        <p:column headerText="Section Identifier" sortBy="#{SECTION_ID}">
 	            <h:outputText value="#{sec.key}" />
 	        </p:column>
 	        <p:column headerText="Section Name" sortBy="#{SECTION_NAME}" filterBy="#{SECTION_NAME}">

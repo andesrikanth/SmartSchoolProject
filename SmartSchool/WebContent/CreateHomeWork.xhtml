@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"      
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+       xmlns:p="http://primefaces.org/ui">
+	<h:head/>
+	
+	<!-- xmlns:rich="http://richfaces.org/rich" -->
+	
+	<f:metadata>
+	    <f:viewAction action="#{commonBean.adminSessionStatusCheck}" />
+	</f:metadata>
+	
+    <body>
+    
+				<h4>Create Homework/Assignment</h4>
+				<br></br>
+				<br></br>
+				<p:messages id="messages" autoUpdate="true" for="register"  closable="true"/>
+		        <h:form id="register">
+				    <h:panelGrid id="panel" columns="3" border="1" cellpadding="100" cellspacing="10">
+						
+						<h:outputText id="o11" value="Branch"  styleClass="required" style="margin-right:15px;font-weight:bold;"></h:outputText>
+			            <h:selectOneMenu id="branches" value="#{homeworkBean.selectedBranchId}" valueChangeListener="#{homeworkBean.branchesLOVChange}" style="margin-right:15px; margin-top:15px;" validator="#{homeworkBean.validateBranchesLOV}">
+			            	<f:selectItem  itemValue="0" itemLabel="Select a Branch.."></f:selectItem>
+	    					<f:selectItems value="#{homeworkBean.availableBranches}" var="bran" itemValue="#{bran.branchId}" itemLabel="#{bran.branchName}" />
+	    					<f:ajax render="standards"/>
+	    					<f:ajax render="sections"/>
+						 </h:selectOneMenu>
+						<h:message for="branches" style="color: red;" />
+						
+						<h:outputText id="o12" value="Standard" styleClass="required"  style="margin-right:15px;font-weight:bold;"></h:outputText>
+			            <h:selectOneMenu id="standards" value="#{homeworkBean.selectedStandardId}" style="margin-right:15px; margin-top:15px;"  valueChangeListener="#{homeworkBean.standardsLOVChange}"  validator="#{homeworkBean.validateStandardsLOV}">
+			            	<f:selectItem  itemValue="0" itemLabel="Select a Standard.."></f:selectItem>
+	    					<f:selectItems value="#{homeworkBean.availableStandards}" var="stand" itemValue="#{stand.standardId}" itemLabel="#{stand.standardName}" />
+	    					<f:ajax render="sections"/>
+						 </h:selectOneMenu>
+						<h:message for="standards" style="color: red;" />
+						
+						<h:outputText id="o13" value="Section"  styleClass="required" style="margin-right:15px;font-weight:bold;"></h:outputText>
+						<h:selectOneMenu id="sections" value="#{homeworkBean.selectedSectionId}" style="margin-right:15px; margin-top:15px;" valueChangeListener="#{homeworkBean.sectionsLOVChange}"  validator="#{homeworkBean.validateSectionsLOV}">
+							<f:selectItem  itemValue="0" itemLabel="Select a Section.."></f:selectItem>
+	    					<f:selectItems value="#{homeworkBean.availableSections}" var="sec" itemValue="#{sec.sectionId}" itemLabel="#{sec.sectionName}" />
+	    					<f:ajax render="subjects"/>
+	    					<f:ajax render="Students"/>
+						 </h:selectOneMenu>
+						 <h:message for="sections" style="color: red;" />
+						 
+						<h:outputText id="o14" value="Subject"  styleClass="required" style="margin-right:15px;font-weight:bold;"></h:outputText>
+						<h:selectOneMenu id="subjects" value="#{homeworkBean.selectedSubjectId}" style="margin-right:15px; margin-top:15px;"  validator="#{homeworkBean.validateSubjectsLOV}">
+							<f:selectItem  itemValue="0" itemLabel="Select a Subject.."></f:selectItem>
+	    					<f:selectItems value="#{homeworkBean.availableSubjects}" var="sub" itemValue="#{sub.key}" itemLabel="#{sub.subjectName}" />
+						 </h:selectOneMenu>
+						 <h:message for="subjects" style="color: red;" />
+						
+						<h:outputText id="o15" value="Student"  style="margin-right:15px;font-weight:bold;"></h:outputText>
+						<h:selectOneMenu id="Students" value="#{homeworkBean.selectedStudentId}" style="margin-right:15px; margin-top:15px;">
+							<f:selectItem  itemValue="0" itemLabel="Select a Student.."></f:selectItem>
+	    					<f:selectItems value="#{homeworkBean.availableStudents}" var="stud" itemValue="#{stud.key}" itemLabel="#{stud.studentFirstName} #{stud.studentLastName}" />
+						 </h:selectOneMenu>
+						 <h:message for="Students" style="color: red;" />
+						
+						
+						<h:outputText id="o4" value="Assignment Date"  styleClass="required"  style="margin-right:15px;font-weight:bold;"></h:outputText>
+			             <p:calendar id="AssignmentDate" value="#{homeworkBean.assignmentDate}">
+        			    	<p:ajax event="dateSelect" listener="#{homeworkBean.onDateSelect}"/>
+        				</p:calendar>
+        				<h:message for="AssignmentDate" style="color:red" />
+        				
+						<h:outputText id="o7" value="Assignment/Homework Details"  styleClass="required" style="margin-right:15px;font-weight:bold;"></h:outputText>
+			            <h:inputTextarea id="AssignmentDetails" rows="10" cols="10"  name="Address" value="#{homeworkBean.assignmentDetails}" style="margin-right:15px;"  requiredMessage="Please enter Assignment or Homework details." required="true"  a:maxlength="2500"/>
+						<h:message for="AssignmentDetails" style="color:red" />
+											
+						
+						
+						<f:facet name="footer">
+						   <h:panelGroup style="display:block; text-align:center">
+						   <p><h:commandButton id="create" class="button submit-btn" action="#{homeworkBean.createHomework}" value="Save" disabled="#{homeworkBean.homeworkCreationStatus}" style="margin-top: 10px;"  /></p>
+       						 
+							   
+						   </h:panelGroup>
+						</f:facet>
+					</h:panelGrid>
+					
+					<br></br>
+					
+										
+		        </h:form>
+			
+    </body>
+
+</html>
+
+

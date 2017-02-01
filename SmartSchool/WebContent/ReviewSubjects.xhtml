@@ -33,7 +33,7 @@
 	                 rowsPerPageTemplate="10,15,20" selectionMode="single" selection="#{subjectDataTable.backupSelectedSubjectRegisterPojo}" id="subjectTable" lazy="true">
 	        <p:ajax event="rowSelect" update=":form:f2:subjectDetail" listener="#{subjectDataTable.onRowSelect}" oncomplete="PF('subjectDialog').show()" /> 
 	           
-	        <p:column headerText="Subject Identifier" sortBy="#{SUBJECT_ID}" filterBy="#{SUBJECT_ID}">
+	        <p:column headerText="Subject Identifier" sortBy="#{SUBJECT_ID}">
 	            <h:outputText value="#{sub.key}" />
 	        </p:column>
 	        <p:column headerText="Subject Name" sortBy="#{SUBJECT_NAME}" filterBy="#{SUBJECT_NAME}">

@@ -33,7 +33,7 @@
 	                 rowsPerPageTemplate="10,15,20" selectionMode="single" selection="#{standardDataTable.backupSelectedStandardRegisterPojo}" id="standardTable" lazy="true">
 	        <p:ajax event="rowSelect" listener="#{standardDataTable.onRowSelect}" update=":form:f2:standardDetail" oncomplete="PF('standardDialog').show()" /> 
 	           
-	        <p:column headerText="Standard Identifier" sortBy="#{STANDARD_ID}" filterBy="#{STANDARD_ID}">
+	        <p:column headerText="Standard Identifier" sortBy="#{STANDARD_ID}">
 	            <h:outputText value="#{std.key}" />
 	        </p:column>
 	        <p:column headerText="Standard Name" sortBy="#{STANDARD_NAME}" filterBy="#{STANDARD_NAME}">

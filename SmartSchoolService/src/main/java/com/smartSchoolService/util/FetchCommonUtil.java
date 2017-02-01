@@ -2,6 +2,7 @@ package com.smartSchoolService.util;
 
 import java.sql.Connection;
 import java.sql.Date;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.sql.Time;
@@ -12,6 +13,7 @@ import java.util.List;
 
 import com.smartSchoolService.dao.DatabaseUtility;
 import com.smartSchoolService.pojo.BranchRegisterPojo;
+import com.smartSchoolService.pojo.ExamSchedulePojo;
 import com.smartSchoolService.pojo.SectionRegisterPojo;
 import com.smartSchoolService.pojo.SectionTimeTablePojo;
 import com.smartSchoolService.pojo.StandardRegisterPojo;
@@ -624,4 +626,158 @@ public class FetchCommonUtil {
 		return status;
 		
 	}
+	
+	public List<SubjectRegisterPojo> getAvailableSubjectsListForSection(Long sectionId){
+		List<SubjectRegisterPojo> availableSubjects = new ArrayList<SubjectRegisterPojo>();
+		
+		try {
+			DatabaseUtility databaseUtility =new DatabaseUtility();
+			Connection con=databaseUtility.getConnection();
+			Statement stmt = null;
+			try{
+				
+				stmt = con.createStatement();
+				ResultSet rs = stmt.executeQuery("SELECT NO_OF_SLOTS_USED FROM SECTION_SUBJECT_TIME_TABLE WHERE SECTION_ID = "+sectionId+";");
+				Long noOfSlotsUsed = null;
+						
+				while(rs.next()){
+					noOfSlotsUsed = rs.getLong("NO_OF_SLOTS_USED");
+				}
+				
+				if(noOfSlotsUsed != null){
+					
+					Statement stmt1 = con.createStatement();
+					
+					String query = "SELECT ";
+					String fromTables=" FROM SECTION_SUBJECT_TIME_TABLE sec,";
+					String whereClause = " WHERE SECTION_ID = "+sectionId+" AND ";
+					
+					for (int i =1 ; i<=noOfSlotsUsed; i++){
+						query = query+"sec.SLOT"+i+" , sub"+i+".subject_name SLOT"+i+"_NAME ,";
+						fromTables=fromTables+" SUBJECTS_DETAILS sub"+i+",";
+						whereClause=whereClause+" sec.slot"+i+"= sub"+i+".subject_id AND sub"+i+".SUBJECT_TYPE <> 'SPECIAL' AND";
+					}
+					
+					query = query.substring(0, query.length()-1);
+					fromTables = fromTables.substring(0, fromTables.length()-1);
+					whereClause=whereClause.substring(0,whereClause.length()-3);
+					query= query+fromTables+ whereClause;
+					
+					ResultSet rs1 = stmt1.executeQuery(query+";");
+					
+					
+					
+					while(rs1.next()){
+						for (int i =1 ; i<=noOfSlotsUsed; i++){
+							SubjectRegisterPojo subjectRegisterPojo = new SubjectRegisterPojo();
+				        	subjectRegisterPojo.setKey(rs1.getLong("SLOT"+i));
+				        	subjectRegisterPojo.setSubjectName(rs1.getString("SLOT"+i+"_NAME"));
+				        	availableSubjects.add(subjectRegisterPojo);	
+						}
+			        	
+			        }
+				}
+				else {
+					return availableSubjects;
+				}
+				
+			}
+			catch(Exception e){
+				e.printStackTrace();
+			}
+			finally{
+				stmt.close();
+				databaseUtility.closeConnection(con);
+			}
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return availableSubjects;
+	}
+	
+	public List<StudentPojo> getAvailableStudentsListForSection(Long sectionId){
+		List<StudentPojo> availableStudents = new ArrayList<StudentPojo>();
+		
+		try {
+			DatabaseUtility databaseUtility =new DatabaseUtility();
+			Connection con=databaseUtility.getConnection();
+			Statement stmt = null;
+			try{
+				
+				stmt = con.createStatement();
+				ResultSet rs = stmt.executeQuery("select STUDENT_ID, STUDENT_FIRST_NAME, STUDENT_LAST_NAME from STUDENT_DETAILS WHERE REGISTERED_SECTION = "+sectionId+";");
+		        while(rs.next()){
+		        	StudentPojo studentPojo = new StudentPojo();
+		        	studentPojo.setKey(rs.getLong("STUDENT_ID"));
+		        	studentPojo.setStudentFirstName(rs.getString("STUDENT_FIRST_NAME")+" "+rs.getString("STUDENT_LAST_NAME"));
+		        	availableStudents.add(studentPojo);
+		        }
+			}
+			catch(Exception e){
+				e.printStackTrace();
+			}
+			finally{
+				stmt.close();
+				databaseUtility.closeConnection(con);
+			}
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return availableStudents;
+	}
+	
+	
+		
+	public ExamSchedulePojo checkForExistingExamsScheduleForSection(Long sectionIds, Date startDate, Date endDate){
+			
+			ExamSchedulePojo examSchedulePojo = null;
+			
+			try {
+				DatabaseUtility databaseUtility =new DatabaseUtility();
+				Connection con=databaseUtility.getConnection();
+				PreparedStatement stmt = null;
+				
+				try{
+					stmt = con.prepareStatement("select EXAM_DETAILS, EXAM_START_DATE, EXAM_END_DATE from SCHOOL_EXAMS where section_id = ? and ((? BETWEEN EXAM_START_DATE AND EXAM_END_DATE or ? BETWEEN EXAM_START_DATE AND EXAM_END_DATE) or   (? <= EXAM_START_DATE and ? >= EXAM_END_DATE)  ) ;");
+					
+					stmt.setLong(1, sectionIds);
+					stmt.setDate(2, startDate);
+					stmt.setDate(3, endDate);
+					stmt.setDate(4, startDate);
+					stmt.setDate(5, endDate);
+					
+					ResultSet rs=stmt.executeQuery();
+					
+					while(rs.next()){
+						if(examSchedulePojo==null){
+							examSchedulePojo = new ExamSchedulePojo();
+						}
+						examSchedulePojo.setExamDetails(rs.getString("EXAM_DETAILS"));
+						examSchedulePojo.setExamStartDate(rs.getDate("EXAM_START_DATE"));
+						examSchedulePojo.setExamEndDate(rs.getDate("EXAM_END_DATE"));
+			        }
+				}
+				catch(Exception e){
+					e.printStackTrace();
+				}
+				finally{
+					stmt.close();
+					databaseUtility.closeConnection(con);
+				}
+				
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			return examSchedulePojo;
+			
+		}	
+	
 }

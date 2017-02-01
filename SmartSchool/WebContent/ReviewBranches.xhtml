@@ -33,7 +33,7 @@
 	                 rowsPerPageTemplate="10,15,20" selectionMode="single" selection="#{branchDataTable.backupSelectedBranchRegisterPojo}" id="branchTable" lazy="true">
 	        <p:ajax event="rowSelect" update=":form:f2:branchDetail" listener="#{branchDataTable.onRowSelect}" oncomplete="PF('branchDialog').show()" /> 
 	           
-	        <p:column headerText="Branch Identifier" sortBy="#{BRANCH_ID}" filterBy="#{BRANCH_ID}">
+	        <p:column headerText="Branch Identifier" sortBy="#{BRANCH_ID}">
 	            <h:outputText value="#{bran.key}" />
 	        </p:column>
 	        <p:column headerText="Branch Name" sortBy="#{BRANCH_NAME}" filterBy="#{BRANCH_NAME}">

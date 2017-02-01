@@ -28,6 +28,12 @@
 /* End of Admin Page rendering related changes */
 
 
+/* Start : Below styles class is for Create Exam Schedule page*/
+#examScheduleForm .hasDatepicker{
+	width:100px;
+}
+/* End of styles class is for Create Exam Schedule page */
+
 /* Start : Below styles classes for primefaces customizations*/
 
 /* below are for TimeTable Template dataGrid */

@@ -34,12 +34,15 @@
 	                    
 	                    <pe:timePicker value="#{timeTable.fromTime}" id="fromTime" mode="popup" widgetVar="popupTimeWidget" style="width: 35px;"
 	                   		label="Popup time picker">
+	                   		<p:watermark for="fromTime" value="Start" />
 	                   	</pe:timePicker>
 	                   	
 			            <h:outputText value="to"/>
 			            
 			           <pe:timePicker value="#{timeTable.toTime}" alt="End Time" id="toTime" mode="popup" widgetVar="popupTimeWidget" style="width: 35px; margin-top: 15%;"
-	                   		label="Popup time picker"/>
+	                   		label="Popup time picker">
+	                   		<p:watermark for="toTime" value="End" />
+	                   	</pe:timePicker>
 	                   		
 	                   	<!-- DON'T REMOVE ::: DUMMY CODE START : The below panelGroup code is written just to workaround a bug in primefaces. Bug is that if we select the "fromTime", then the last column in the grid will be auto-populated with the selected "fromTime" value. Keeping the below
 	                   	code will do the autoPopulating to the below hidden column and end user will not see the autoPopulated value. -->

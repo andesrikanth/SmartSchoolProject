@@ -33,7 +33,7 @@
          <p:ajax event="rowSelect" listener="#{teacherDataTable.onRowSelect}" update=":form:f2:teacherDetail" oncomplete="PF('teacherDialog').show()" />
          
            
-        <p:column headerText="Teacher Identifier" sortBy="#{TEACHER_ID}" filterBy="#{TEACHER_ID}">
+        <p:column headerText="Teacher Identifier" sortBy="#{TEACHER_ID}">
             <h:outputText value="#{teach.key}" />
         </p:column>
         <p:column headerText="First Name" sortBy="#{TEACHER_FIRST_NAME}" filterBy="#{TEACHER_FIRST_NAME}">
