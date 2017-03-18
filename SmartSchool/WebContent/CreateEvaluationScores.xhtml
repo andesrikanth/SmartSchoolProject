@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"      
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:pe="http://primefaces.org/ui/extensions"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
+ <!-- Test URL : http://localhost:8080/SmartSchool/home.jsf -->
+ <h:head>
+
+ </h:head>
+ 
+    <f:metadata>
+	    <f:viewAction action="#{commonBean.adminSessionStatusCheck}" />
+	</f:metadata> 
+ 
+    <h:body>
+    	<h4>Create Evaluation Scores</h4>
+				<br></br>
+	   <h:form id="evaluationScores" style="margin: 0 0 0px;" rendered="#{!evaluationScores.initializeStatus}">
+	   				<p:messages id="initializeMessage" autoUpdate="true" for="initialize"  closable="true"/>
+				    <h:panelGrid id="panel" columns="3" border="1" cellpadding="100" cellspacing="10" >
+						
+						<h:outputText id="o11" value="Branch"  styleClass="required" style="margin-right:15px;font-weight:bold;"></h:outputText>
+			            <h:selectOneMenu id="branches" value="#{evaluationScores.selectedBranchId}" disabled="#{evaluationScores.initializeStatus}" valueChangeListener="#{evaluationScores.branchesLOVChange}" style="margin-right:15px; margin-top:15px;" validator="#{evaluationScores.validateBranchesLOV}">
+			            	<f:selectItem  itemValue="0" itemLabel="Select a Branch.."></f:selectItem>
+	    					<f:selectItems value="#{evaluationScores.availableBranches}" var="bran" itemValue="#{bran.branchId}" itemLabel="#{bran.branchName}" />
+	    					<f:ajax render="standards"/>
+	    					<f:ajax render="sections"/>
+						 </h:selectOneMenu>
+						<h:message for="branches" style="color: red;" />
+						
+						<h:outputText id="o12" value="Standard" styleClass="required"  style="margin-right:15px;font-weight:bold;"></h:outputText>
+			            <h:selectOneMenu id="standards" value="#{evaluationScores.selectedStandardId}" disabled="#{evaluationScores.initializeStatus}" style="margin-right:15px; margin-top:15px;"  valueChangeListener="#{evaluationScores.standardsLOVChange}"  validator="#{evaluationScores.validateStandardsLOV}">
+			            	<f:selectItem  itemValue="0" itemLabel="Select a Standard.."></f:selectItem>
+	    					<f:selectItems value="#{evaluationScores.availableStandards}" var="stand" itemValue="#{stand.standardId}" itemLabel="#{stand.standardName}" />
+	    					<f:ajax render="sections"/>
+						 </h:selectOneMenu>
+						<h:message for="standards" style="color: red;" />
+						
+						<h:outputText id="o13" value="Section"  styleClass="required" style="margin-right:15px;font-weight:bold;"></h:outputText>
+						<h:selectOneMenu id="sections" value="#{evaluationScores.selectedSectionId}" disabled="#{evaluationScores.initializeStatus}" style="margin-right:15px; margin-top:15px;"  valueChangeListener="#{evaluationScores.sectionsLOVChange}"   validator="#{evaluationScores.validateSectionsLOV}">
+							<f:selectItem  itemValue="0" itemLabel="Select a Section.."></f:selectItem>
+	    					<f:selectItems value="#{evaluationScores.availableSections}" var="sec" itemValue="#{sec.sectionId}" itemLabel="#{sec.sectionName}" />
+						 	<f:ajax render="Exams"/>
+						 	<f:ajax render="Subjects"/>
+						 	<f:ajax render="Students"/>
+						 </h:selectOneMenu>
+						 <h:message for="sections" style="color: red;" />
+						
+						<h:outputText id="o15" value="Exam"  styleClass="required"  style="margin-right:15px;font-weight:bold;"></h:outputText>
+						<h:selectOneMenu id="Exams" value="#{evaluationScores.selectedExamId}"  disabled="#{evaluationScores.initializeStatus}" style="margin-right:15px; margin-top:15px;" validator="#{evaluationScores.validateExamsLOV}">
+							<f:selectItem  itemValue="0" itemLabel="Select an Exam.."></f:selectItem>
+	    					<f:selectItems value="#{evaluationScores.availableExams}" var="sub" itemValue="#{sub.key}" itemLabel="#{sub.examDetails}" />
+						 </h:selectOneMenu>
+						 <h:message for="Exams" style="color: red;" />
+						
+						<h:outputText id="o17" value="Subject"  styleClass="required"  style="margin-right:15px;font-weight:bold;"></h:outputText>
+						<h:selectOneMenu id="Subjects" value="#{evaluationScores.selectedSubjectId}"  disabled="#{evaluationScores.initializeStatus}" style="margin-right:15px; margin-top:15px;" validator="#{evaluationScores.validateSubjectsLOV}">
+							<f:selectItem  itemValue="0" itemLabel="Select a Subject.."></f:selectItem>
+	    					<f:selectItems value="#{evaluationScores.availableSubjects}" var="sub" itemValue="#{sub.key}" itemLabel="#{sub.subjectName}" />
+						 </h:selectOneMenu>
+						 <h:message for="Subjects" style="color: red;" />
+						
+						 
+						 <h:outputText id="o16" value="Student"  style="margin-right:15px;font-weight:bold;"></h:outputText>
+						<h:selectOneMenu id="Students" value="#{evaluationScores.selectedStudentId}"  disabled="#{evaluationScores.initializeStatus}" style="margin-right:15px; margin-top:15px;">
+							<f:selectItem  itemValue="0" itemLabel="Select a Student.."></f:selectItem>
+	    					<f:selectItems value="#{evaluationScores.availableStudents}" var="stud" itemValue="#{stud.key}" itemLabel="#{stud.studentFirstName} #{stud.studentLastName}" />
+						 </h:selectOneMenu>
+						 <h:message for="Students" style="color: red;" />
+						 
+						 
+        				
+						 <f:facet name="footer">
+						   <h:panelGroup style="display:block; text-align:center">
+						   <p><h:commandButton id="initialize" class="button submit-btn" actionListener="#{evaluationScores.initializeEvaluationScoreTable}" rendered="#{! evaluationScores.initializeStatus}" value="Initialize" style="margin-top: 10px;"  /></p>
+						   <p><h:commandButton id="reset" class="button submit-btn" actionListener="#{evaluationScores.resetEvaluationScoresTable}" rendered="#{evaluationScores.initializeStatus}" value="Reset" style="margin-top: 10px;"  /></p>
+						   </h:panelGroup>
+						</f:facet>
+					</h:panelGrid>
+		        </h:form>
+		       <h:form id="evaluationScoresForm" rendered="#{evaluationScores.initializeStatus}"  style="margin: 0 0 0px;">
+		   
+				   <p:messages id="saveMessage" autoUpdate="true" for="save"  closable="true"/>
+				   
+				 <p:dataTable var="eval" value="#{evaluationScoresDataTable.lazyDataModel}" paginator="true" rows="15" style="font-size: 0.9em;margin-left: 20px;margin-right: 20px;"
+                 		paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+                 		rowsPerPageTemplate="10,15"  editable="true" editMode="cell"  id="scoresTable" lazy="true">
+                         
+                         <p:ajax event="cellEdit" listener="#{evaluationScores.onEditLabel}"/>
+                         
+                         <p:column headerText="Student Identifier" sortBy="#{STUDENT_ID}">
+				            <h:outputText value="#{eval.key}" />
+				        </p:column>
+				        <p:column headerText="Student Name" filterBy="#{STUDENT_FIRST_NAME}">
+				            <h:outputText value="#{eval.studentName}" />
+				        </p:column>
+				        <p:column headerText="Evaluation Score">
+				        <p:cellEditor>
+					        <f:facet name="output">
+				                <h:outputText value="#{eval.subjectScore}"></h:outputText>
+				            </f:facet>
+				            <f:facet name="input">
+				                <p:inputText value="#{eval.subjectScore}"></p:inputText>
+				            </f:facet>
+				                 
+				        </p:cellEditor>
+				             
+				        </p:column>
+				        <p:column headerText="Comments">
+					        <p:cellEditor>
+						        <f:facet name="output">
+					                <h:outputText id="out" value="#{eval.comments}"></h:outputText>
+					            </f:facet>
+					            <f:facet name="input">
+					                <p:inputText value="#{eval.comments}"></p:inputText>
+					            </f:facet>
+					                 
+					        </p:cellEditor>
+				        </p:column>
+			          
+			    </p:dataTable>
+			    
+			   <p><h:commandButton id="save" class="button submit-btn" action="#" actionListener="#{evaluationScores.saveEvaluationScores}" value="Submit" type="submit"  style="margin-top: 10px;"  >
+			             <f:ajax execute="@this" render="saveMessage" />
+			   </h:commandButton></p> 
+			   </h:form>
+			   
+		       
+    </h:body>
+</html>

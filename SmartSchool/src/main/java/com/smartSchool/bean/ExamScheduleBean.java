@@ -20,9 +20,7 @@ import org.primefaces.event.SelectEvent;
 
 import com.smartSchool.facade.SmartSchoolFacade;
 import com.smartSchoolService.pojo.ExamSchedulePojo;
-import com.smartSchoolService.pojo.ExamSchedulePojo.ExamScheduleSubjectPojo;
 import com.smartSchoolService.pojo.SubjectRegisterPojo;
-import com.smartSchoolService.pojo.TimeTablePojoBean;
 import com.smartSchoolService.util.ChoiceListPojo;
 
 @ManagedBean(name = "examSchedule")

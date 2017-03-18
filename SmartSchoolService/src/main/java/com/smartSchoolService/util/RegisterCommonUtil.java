@@ -8,12 +8,15 @@ import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 import com.smartSchoolService.dao.DatabaseUtility;
 import com.smartSchoolService.login.RandomPasswordGenerator;
 import com.smartSchoolService.login.SmartSchoolHash;
 import com.smartSchoolService.pojo.BranchRegisterPojo;
+import com.smartSchoolService.pojo.EvaluationScoresPojo;
 import com.smartSchoolService.pojo.ExamSchedulePojo;
 import com.smartSchoolService.pojo.HomeworkPojo;
 import com.smartSchoolService.pojo.SectionRegisterPojo;
@@ -837,5 +840,131 @@ public class RegisterCommonUtil {
 		}
 		return status;
 	}
+	
+	
+	public String createEvaluationScoresForSubject(Long branchId, Long standardId, Long sectionId,Long schoolExamId, Long subjectId, HashMap<Long,EvaluationScoresPojo> newEvaluationScoresEntries, String loggedUserName){
+		
+		String status = "true";
+		     try{
+		    	 
+		    	 boolean localStatus = true;
+		    	 Set<Long> keySet = newEvaluationScoresEntries.keySet();
+					Iterator<Long> it = keySet.iterator();
+					DatabaseUtility databaseUtility =new DatabaseUtility();
+					Connection con=databaseUtility.getConnection();
+					//Connection con1=databaseUtility.getConnection();
+					
+					PreparedStatement stmt = null;
+					PreparedStatement stmt1 = null;
+					
+					String query = "INSERT INTO SCHOOL_EVALUATION_SCORES (SCHOOL_EVALUATION_SCORES_ID,BRANCH_ID, STANDARD_ID, SECTION_ID, STUDENT_ID,SCHOOL_EXAMS_ID, CREATED_BY, LAST_UPDATED_BY )  VALUES(?,?,?,?,?,?,?,?);";
+					String sqlQuery = "INSERT INTO SCHOOL_EVALUATION_SCORES_DETAILS (SCHOOL_EVALUATION_SCORES_ID, SUBJECT_ID, SUBJECT_SCORE, GRADE, COMMENTS, CREATED_BY, LAST_UPDATED_BY) VALUES (?,?,?,?,?,?,?);";
+					
+					stmt = con.prepareStatement(query);
+					stmt1 = con.prepareStatement(sqlQuery);
+					
+					boolean parentTableInsertStatus = true;
+					
+					while(it.hasNext()){
+						Long sequenceNextVal = null;
+						EvaluationScoresPojo evaluationScoresPojoLocal = newEvaluationScoresEntries.get(it.next());
+						Long schoolEvaluationScoresId = evaluationScoresPojoLocal.getSchoolEvaluationScoresId();
+						
+						if(schoolEvaluationScoresId != null && schoolEvaluationScoresId.intValue() != 0){
+							parentTableInsertStatus = false;
+							sequenceNextVal = schoolEvaluationScoresId;
+						}
+						
+						if(parentTableInsertStatus){
+							try{
+								sequenceNextVal = this.getNextValueForSequence("SCHOOL_EVALUATION_SCORES_ID_SEQ");
+								stmt.setLong(1, sequenceNextVal);
+								stmt.setLong(2, branchId);
+								stmt.setLong(3, standardId);
+								stmt.setLong(4, sectionId);
+								stmt.setLong(5, evaluationScoresPojoLocal.getKey());
+								stmt.setLong(6, schoolExamId);
+								stmt.setString(7, loggedUserName);
+								stmt.setString(8, loggedUserName);
+								
+								stmt.addBatch();
+						        					        
+							}
+							catch(Exception e){
+								localStatus=false;
+								e.printStackTrace();
+							}	
+						}
+						
+							try{
+									stmt1.setLong(1, sequenceNextVal);
+									stmt1.setLong(2, subjectId);
+									stmt1.setBigDecimal(3, evaluationScoresPojoLocal.getSubjectScore());
+									stmt1.setString(4, evaluationScoresPojoLocal.getGrade());
+									stmt1.setString(5, evaluationScoresPojoLocal.getComments());
+									stmt1.setString(6, loggedUserName);
+									stmt1.setString(7, loggedUserName);
+									
+									stmt1.addBatch();
+						        
+							}
+							catch(Exception e){
+								localStatus=false;
+								e.printStackTrace();
+							}
+						
+					}
+					
+					try{
+						
+						if(localStatus){
+							if(parentTableInsertStatus){
+								stmt.executeBatch();	
+							}
+							
+							stmt1.executeBatch();
+							con.commit();
+					        //con1.commit();
+						}
+						else {
+							status = "false";
+						}
+						
+					}
+					catch(Exception e){
+						status="false";
+						//e.printStackTrace();
+						if (e instanceof java.sql.SQLException) {
+						       java.sql.SQLException ne = ((java.sql.SQLException) e).getNextException();
+						       if (ne != null) {
+						    	   ne.printStackTrace();
+						       } 
+						   } else {
+						      e.printStackTrace();
+						   }
+						
+					}
+					finally{
+						stmt.close();
+						stmt1.close();
+						databaseUtility.closeConnection(con);
+					}
+			
+				
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				status="false";
+				if(e!=null && e.getCause()!=null) {
+					status=e.getCause().toString();
+				}
+				
+				e.printStackTrace();
+			}
+		
+		
+		return status;
+	}
+	
+
 
 }

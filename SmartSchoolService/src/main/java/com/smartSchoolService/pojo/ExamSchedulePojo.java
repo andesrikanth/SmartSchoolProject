@@ -1,10 +1,10 @@
 package com.smartSchoolService.pojo;
 
-import java.sql.Time;
 import java.util.Date;
 
 public class ExamSchedulePojo {
 
+	private Long key;
 	private Date examStartDate;
 	private Date examEndDate;
 	private Long standardId;
@@ -15,6 +15,12 @@ public class ExamSchedulePojo {
 	private String lastUpdatedByUserName;
 	
 	
+	public Long getKey() {
+		return key;
+	}
+	public void setKey(Long key) {
+		this.key = key;
+	}
 	public Date getExamStartDate() {
 		return examStartDate;
 	}
@@ -67,6 +73,8 @@ public class ExamSchedulePojo {
 	
 	
 	public class ExamScheduleSubjectPojo{
+		
+		private Long key;
 		private Long subjectId;
 		private String subjectName;
 		private Date subjectExamDate;
@@ -75,6 +83,13 @@ public class ExamSchedulePojo {
 		private String createdByUserName;
 		private String lastUpdatedByUserName;
 		
+		
+		public Long getKey() {
+			return key;
+		}
+		public void setKey(Long key) {
+			this.key = key;
+		}
 		public String getSubjectName() {
 			return subjectName;
 		}

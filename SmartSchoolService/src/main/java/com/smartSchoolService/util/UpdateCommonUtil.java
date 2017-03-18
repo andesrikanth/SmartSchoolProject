@@ -4,9 +4,13 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.Timestamp;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Set;
 
 import com.smartSchoolService.dao.DatabaseUtility;
 import com.smartSchoolService.pojo.BranchRegisterPojo;
+import com.smartSchoolService.pojo.EvaluationScoresPojo;
 import com.smartSchoolService.pojo.SectionRegisterPojo;
 import com.smartSchoolService.pojo.StandardRegisterPojo;
 import com.smartSchoolService.pojo.StudentPojo;
@@ -364,7 +368,63 @@ public class UpdateCommonUtil {
 		return status;
 	}
 	
-	
+	public String updateExistingEvaluationScoresDetailsForSubject(HashMap<Long,EvaluationScoresPojo> modifiedEvaluationScoresEntries, String loggedUserName){
+		
+		String status = "true";
+		try {
+			DatabaseUtility databaseUtility =new DatabaseUtility();
+			Connection con=databaseUtility.getConnection();
+			PreparedStatement stmt = null;
+			java.sql.Date date = new java.sql.Date(new Date().getTime());
+			try{
+				
+				stmt = con.prepareStatement("UPDATE SCHOOL_EVALUATION_SCORES_DETAILS SET SUBJECT_SCORE= ?, COMMENTS = ?, LAST_UPDATED_BY = ? ,  LAST_UPDATE_DATE = ?  WHERE SCHOOL_EVALUATION_SCORES_DETAILS_ID = ? ;");
+				
+				Set<Long> keySet = modifiedEvaluationScoresEntries.keySet();
+				Iterator<Long> it = keySet.iterator();
+				while(it.hasNext()){
+					EvaluationScoresPojo evaluationScoresPojoLocal = modifiedEvaluationScoresEntries.get(it.next());
+					stmt.setBigDecimal(1, evaluationScoresPojoLocal.getSubjectScore());
+					stmt.setString(2, evaluationScoresPojoLocal.getComments());
+					stmt.setString(3, loggedUserName);
+					stmt.setTimestamp(4, new Timestamp(date.getTime()));
+					stmt.setLong(5, evaluationScoresPojoLocal.getSchoolEvaluationScoresDetailsId());
+					
+					stmt.addBatch();
+				}
+				
+							
+				stmt.executeBatch();
+				
+		        con.commit();
+			}
+			catch(Exception e){
+				status="false";
+				/*if(e !=null && e.getLocalizedMessage()!=null){
+					if(e.getLocalizedMessage().contains("violates unique constraint \"subjects_details_subject_name_key\"")){
+						status="Same subject already exists. Please enter a different Subject Name";
+					}
+				}*/
+				e.printStackTrace();
+			}
+			finally{
+				stmt.close();
+				databaseUtility.closeConnection(con);
+			}
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			status="false";
+			if(e!=null && e.getCause()!=null) {
+				status=e.getCause().toString();
+			}
+			
+			e.printStackTrace();
+		}
+		
+		return status;
+		
+	}
 	
 }
 

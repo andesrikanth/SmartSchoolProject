@@ -1,5 +1,6 @@
 package com.smartSchoolService.util;
 
+import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -13,6 +14,7 @@ import java.util.List;
 
 import com.smartSchoolService.dao.DatabaseUtility;
 import com.smartSchoolService.pojo.BranchRegisterPojo;
+import com.smartSchoolService.pojo.EvaluationScoresPojo;
 import com.smartSchoolService.pojo.ExamSchedulePojo;
 import com.smartSchoolService.pojo.SectionRegisterPojo;
 import com.smartSchoolService.pojo.SectionTimeTablePojo;
@@ -732,7 +734,39 @@ public class FetchCommonUtil {
 		return availableStudents;
 	}
 	
-	
+	public List<ExamSchedulePojo> getAvailableExamsListForSection(Long sectionId){
+		List<ExamSchedulePojo> availableExams = new ArrayList<ExamSchedulePojo>();
+		
+		try {
+			DatabaseUtility databaseUtility =new DatabaseUtility();
+			Connection con=databaseUtility.getConnection();
+			Statement stmt = null;
+			try{
+				
+				stmt = con.createStatement();
+				ResultSet rs = stmt.executeQuery("select SCHOOL_EXAMS_ID, EXAM_DETAILS from SCHOOL_EXAMS WHERE SECTION_ID = "+sectionId+";");
+		        while(rs.next()){
+		        	ExamSchedulePojo examPojo = new ExamSchedulePojo();
+		        	examPojo.setKey(rs.getLong("SCHOOL_EXAMS_ID"));
+		        	examPojo.setExamDetails(rs.getString("EXAM_DETAILS"));
+		        	availableExams.add(examPojo);
+		        }
+			}
+			catch(Exception e){
+				e.printStackTrace();
+			}
+			finally{
+				stmt.close();
+				databaseUtility.closeConnection(con);
+			}
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return availableExams;
+	}
 		
 	public ExamSchedulePojo checkForExistingExamsScheduleForSection(Long sectionIds, Date startDate, Date endDate){
 			
@@ -778,6 +812,46 @@ public class FetchCommonUtil {
 			
 			return examSchedulePojo;
 			
-		}	
+	}	
 	
+	public List<EvaluationScoresPojo> getAvailableStudentsListForEvaluationScoresDataTable(int startRow, int endRow, String defaultQuery){
+		List<EvaluationScoresPojo> availableStudentsForEvaluation = new ArrayList<EvaluationScoresPojo>();
+		
+		try {
+			DatabaseUtility databaseUtility =new DatabaseUtility();
+			Connection con=databaseUtility.getConnection();
+			Statement stmt = null;
+			try{
+				
+				stmt = con.createStatement();
+				ResultSet rs = stmt.executeQuery(defaultQuery+" limit "+endRow+" OFFSET "+startRow+";");
+		        while(rs.next()){
+		        	EvaluationScoresPojo evaluationScoresPojo = new EvaluationScoresPojo();
+		        	
+		        	evaluationScoresPojo.setKey(rs.getLong("STUDENT_ID"));
+		        	evaluationScoresPojo.setStudentName(rs.getString("STUDENT_FIRST_NAME")+" "+rs.getString("STUDENT_LAST_NAME"));
+		        	evaluationScoresPojo.setSubjectScore(rs.getBigDecimal("SUBJECT_SCORE"));
+		        	evaluationScoresPojo.setComments(rs.getString("COMMENTS"));
+		        	evaluationScoresPojo.setSchoolEvaluationScoresId(rs.getLong("SCHOOL_EVALUATION_SCORES_ID"));
+		        	evaluationScoresPojo.setSchoolEvaluationScoresDetailsId(rs.getLong("SCHOOL_EVALUATION_SCORES_DETAILS_ID"));
+		        	evaluationScoresPojo.setRecordUpdatedStatus(false);
+		        	
+		        	availableStudentsForEvaluation.add(evaluationScoresPojo);
+		        }
+			}
+			catch(Exception e){
+				e.printStackTrace();
+			}
+			finally{
+				stmt.close();
+				databaseUtility.closeConnection(con);
+			}
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return availableStudentsForEvaluation;
+	}
 }

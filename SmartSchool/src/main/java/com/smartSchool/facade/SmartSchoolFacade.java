@@ -6,6 +6,7 @@ import java.util.List;
 
 import com.smartSchoolService.login.LoginHelper;
 import com.smartSchoolService.pojo.BranchRegisterPojo;
+import com.smartSchoolService.pojo.EvaluationScoresPojo;
 import com.smartSchoolService.pojo.ExamSchedulePojo;
 import com.smartSchoolService.pojo.HomeworkPojo;
 import com.smartSchoolService.pojo.SectionRegisterPojo;
@@ -240,6 +241,11 @@ public class SmartSchoolFacade {
 		return commonUtil.getAvailableStudentsListForSection(sectionId);
 	}
 	
+	public List<ExamSchedulePojo> getAvailableExamsListForSection(Long sectionId){
+		FetchCommonUtil commonUtil =new FetchCommonUtil();
+		return commonUtil.getAvailableExamsListForSection(sectionId);
+	}
+	
 	public ExamSchedulePojo checkForExistingExamsScheduleForSection(Long sectionId, Date startDate, Date endDate){
 		java.sql.Date startSqldate = new java.sql.Date(startDate.getTime());
 		java.sql.Date endSqldate = new java.sql.Date(endDate.getTime());
@@ -252,4 +258,18 @@ public class SmartSchoolFacade {
 		return commonUtil.createExamScheduleTable(examScheduleSubjectPojoList, examSchedulePojo);
 	}
 	
+	public List<EvaluationScoresPojo> getAvailableStudentsListForEvaluationScoresDataTable(Integer startRow, Integer endRow, String defaultSelectQuery /*query should NOT end with semi-colon ';'*/){
+		FetchCommonUtil fetchCommonUtil = new FetchCommonUtil();
+		return fetchCommonUtil.getAvailableStudentsListForEvaluationScoresDataTable(startRow, endRow,defaultSelectQuery);
+	}
+	
+	public String createEvaluationScoresForSubject(Long branchId, Long standardId, Long sectionId,Long schoolExamId, Long subjectId, HashMap<Long,EvaluationScoresPojo> newEvaluationScoresEntries, String loggedUserName){
+		RegisterCommonUtil commonUtil =new RegisterCommonUtil();
+		return commonUtil.createEvaluationScoresForSubject( branchId,  standardId,  sectionId, schoolExamId,  subjectId,  newEvaluationScoresEntries,  loggedUserName);
+	}
+	
+	public String updateExistingEvaluationScoresDetailsForSubject(HashMap<Long,EvaluationScoresPojo> modifiedEvaluationScoresEntries, String loggedUserName){
+		UpdateCommonUtil commonUtil =new UpdateCommonUtil();
+		return commonUtil.updateExistingEvaluationScoresDetailsForSubject(modifiedEvaluationScoresEntries,loggedUserName);
+	}
 }

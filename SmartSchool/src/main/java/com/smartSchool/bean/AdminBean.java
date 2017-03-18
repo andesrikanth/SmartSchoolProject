@@ -162,6 +162,7 @@ public class AdminBean  implements Serializable {
         item.setParam("targetPageParam", "CreateHomeWork.xhtml");
         createSubmenu.addElement(item);
         
+        
         createSubmenu.setExpanded(false);
         model.addElement(createSubmenu);
         
@@ -169,14 +170,10 @@ public class AdminBean  implements Serializable {
         //Second submenu
         DefaultSubMenu secondSubmenu = new DefaultSubMenu("Actions");
  
-        
-       
-       
-        
         item = new DefaultMenuItem("Evaluation Scores");
         item.setCommand("#{adminBean.selectTargetRenderPage}");
         item.setUpdate("pg1");
-        item.setParam("targetPageParam", "TimeTableTemplate.xhtml");
+        item.setParam("targetPageParam", "CreateEvaluationScores.xhtml");
         secondSubmenu.addElement(item);
         
         item = new DefaultMenuItem("Student Fee Payments");
@@ -215,7 +212,14 @@ public class AdminBean  implements Serializable {
 		FacesContext.getCurrentInstance().getViewRoot().getViewMap().remove("sectionTimetable");
 		FacesContext.getCurrentInstance().getViewRoot().getViewMap().remove("homeworkBean");
 		FacesContext.getCurrentInstance().getViewRoot().getViewMap().remove("examSchedule");
-		
+		FacesContext.getCurrentInstance().getViewRoot().getViewMap().remove("evaluationScores");
+		FacesContext.getCurrentInstance().getViewRoot().getViewMap().remove("evaluationScoresDataTable");
+		FacesContext.getCurrentInstance().getViewRoot().getViewMap().remove("branchDataTable");
+		FacesContext.getCurrentInstance().getViewRoot().getViewMap().remove("sectionDataTable");
+		FacesContext.getCurrentInstance().getViewRoot().getViewMap().remove("standardDataTable");
+		FacesContext.getCurrentInstance().getViewRoot().getViewMap().remove("studentDataTable");
+		FacesContext.getCurrentInstance().getViewRoot().getViewMap().remove("subjectDataTable");
+		FacesContext.getCurrentInstance().getViewRoot().getViewMap().remove("teacherDataTable");
 		
 		
 		Map<String,String> params =	FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
