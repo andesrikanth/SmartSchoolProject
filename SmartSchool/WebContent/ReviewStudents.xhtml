@@ -42,8 +42,8 @@
         <p:column headerText="Last Name" sortBy="#{STUDENT_LAST_NAME}" filterBy="#{STUDENT_LAST_NAME}">
             <h:outputText value="#{stud.studentLastName}" />
         </p:column>
-         <p:column headerText="Gender" sortBy="#{GENDER}" filterBy="#{GENDER}">
-            <h:outputText value="#{stud.selectedStudentGender eq 'M' ? 'Male' : 'Female'}" />
+         <p:column headerText="Roll Number" sortBy="#{ROLL_NO}" filterBy="#{ROLL_NO}">
+            <h:outputText value="#{stud.rollNo}" />
         </p:column>
          <p:column headerText="Branch" sortBy="#{BRANCH_NAME}" filterBy="#{BRANCH_NAME}">
             <h:outputText value="#{stud.branchName}" />
@@ -68,8 +68,12 @@
 				<p:messages id="validationMessages" autoUpdate="true" closable="true" />
 				
 		        <p:panelGrid  id="pg1" columns="6" rendered="#{not empty studentDataTable.selectedStudentRegisterPojo}">
-		            <h:outputText value="Identifier :" />
+		           <!--  <h:outputText value="Identifier :" />
 		            <h:outputText value="#{studentDataTable.selectedStudentRegisterPojo.key}" />
+					<h:panelGroup/> -->
+					
+					 <h:outputText value="Roll Number : " />
+		           <h:inputText id="rollNo" maxlength="63"  name="rollNo" value="#{studentDataTable.selectedStudentRegisterPojo.rollNo}" style="margin-right:15px;"  requiredMessage="Please enter the Student Roll Number" required="true"/>
 					<h:panelGroup/>
 					
 		            <h:outputText value="First Name : " />

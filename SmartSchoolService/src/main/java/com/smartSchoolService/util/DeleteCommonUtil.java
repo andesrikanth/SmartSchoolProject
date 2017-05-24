@@ -17,7 +17,7 @@ public class DeleteCommonUtil {
 			//java.sql.Date date = new java.sql.Date(new Date().getTime());
 			try{
 				
-				stmt = con.prepareStatement("DELETE FROM SUBJECTS_DETAILS WHERE SUBJECT_ID = ? ;");
+				stmt = con.prepareStatement("UPDATE SUBJECTS_DETAILS SET ACTIVE_FLAG='N' WHERE SUBJECT_ID = ? ;");
 				stmt.setLong(1, subjectId);
 							
 				int out=stmt.executeUpdate();
@@ -59,7 +59,7 @@ public class DeleteCommonUtil {
 			//java.sql.Date date = new java.sql.Date(new Date().getTime());
 			try{
 				
-				stmt = con.prepareStatement("DELETE FROM STUDENT_DETAILS WHERE STUDENT_ID = ? ;");
+				stmt = con.prepareStatement("UPDATE STUDENT_DETAILS SET ACTIVE_FLAG = 'N'  WHERE STUDENT_ID = ? ;");
 				stmt.setLong(1, studentId);
 							
 				int out=stmt.executeUpdate();
@@ -101,7 +101,7 @@ public class DeleteCommonUtil {
 			//java.sql.Date date = new java.sql.Date(new Date().getTime());
 			try{
 				
-				stmt = con.prepareStatement("DELETE FROM TEACHER_DETAILS WHERE TEACHER_ID = ? ;");
+				stmt = con.prepareStatement("UPDATE TEACHER_DETAILS SET ACTIVE_FLAG = 'N'  WHERE TEACHER_ID = ? ;");
 				stmt.setLong(1, teacherId);
 							
 				int out=stmt.executeUpdate();
@@ -143,7 +143,7 @@ public class DeleteCommonUtil {
 			//java.sql.Date date = new java.sql.Date(new Date().getTime());
 			try{
 				
-				stmt = con.prepareStatement("DELETE FROM SCHOOL_BRANCHES WHERE BRANCH_ID = ? ;");
+				stmt = con.prepareStatement("UPDATE SCHOOL_BRANCHES SET ACTIVE_FLAG = 'N' WHERE BRANCH_ID = ? ;");
 				stmt.setLong(1, branchId);
 							
 				int out=stmt.executeUpdate();
@@ -185,7 +185,7 @@ public class DeleteCommonUtil {
 			//java.sql.Date date = new java.sql.Date(new Date().getTime());
 			try{
 				
-				stmt = con.prepareStatement("DELETE FROM CLASS_AVBL_STANDARDS WHERE STANDARD_ID = ? ;");
+				stmt = con.prepareStatement("UPDATE CLASS_AVBL_STANDARDS SET ACTIVE_FLAG = 'N' WHERE STANDARD_ID = ? ;");
 				stmt.setLong(1, standardId);
 							
 				int out=stmt.executeUpdate();
@@ -230,7 +230,7 @@ public class DeleteCommonUtil {
 			//java.sql.Date date = new java.sql.Date(new Date().getTime());
 			try{
 				
-				stmt = con.prepareStatement("DELETE FROM CLASS_AVBL_SECTIONS WHERE SECTION_ID = ? ;");
+				stmt = con.prepareStatement("UPDATE CLASS_AVBL_SECTIONS SET ACTIVE_FLAG = 'N' WHERE SECTION_ID = ? ;");
 				stmt.setLong(1, sectionId);
 							
 				int out=stmt.executeUpdate();

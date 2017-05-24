@@ -10,12 +10,14 @@ import java.sql.Timestamp;
 import java.util.Date;
 
 import com.smartSchoolService.dao.DatabaseUtility;
+import com.smartSchoolService.pojo.LoginPojo;
 
 public class LoginHelper {
 
 	
-	public String validateLogin(String userName,String password){
-		String status = "fail";
+	public LoginPojo validateLogin(String userName,String password){
+		LoginPojo status = new LoginPojo();
+		status.setLoginValidationStatus("fail");
 		try {
 			String hashedPassword=SmartSchoolHash.customHashing(password);
 			DatabaseUtility databaseUtility =new DatabaseUtility();
@@ -30,14 +32,31 @@ public class LoginHelper {
 		        	String userRoleType=rs.getString("USER_ROLE_TYPE");
 		        	String pwdResetFlag=rs.getString("PWD_RESET_FLAG");
 		        	if(pwdResetFlag != null && pwdResetFlag.equals("Y")){
-		        		status="reset%%"+displayName+"%%"+userRoleType+"%%"+pwdResetFlag;
+		        		status.setUserPasswordResetFlag("Y");
+		        		status.setCurrentUserDisplayName(displayName);
+		        		status.setCurrentUserRoleType(userRoleType);
+		        		status.setLoginValidationStatus("reset");
+		        		//status="reset%%"+displayName+"%%"+userRoleType+"%%"+pwdResetFlag;
 		        	}
 		        	else {
-		        		status="success%%"+displayName+"%%"+userRoleType+"%%"+pwdResetFlag;
+		        		status.setUserPasswordResetFlag("N");
+		        		status.setCurrentUserDisplayName(displayName);
+		        		status.setCurrentUserRoleType(userRoleType);
+		        		status.setLoginValidationStatus("success");
+		        		//status="success%%"+displayName+"%%"+userRoleType+"%%"+pwdResetFlag;
 		        	}
 		        	
 		        }
 		        rs.close();
+		        
+		        ResultSet rs1 = stmt.executeQuery( "SELECT CURRENT_FISCAL_YEAR FROM SCHOOL_CURRENT_FISCAL_YEAR ;" );
+		        while ( rs1.next() ) {
+		        	String currentFiscalYear=rs1.getString("CURRENT_FISCAL_YEAR");
+		        	status.setCurrentFiscalYear(currentFiscalYear);
+		        	//status=status+"%%"+currentFiscalYear;
+		        }
+		        rs1.close();
+		        
 			}
 			catch(Exception e){
 				e.printStackTrace();

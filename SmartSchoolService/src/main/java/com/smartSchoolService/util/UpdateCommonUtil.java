@@ -81,7 +81,7 @@ public class UpdateCommonUtil {
 			java.sql.Date date = new java.sql.Date(new Date().getTime());
 			try{
 				
-				stmt = con.prepareStatement("UPDATE STUDENT_DETAILS SET STUDENT_FIRST_NAME= ?, STUDENT_LAST_NAME = ?, GENDER = ?, FATHER_NAME = ? , MOTHER_NAME = ?, ADDRESS= ?, EMAIL = ?, PHONE_NO=?, SECONDARY_PHONE_NO=?, BRANCH_ID = ?, REGISTERED_STANDARD = ?, REGISTERED_SECTION = ?,  LAST_UPDATED_BY = ? ,  LAST_UPDATE_DATE = ?  WHERE STUDENT_ID = ? ;");
+				stmt = con.prepareStatement("UPDATE STUDENT_DETAILS SET STUDENT_FIRST_NAME= ?, STUDENT_LAST_NAME = ?, GENDER = ?, FATHER_NAME = ? , MOTHER_NAME = ?, ADDRESS= ?, EMAIL = ?, PHONE_NO=?, SECONDARY_PHONE_NO=?, BRANCH_ID = ?, REGISTERED_STANDARD = ?, REGISTERED_SECTION = ?,  LAST_UPDATED_BY = ? ,  LAST_UPDATE_DATE = ? , ROLL_NO =?  WHERE STUDENT_ID = ? ;");
 				
 				stmt.setString(1, studentPojo.getStudentFirstName());
 				stmt.setString(2, studentPojo.getStudentLastName());
@@ -105,7 +105,8 @@ public class UpdateCommonUtil {
 				stmt.setLong(12, studentPojo.getSelectedSectionId());
 				stmt.setString(13, studentPojo.getLastUpdatedBy());
 				stmt.setTimestamp(14, new Timestamp(date.getTime()));
-				stmt.setLong(15, studentPojo.getKey());
+				stmt.setString(15, studentPojo.getRollNo());
+				stmt.setLong(16, studentPojo.getKey());
 							
 				int out=stmt.executeUpdate();
 				
@@ -368,7 +369,7 @@ public class UpdateCommonUtil {
 		return status;
 	}
 	
-	public String updateExistingEvaluationScoresDetailsForSubject(HashMap<Long,EvaluationScoresPojo> modifiedEvaluationScoresEntries, String loggedUserName){
+	public String updateExistingEvaluationScoresDetailsForSubject(HashMap<Long,EvaluationScoresPojo> modifiedEvaluationScoresEntries, String loggedUserName, String currentFiscalPeriod){
 		
 		String status = "true";
 		try {

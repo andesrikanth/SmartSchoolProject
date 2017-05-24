@@ -9,6 +9,7 @@ import com.smartSchoolService.pojo.BranchRegisterPojo;
 import com.smartSchoolService.pojo.EvaluationScoresPojo;
 import com.smartSchoolService.pojo.ExamSchedulePojo;
 import com.smartSchoolService.pojo.HomeworkPojo;
+import com.smartSchoolService.pojo.LoginPojo;
 import com.smartSchoolService.pojo.SectionRegisterPojo;
 import com.smartSchoolService.pojo.SectionTimeTablePojo;
 import com.smartSchoolService.pojo.StandardRegisterPojo;
@@ -29,10 +30,10 @@ public class SmartSchoolFacade {
 		String status=loginHelper.submitForgotPassword(userName,registeredEmailId,registeredPhoneNo);
 		return status;
 	}
-	public String validateUserLogin(String userName,String password){
+	public LoginPojo validateUserLogin(String userName,String password){
 		
 		LoginHelper loginHelper =new LoginHelper();
-		String status=loginHelper.validateLogin(userName,password);
+		LoginPojo status=loginHelper.validateLogin(userName,password);
 		return status;
 		
 	}
@@ -196,9 +197,9 @@ public class SmartSchoolFacade {
 		return commonUtil.createTimeTableTemplate(timeTableTemplateEntries, noOfBlockedSlots, userName, templateName);
 	}
 	
-	public String createSectionTimeTableTemplate(List<SectionTimeTablePojo> sectionTimeTableList, Long selectedTimeTableTemplateId, Long selectedSectionId, String[] dayOfWeek, String userName){
+	public String createSectionTimeTableTemplate(List<SectionTimeTablePojo> sectionTimeTableList, Long selectedTimeTableTemplateId, Long selectedSectionId, String[] dayOfWeek, String userName,String currentFiscalPeriod){
 		RegisterCommonUtil commonUtil =new RegisterCommonUtil();
-		return commonUtil.createSectionTimeTableTemplate(sectionTimeTableList, selectedTimeTableTemplateId, selectedSectionId, dayOfWeek, userName);
+		return commonUtil.createSectionTimeTableTemplate(sectionTimeTableList, selectedTimeTableTemplateId, selectedSectionId, dayOfWeek, userName, currentFiscalPeriod);
 	}
 	
 	public List<ChoiceListPojo.AvailableTimetableTemplates> getAvailableTimetableTemplatesList(){
@@ -226,9 +227,9 @@ public class SmartSchoolFacade {
 		return commonUtil.checkForExistingTimeTableForSection(sectionId);
 	}
 	
-	public String createHomework(HomeworkPojo homeworkPojo){
+	public String createHomework(HomeworkPojo homeworkPojo,String currentFiscalPeriod){
 		RegisterCommonUtil commonUtil =new RegisterCommonUtil();
-		return commonUtil.createHomework(homeworkPojo);
+		return commonUtil.createHomework(homeworkPojo, currentFiscalPeriod);
 	}
 	
 	public List<SubjectRegisterPojo> getAvailableSubjectsListForSection(Long sectionId){
@@ -253,9 +254,9 @@ public class SmartSchoolFacade {
 		return commonUtil.checkForExistingExamsScheduleForSection(sectionId, startSqldate, endSqldate);
 	}
 	
-	public String createExamScheduleTable(List<ExamSchedulePojo.ExamScheduleSubjectPojo> examScheduleSubjectPojoList, ExamSchedulePojo examSchedulePojo){
+	public String createExamScheduleTable(List<ExamSchedulePojo.ExamScheduleSubjectPojo> examScheduleSubjectPojoList, ExamSchedulePojo examSchedulePojo, String currentFiscalPeriod){
 		RegisterCommonUtil commonUtil =new RegisterCommonUtil();
-		return commonUtil.createExamScheduleTable(examScheduleSubjectPojoList, examSchedulePojo);
+		return commonUtil.createExamScheduleTable(examScheduleSubjectPojoList, examSchedulePojo, currentFiscalPeriod);
 	}
 	
 	public List<EvaluationScoresPojo> getAvailableStudentsListForEvaluationScoresDataTable(Integer startRow, Integer endRow, String defaultSelectQuery /*query should NOT end with semi-colon ';'*/){
@@ -263,13 +264,13 @@ public class SmartSchoolFacade {
 		return fetchCommonUtil.getAvailableStudentsListForEvaluationScoresDataTable(startRow, endRow,defaultSelectQuery);
 	}
 	
-	public String createEvaluationScoresForSubject(Long branchId, Long standardId, Long sectionId,Long schoolExamId, Long subjectId, HashMap<Long,EvaluationScoresPojo> newEvaluationScoresEntries, String loggedUserName){
+	public String createEvaluationScoresForSubject(Long branchId, Long standardId, Long sectionId,Long schoolExamId, Long subjectId, HashMap<Long,EvaluationScoresPojo> newEvaluationScoresEntries, String loggedUserName, String currentFiscalPeriod){
 		RegisterCommonUtil commonUtil =new RegisterCommonUtil();
-		return commonUtil.createEvaluationScoresForSubject( branchId,  standardId,  sectionId, schoolExamId,  subjectId,  newEvaluationScoresEntries,  loggedUserName);
+		return commonUtil.createEvaluationScoresForSubject( branchId,  standardId,  sectionId, schoolExamId,  subjectId,  newEvaluationScoresEntries,  loggedUserName, currentFiscalPeriod);
 	}
 	
-	public String updateExistingEvaluationScoresDetailsForSubject(HashMap<Long,EvaluationScoresPojo> modifiedEvaluationScoresEntries, String loggedUserName){
+	public String updateExistingEvaluationScoresDetailsForSubject(HashMap<Long,EvaluationScoresPojo> modifiedEvaluationScoresEntries, String loggedUserName, String currentFiscalPeriod){
 		UpdateCommonUtil commonUtil =new UpdateCommonUtil();
-		return commonUtil.updateExistingEvaluationScoresDetailsForSubject(modifiedEvaluationScoresEntries,loggedUserName);
+		return commonUtil.updateExistingEvaluationScoresDetailsForSubject(modifiedEvaluationScoresEntries,loggedUserName, currentFiscalPeriod);
 	}
 }

@@ -43,6 +43,7 @@ public class FetchCommonUtil {
 		        	studentPojo.setKey(rs.getLong("STUDENT_ID"));
 		        	studentPojo.setStudentFirstName(rs.getString("STUDENT_FIRST_NAME"));
 		        	studentPojo.setStudentLastName(rs.getString("STUDENT_LAST_NAME"));
+		        	studentPojo.setRollNo(rs.getString("ROLL_NO"));
 		        	String gen = rs.getString("GENDER");
 		        	if(gen.equals("M")){
 		        		studentPojo.setSelectedStudentGender("Male");

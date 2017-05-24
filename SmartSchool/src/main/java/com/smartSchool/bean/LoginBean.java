@@ -10,6 +10,7 @@ import javax.faces.event.ActionEvent;
 import javax.servlet.http.HttpSession;
 
 import com.smartSchool.facade.SmartSchoolFacade;
+import com.smartSchoolService.pojo.LoginPojo;
 
 @ManagedBean(name = "loginBean", eager = true)
 @RequestScoped
@@ -99,16 +100,15 @@ public class LoginBean implements Serializable {
 		session.setMaxInactiveInterval(500);
 		
 		SmartSchoolFacade smartSchoolFacade = new SmartSchoolFacade();
-		String status=smartSchoolFacade.validateUserLogin(userName, password);
-		if(status != null && !status.equalsIgnoreCase("fail")){
-			String[] array=status.split("%%");
-			if(array !=null && array.length>3){
+		LoginPojo status=smartSchoolFacade.validateUserLogin(userName, password);
+		if(status != null && !status.getLoginValidationStatus().equals("fail")){
+			
 				session.setAttribute("cur_user_name", userName);
-				session.setAttribute("cur_user_display_name", array[1]);
-				session.setAttribute("cur_user_role_type", array[2]);
-				session.setAttribute("cur_user_pwd_reset", array[3]);
-				this.setLoginAuthStatus(array[0]);
-			}
+				session.setAttribute("cur_user_display_name", status.getCurrentUserDisplayName());
+				session.setAttribute("cur_user_role_type", status.getCurrentUserRoleType());
+				session.setAttribute("cur_user_pwd_reset", status.getUserPasswordResetFlag());
+				session.setAttribute("current_fiscal_year", status.getCurrentFiscalYear());
+				this.setLoginAuthStatus(status.getLoginValidationStatus());
 		}
 		else {
 			FacesContext.getCurrentInstance().addMessage("validationMessages", new FacesMessage(FacesMessage.SEVERITY_ERROR, "Login failed. Invalid credentials.", "Info"));

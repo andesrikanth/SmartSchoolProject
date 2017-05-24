@@ -63,6 +63,7 @@ public class RegisterBean implements Serializable {
 	private String studentFirstName;
 	private String studentMiddleName;
 	private String studentLastName;
+	private String rollNo;
 	private Date dateOfBirth = new Date();
 	private String studentFatherName;
 	private String studentMotherName;
@@ -377,7 +378,8 @@ public class RegisterBean implements Serializable {
 			studentPojo.setCreatedBy(loggedUserName);
 			studentPojo.setLastUpdatedBy(loggedUserName);
 			studentPojo.setSelectedBranchId(selectedBranchId);
-			studentPojo.setSelectedStudentGender(selectedStudentGender);;
+			studentPojo.setSelectedStudentGender(selectedStudentGender);
+			studentPojo.setRollNo(rollNo);
 			if(studentEmailNotAvail == null || (studentEmailNotAvail!= null && studentEmailNotAvail.length==0)){
 				studentPojo.setStudentEmail(studentEmail);
 			}
@@ -455,5 +457,13 @@ public class RegisterBean implements Serializable {
 	 public void onDateSelect(SelectEvent event) {
 	        this.setDateOfBirth((Date)event.getObject());
 	 }
+	 
+	public String getRollNo() {
+		return rollNo;
+	}
+	public void setRollNo(String rollNo) {
+		this.rollNo = rollNo;
+	}
 
+	 
 }

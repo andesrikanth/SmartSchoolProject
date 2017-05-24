@@ -11,6 +11,7 @@ public class StudentPojo implements Cloneable{
 	private String studentFirstName;
 	private String studentMiddleName;
 	private String studentLastName;
+	private String rollNo;
 	private Date dateOfBirth;
 	private String studentFatherName;
 	private String studentMotherName;
@@ -188,8 +189,16 @@ public class StudentPojo implements Cloneable{
 		this.availableStandards = availableStandards;
 	}
 	
+	public String getRollNo() {
+		return rollNo;
+	}
+	public void setRollNo(String rollNo) {
+		this.rollNo = rollNo;
+	}
 	@Override
 	public Object clone()throws CloneNotSupportedException{  
 		return super.clone();  
 	}  
+	
+	
 }

@@ -353,20 +353,21 @@ public class SectionTimeTable  implements Serializable {
 		timeTableCreationStatus=false;
 		HttpSession session = (HttpSession)FacesContext.getCurrentInstance().getExternalContext().getSession(true);
 		String loggedUserName=(String)session.getAttribute("cur_user_name");
+		String currentFiscalPeriod = (String)session.getAttribute("current_fiscal_year");
 		String status = null;
 		//Below if condition will be successful only if the User is fine with the warning message and agreed to create timetable even after displaying the warning message.
 		if(timeTableValidationStatus && validationWarningStatus){
 			System.out.println("Warning approved");
 			SmartSchoolFacade smartSchoolFacade = new SmartSchoolFacade();
-			status = smartSchoolFacade.createSectionTimeTableTemplate(sectionTimeTableList,selectedTimetableTemplateId , selectedSectionId, selectedDayOfWeek, loggedUserName);
+			status = smartSchoolFacade.createSectionTimeTableTemplate(sectionTimeTableList,selectedTimetableTemplateId , selectedSectionId, selectedDayOfWeek, loggedUserName, currentFiscalPeriod);
 		}
 		else {
 			timeTableValidationStatus = validateSectionTimeTable();
 			
 			if(timeTableValidationStatus && !validationWarningStatus){
-				System.out.println("Insert Data");
+				
 				SmartSchoolFacade smartSchoolFacade = new SmartSchoolFacade();
-				status = smartSchoolFacade.createSectionTimeTableTemplate(sectionTimeTableList,selectedTimetableTemplateId , selectedSectionId, selectedDayOfWeek, loggedUserName);
+				status = smartSchoolFacade.createSectionTimeTableTemplate(sectionTimeTableList,selectedTimetableTemplateId , selectedSectionId, selectedDayOfWeek, loggedUserName,currentFiscalPeriod);
 			}
 		}
 		

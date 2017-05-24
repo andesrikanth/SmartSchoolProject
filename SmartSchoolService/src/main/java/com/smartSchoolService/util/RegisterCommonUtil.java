@@ -85,7 +85,7 @@ public class RegisterCommonUtil {
 				java.sql.Date date = new java.sql.Date(studentPojo.getDateOfBirth().getTime());
 				//stmt = con.createStatement();
 				//int out = stmt.executeUpdate("INSERT INTO STUDENT_DETAILS(STUDENT_FIRST_NAME,STUDENT_SECOND_NAME,STUDENT_LAST_NAME,DOB,FATHER_NAME, MOTHER_NAME,REGISTERED_STANDARD,REGISTERED_SECTION,ADDRESS, EMAIL,PHONE_NO, SECONDARY_PHONE_NO,CREATED_BY, LAST_UPDATED_BY)  VALUES ('"+studentPojo.getStudentFirstName()+"','"+studentPojo.getStudentMiddleName()+"','"+studentPojo.getStudentLastName()+"',"+date+",'"+studentPojo.getStudentFatherName()+"','"+studentPojo.getStudentMotherName()+"',"+studentPojo.getSelectedStandardId()+","+studentPojo.getSelectedSectionId()+",'"+studentPojo.getAddress()+"','"+studentPojo.getStudentEmail()+"','"+studentPojo.getPhoneNumber()+"','"+studentPojo.getAlternativePhoneNumber()+"','"+studentPojo.getCreatedBy()+"','"+studentPojo.getLastUpdatedBy()+"');");
-				st = con.prepareStatement("INSERT INTO STUDENT_DETAILS(STUDENT_FIRST_NAME,STUDENT_SECOND_NAME,STUDENT_LAST_NAME,DOB,FATHER_NAME, MOTHER_NAME,REGISTERED_STANDARD,REGISTERED_SECTION,ADDRESS, EMAIL,PHONE_NO, SECONDARY_PHONE_NO,BRANCH_ID,CREATED_BY, LAST_UPDATED_BY,GENDER) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);");
+				st = con.prepareStatement("INSERT INTO STUDENT_DETAILS(STUDENT_FIRST_NAME,STUDENT_SECOND_NAME,STUDENT_LAST_NAME,DOB,FATHER_NAME, MOTHER_NAME,REGISTERED_STANDARD,REGISTERED_SECTION,ADDRESS, EMAIL,PHONE_NO, SECONDARY_PHONE_NO,BRANCH_ID,CREATED_BY, LAST_UPDATED_BY,GENDER,ROLL_NO) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);");
 				st.setString(1, studentPojo.getStudentFirstName());
 				st.setString(2, studentPojo.getStudentMiddleName());
 				st.setString(3, studentPojo.getStudentLastName());
@@ -102,6 +102,7 @@ public class RegisterCommonUtil {
 				st.setString(14, studentPojo.getCreatedBy());
 				st.setString(15, studentPojo.getLastUpdatedBy());
 				st.setString(16, studentPojo.getSelectedStudentGender());
+				st.setString(17, studentPojo.getRollNo());
 				
 				int out=st.executeUpdate();
 				if(out == 0){
@@ -490,7 +491,7 @@ public class RegisterCommonUtil {
 		
 		return nextval;
 	}
-	public String createSectionTimeTableTemplate(List<SectionTimeTablePojo> sectionTimeTableList, Long selectedTimeTableTemplateId, Long selectedSectionId, String[] dayOfWeek, String userName){
+	public String createSectionTimeTableTemplate(List<SectionTimeTablePojo> sectionTimeTableList, Long selectedTimeTableTemplateId, Long selectedSectionId, String[] dayOfWeek, String userName, String currentFiscalPeriod){
 		
 		String status = "true";
 		if(sectionTimeTableList != null && sectionTimeTableList.size()>0){
@@ -512,13 +513,13 @@ public class RegisterCommonUtil {
 				
 				Long sequenceNextVal = this.getNextValueForSequence("SECTION_SUBJECT_TIME_TABLE_ID_SEQ");
 				
-				boolean localStatus = createSectionTimeTableTemplateChildMethod(sectionTimeTableList,  selectedTimeTableTemplateId,  selectedSectionId, dayOfWeek,  userName,noOfBlockedSlots, sequenceNextVal,dayOfWeekStr);
+				boolean localStatus = createSectionTimeTableTemplateChildMethod(sectionTimeTableList,  selectedTimeTableTemplateId,  selectedSectionId, dayOfWeek,  userName,noOfBlockedSlots, sequenceNextVal,dayOfWeekStr,currentFiscalPeriod);
 				if(!localStatus){
 					sequenceNextVal = this.getNextValueForSequence("SECTION_SUBJECT_TIME_TABLE_ID_SEQ");
-					localStatus = createSectionTimeTableTemplateChildMethod(sectionTimeTableList,  selectedTimeTableTemplateId,  selectedSectionId, dayOfWeek,  userName,noOfBlockedSlots, sequenceNextVal,dayOfWeekStr);
+					localStatus = createSectionTimeTableTemplateChildMethod(sectionTimeTableList,  selectedTimeTableTemplateId,  selectedSectionId, dayOfWeek,  userName,noOfBlockedSlots, sequenceNextVal,dayOfWeekStr,currentFiscalPeriod);
 				}
 				if(localStatus){
-					String sqlQuery = "INSERT INTO TEACHER_SUBJECT_TIME_TABLE (TIME_TABLE_TEMPLATE_ID, SECTION_SUBJECT_TIME_TABLE_ID, TEACHER_ID, SLOT_NUMBER, CREATED_BY, LAST_UPDATED_BY) VALUES (?,?,?,?,?,?);";
+					String sqlQuery = "INSERT INTO TEACHER_SUBJECT_TIME_TABLE (TIME_TABLE_TEMPLATE_ID, SECTION_SUBJECT_TIME_TABLE_ID, TEACHER_ID, SLOT_NUMBER, CREATED_BY, LAST_UPDATED_BY,CURRENT_FISCAL_YEAR) VALUES (?,?,?,?,?,?,?);";
 					DatabaseUtility databaseUtility =new DatabaseUtility();
 					Connection con=databaseUtility.getConnection();
 					PreparedStatement stmt = null;
@@ -541,6 +542,7 @@ public class RegisterCommonUtil {
 							stmt.setLong(4, i);
 							stmt.setString(5, userName);
 							stmt.setString(6, userName);
+							stmt.setString(7, currentFiscalPeriod);
 							
 							stmt.addBatch();
 						}
@@ -590,12 +592,12 @@ public class RegisterCommonUtil {
 		return status;
 	}
 	
-	public boolean createSectionTimeTableTemplateChildMethod(List<SectionTimeTablePojo> sectionTimeTableList, Long selectedTimeTableTemplateId, Long selectedSectionId, String[] dayOfWeek, String userName, int noOfBlockedSlots, Long sequenceNextVal, String dayOfWeekStr){
+	public boolean createSectionTimeTableTemplateChildMethod(List<SectionTimeTablePojo> sectionTimeTableList, Long selectedTimeTableTemplateId, Long selectedSectionId, String[] dayOfWeek, String userName, int noOfBlockedSlots, Long sequenceNextVal, String dayOfWeekStr, String currentFiscalPeriod){
 		boolean status = true;
 		
 		try {
 			
-			StringBuilder dynamicQuery = new StringBuilder("INSERT INTO SECTION_SUBJECT_TIME_TABLE (SECTION_SUBJECT_TIME_TABLE_ID,TEMPLATE_ID, NO_OF_SLOTS_USED, SECTION_ID, DAY_OF_WEEK, CREATED_BY, LAST_UPDATED_BY ");
+			StringBuilder dynamicQuery = new StringBuilder("INSERT INTO SECTION_SUBJECT_TIME_TABLE (SECTION_SUBJECT_TIME_TABLE_ID,TEMPLATE_ID, NO_OF_SLOTS_USED, SECTION_ID, DAY_OF_WEEK, CREATED_BY, LAST_UPDATED_BY, CURRENT_FISCAL_YEAR ");
 			for(int i =1;i<=noOfBlockedSlots;i++){
 				dynamicQuery.append(", SLOT"+i);
 			}
@@ -621,12 +623,13 @@ public class RegisterCommonUtil {
 				stmt.setString(5, dayOfWeekStr);
 				stmt.setString(6, userName);
 				stmt.setString(7, userName);
+				stmt.setString(8, currentFiscalPeriod);
 				
 				for(int i =1;i<=noOfBlockedSlots;i++){
 					
 					Long subjectId = sectionTimeTableList.get(i-1).getSubjectId();
 					
-					stmt.setLong(7+i,subjectId);
+					stmt.setLong(8+i,subjectId);
 				}
 				
 				
@@ -655,7 +658,7 @@ public class RegisterCommonUtil {
 		return status;
 	}
 
-	public String createHomework(HomeworkPojo homeworkPojo){
+	public String createHomework(HomeworkPojo homeworkPojo,String currentFiscalPeriod){
 		String status="true";
 		try {
 			
@@ -666,7 +669,7 @@ public class RegisterCommonUtil {
 			PreparedStatement stmt = null;
 			try{
 				
-				stmt = con.prepareStatement("INSERT INTO SCHOOL_HOMEWORK(BRANCH_ID, STANDARD_ID, SECTION_ID, ASSIGNMENT_DATE, SUBJECT_ID,  STUDENT_ID, HOMEWORK_DETAILS, CREATED_BY,  LAST_UPDATED_BY) VALUES(?,?,?,?,?,?,?,?,?);");
+				stmt = con.prepareStatement("INSERT INTO SCHOOL_HOMEWORK(BRANCH_ID, STANDARD_ID, SECTION_ID, ASSIGNMENT_DATE, SUBJECT_ID,  STUDENT_ID, HOMEWORK_DETAILS, CREATED_BY,  LAST_UPDATED_BY, CURRENT_FISCAL_YEAR) VALUES(?,?,?,?,?,?,?,?,?,?);");
 				
 				stmt.setLong(1, homeworkPojo.getBranchId());
 				stmt.setLong(2, homeworkPojo.getStandardId());
@@ -677,6 +680,7 @@ public class RegisterCommonUtil {
 				stmt.setString(7, homeworkPojo.getAssignmentDetails());
 				stmt.setString(8, homeworkPojo.getCreatedByUserName());
 				stmt.setString(9, homeworkPojo.getLastUpdatedByUserName());
+				stmt.setString(10, currentFiscalPeriod);
 				
 				int out=stmt.executeUpdate();
 				//int out = stmt.executeUpdate("INSERT INTO CLASS_AVBL_STANDARDS(STANDARD_NAME, DESCRIPTION, CREATED_BY,  LAST_UPDATED_BY) VALUES('"+standardRegisterPojo.getStandardName()+"', '"+standardRegisterPojo.getStandardDesc()+"','"+standardRegisterPojo.getCreatedByUserName()+"','"+standardRegisterPojo.getCreatedByUserName()+"');" );
@@ -707,7 +711,7 @@ public class RegisterCommonUtil {
 		return status;
 	}
 	
-	public String createExamScheduleTable(List<ExamSchedulePojo.ExamScheduleSubjectPojo> examScheduleSubjectPojoList, ExamSchedulePojo examSchedulePojo){
+	public String createExamScheduleTable(List<ExamSchedulePojo.ExamScheduleSubjectPojo> examScheduleSubjectPojoList, ExamSchedulePojo examSchedulePojo, String currentFiscalPeriod){
 		String status = "true";
 		int noOfSubjects=0;
 		if(examScheduleSubjectPojoList != null){
@@ -715,10 +719,10 @@ public class RegisterCommonUtil {
 		}
 		Long sequenceNextVal = this.getNextValueForSequence("SCHOOL_EXAMS_ID_SEQ");
 		
-		boolean localStatus = createExamScheduleTableChildMethod(examSchedulePojo, sequenceNextVal);
+		boolean localStatus = createExamScheduleTableChildMethod(examSchedulePojo, sequenceNextVal, currentFiscalPeriod);
 		if(!localStatus){
 			sequenceNextVal = this.getNextValueForSequence("SCHOOL_EXAMS_ID_SEQ");
-			localStatus = createExamScheduleTableChildMethod(examSchedulePojo, sequenceNextVal);
+			localStatus = createExamScheduleTableChildMethod(examSchedulePojo, sequenceNextVal, currentFiscalPeriod);
 		}
 		
 		try{
@@ -792,7 +796,7 @@ public class RegisterCommonUtil {
 		return status;
 	}
 	
-	public boolean createExamScheduleTableChildMethod( ExamSchedulePojo examSchedulePojo, Long sequenceNextVal){
+	public boolean createExamScheduleTableChildMethod( ExamSchedulePojo examSchedulePojo, Long sequenceNextVal, String currentFiscalPeriod){
 		boolean status = true;
 		
 		try {
@@ -805,7 +809,7 @@ public class RegisterCommonUtil {
 			PreparedStatement stmt = null;
 			try{
 				
-				stmt = con.prepareStatement("INSERT INTO SCHOOL_EXAMS(SCHOOL_EXAMS_ID,BRANCH_ID, STANDARD_ID, SECTION_ID, EXAM_START_DATE, EXAM_END_DATE, EXAM_DETAILS, CREATED_BY,  LAST_UPDATED_BY) VALUES(?,?,?,?,?,?,?,?,?);");
+				stmt = con.prepareStatement("INSERT INTO SCHOOL_EXAMS(SCHOOL_EXAMS_ID,BRANCH_ID, STANDARD_ID, SECTION_ID, EXAM_START_DATE, EXAM_END_DATE, EXAM_DETAILS, CREATED_BY,  LAST_UPDATED_BY, CURRENT_FISCAL_YEAR) VALUES(?,?,?,?,?,?,?,?,?,?);");
 				
 				stmt.setLong(1, sequenceNextVal);
 				stmt.setLong(2, examSchedulePojo.getBranchId());
@@ -816,6 +820,7 @@ public class RegisterCommonUtil {
 				stmt.setString(7, examSchedulePojo.getExamDetails());
 				stmt.setString(8, examSchedulePojo.getCreatedByUserName());
 				stmt.setString(9, examSchedulePojo.getLastUpdatedByUserName());
+				stmt.setString(10, currentFiscalPeriod);
 				
 				int out=stmt.executeUpdate();
 		        if(out == 0){
@@ -842,7 +847,7 @@ public class RegisterCommonUtil {
 	}
 	
 	
-	public String createEvaluationScoresForSubject(Long branchId, Long standardId, Long sectionId,Long schoolExamId, Long subjectId, HashMap<Long,EvaluationScoresPojo> newEvaluationScoresEntries, String loggedUserName){
+	public String createEvaluationScoresForSubject(Long branchId, Long standardId, Long sectionId,Long schoolExamId, Long subjectId, HashMap<Long,EvaluationScoresPojo> newEvaluationScoresEntries, String loggedUserName, String currentFiscalPeriod){
 		
 		String status = "true";
 		     try{
@@ -857,7 +862,7 @@ public class RegisterCommonUtil {
 					PreparedStatement stmt = null;
 					PreparedStatement stmt1 = null;
 					
-					String query = "INSERT INTO SCHOOL_EVALUATION_SCORES (SCHOOL_EVALUATION_SCORES_ID,BRANCH_ID, STANDARD_ID, SECTION_ID, STUDENT_ID,SCHOOL_EXAMS_ID, CREATED_BY, LAST_UPDATED_BY )  VALUES(?,?,?,?,?,?,?,?);";
+					String query = "INSERT INTO SCHOOL_EVALUATION_SCORES (SCHOOL_EVALUATION_SCORES_ID,BRANCH_ID, STANDARD_ID, SECTION_ID, STUDENT_ID,SCHOOL_EXAMS_ID, CREATED_BY, LAST_UPDATED_BY, CURRENT_FISCAL_YEAR )  VALUES(?,?,?,?,?,?,?,?,?);";
 					String sqlQuery = "INSERT INTO SCHOOL_EVALUATION_SCORES_DETAILS (SCHOOL_EVALUATION_SCORES_ID, SUBJECT_ID, SUBJECT_SCORE, GRADE, COMMENTS, CREATED_BY, LAST_UPDATED_BY) VALUES (?,?,?,?,?,?,?);";
 					
 					stmt = con.prepareStatement(query);
@@ -886,6 +891,7 @@ public class RegisterCommonUtil {
 								stmt.setLong(6, schoolExamId);
 								stmt.setString(7, loggedUserName);
 								stmt.setString(8, loggedUserName);
+								stmt.setString(9, currentFiscalPeriod);
 								
 								stmt.addBatch();
 						        					        

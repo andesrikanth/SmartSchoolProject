@@ -4,7 +4,7 @@
 
 
 
-/* Start : Below styles classes for Admin Page rendering*/
+/* Start : Below styles classes for Admin Page rendering and the layout*/
 #footer {
     clear: both !important;
     position: relative !important;
@@ -18,11 +18,11 @@
 }
 
 #unit1-resizer{
-	height:850px !important;
+	height:950px !important;
 }
 
 #center .ui-layout-unit-content {
-	height: 960px !important;
+	height: 1000px !important;
 }
 
 /* End of Admin Page rendering related changes */

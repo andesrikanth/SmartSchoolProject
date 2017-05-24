@@ -54,6 +54,7 @@ public class HomeworkBean implements Serializable {
 	public String createHomework(){
 		HttpSession session = (HttpSession)FacesContext.getCurrentInstance().getExternalContext().getSession(true);
 		String loggedUserName=(String)session.getAttribute("cur_user_name");
+		String currentFiscalPeriod = (String)session.getAttribute("current_fiscal_year");
 		
 		HomeworkPojo homeworkPojo=new HomeworkPojo();
 		
@@ -69,7 +70,7 @@ public class HomeworkBean implements Serializable {
 		
 		String creationStatus="false";
 		SmartSchoolFacade smartSchoolFacade = new SmartSchoolFacade();
-		creationStatus=smartSchoolFacade.createHomework(homeworkPojo);
+		creationStatus=smartSchoolFacade.createHomework(homeworkPojo,currentFiscalPeriod);
 		
 		if(creationStatus!=null && creationStatus.equals("true")){
 			// Show succes message.

@@ -79,16 +79,17 @@ public class EvaluationScores implements Serializable {
 	public void saveEvaluationScores(ActionEvent event){
 		HttpSession session = (HttpSession)FacesContext.getCurrentInstance().getExternalContext().getSession(true);
 		String loggedUserName=(String)session.getAttribute("cur_user_name");
+		String currentFiscalPeriod = (String)session.getAttribute("current_fiscal_year");
 		
 		SmartSchoolFacade smartSchoolFacade = new SmartSchoolFacade();
 		
 		String status = "false";
 		if(newEvaluationScoresEntries != null && newEvaluationScoresEntries.size()>0){
-			status = smartSchoolFacade.createEvaluationScoresForSubject(selectedBranchId, selectedStandardId, selectedSectionId, selectedExamId, selectedSubjectId, newEvaluationScoresEntries, loggedUserName);	
+			status = smartSchoolFacade.createEvaluationScoresForSubject(selectedBranchId, selectedStandardId, selectedSectionId, selectedExamId, selectedSubjectId, newEvaluationScoresEntries, loggedUserName, currentFiscalPeriod);	
 		}
 		
 		if(modifiedEvaluationScoresEntries != null && modifiedEvaluationScoresEntries.size()>0){
-			status = smartSchoolFacade.updateExistingEvaluationScoresDetailsForSubject(modifiedEvaluationScoresEntries, loggedUserName);
+			status = smartSchoolFacade.updateExistingEvaluationScoresDetailsForSubject(modifiedEvaluationScoresEntries, loggedUserName, currentFiscalPeriod);
 		}
 		
 		

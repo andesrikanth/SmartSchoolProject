@@ -174,6 +174,7 @@ public class ExamScheduleBean implements Serializable {
 		scheduleTableCreationStatus=false;
 		HttpSession session = (HttpSession)FacesContext.getCurrentInstance().getExternalContext().getSession(true);
 		String loggedUserName=(String)session.getAttribute("cur_user_name");
+		String currentFiscalPeriod = (String)session.getAttribute("current_fiscal_year");
 		String status = null;
 		
 		
@@ -193,7 +194,7 @@ public class ExamScheduleBean implements Serializable {
 			examSchedulePojo.setCreatedByUserName(loggedUserName);
 			
 			SmartSchoolFacade smartSchoolFacade = new SmartSchoolFacade();
-		    status = smartSchoolFacade.createExamScheduleTable(examScheduleSubjectPojoList,  examSchedulePojo );
+		    status = smartSchoolFacade.createExamScheduleTable(examScheduleSubjectPojoList,  examSchedulePojo, currentFiscalPeriod );
 			
 			if(status!=null && status.equals("true")){
 				FacesContext.getCurrentInstance().addMessage("create", new FacesMessage(FacesMessage.SEVERITY_INFO,  "Validation Successful! Exam Schedule is now created in the system.","Info"));
