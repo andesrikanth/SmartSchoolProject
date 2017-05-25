@@ -40,8 +40,8 @@ public class SubjectReviewDataTableBean implements Serializable {
 	   
 	   subjectUpdateStatus=false;
 	   
-	   String defaultSelectQuery="select SUBJECT_ID , SUBJECT_NAME, SUBJECT_DESC FROM SUBJECTS_DETAILS";
-	   String defaultCountQuery="select count(*) as range FROM SUBJECTS_DETAILS";
+	   String defaultSelectQuery="select SUBJECT_ID , SUBJECT_NAME, SUBJECT_DESC FROM SUBJECTS_DETAILS WHERE ACTIVE_FLAG='Y'";
+	   String defaultCountQuery="select count(*) as range FROM SUBJECTS_DETAILS WHERE ACTIVE_FLAG='Y'";
 	   //SmartSchoolFacade smartSchoolFacade = new SmartSchoolFacade();
 	   //int rowCount=smartSchoolFacade.getRowCountForDataTable(defaultCountQuery+";");
 	   //list=smartSchoolFacade.getAvailableBranchesListForDataTable(0, 10,defaultSelectQuery);

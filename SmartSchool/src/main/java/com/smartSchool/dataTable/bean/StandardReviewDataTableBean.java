@@ -39,9 +39,9 @@ public class StandardReviewDataTableBean   implements Serializable {
 		   
 		standardUpdateStatus=false;
 		   
-		   String defaultSelectQuery="select STANDARD_ID , STANDARD_NAME, std.DESCRIPTION, std.BRANCH_ID, bran.BRANCH_NAME FROM CLASS_AVBL_STANDARDS std, SCHOOL_BRANCHES bran WHERE std.BRANCH_ID = bran.BRANCH_ID";
+		   String defaultSelectQuery="select STANDARD_ID , STANDARD_NAME, std.DESCRIPTION, std.BRANCH_ID, bran.BRANCH_NAME FROM CLASS_AVBL_STANDARDS std, SCHOOL_BRANCHES bran WHERE std.BRANCH_ID = bran.BRANCH_ID and std.ACTIVE_FLAG='Y'";
 		   
-		   String defaultCountQuery="select count(*) as range FROM CLASS_AVBL_STANDARDS";
+		   String defaultCountQuery="select count(*) as range FROM CLASS_AVBL_STANDARDS  WHERE ACTIVE_FLAG='Y'";
 		   //SmartSchoolFacade smartSchoolFacade = new SmartSchoolFacade();
 		   //int rowCount=smartSchoolFacade.getRowCountForDataTable(defaultCountQuery+";");
 		   //list=smartSchoolFacade.getAvailableBranchesListForDataTable(0, 10,defaultSelectQuery);

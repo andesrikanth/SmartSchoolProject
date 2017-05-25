@@ -48,7 +48,7 @@ public class UpdateCommonUtil {
 			catch(Exception e){
 				status="false";
 				if(e !=null && e.getLocalizedMessage()!=null){
-					if(e.getLocalizedMessage().contains("violates unique constraint \"subjects_details_subject_name_key\"")){
+					if(e.getLocalizedMessage().contains("violates unique constraint \"subjects_details_u1\"")){
 						status="Same subject already exists. Please enter a different Subject Name";
 					}
 				}
@@ -78,9 +78,10 @@ public class UpdateCommonUtil {
 			DatabaseUtility databaseUtility =new DatabaseUtility();
 			Connection con=databaseUtility.getConnection();
 			PreparedStatement stmt = null;
+			PreparedStatement stmt1 = null;
 			java.sql.Date date = new java.sql.Date(new Date().getTime());
 			try{
-				
+				String studentEmail = null;
 				stmt = con.prepareStatement("UPDATE STUDENT_DETAILS SET STUDENT_FIRST_NAME= ?, STUDENT_LAST_NAME = ?, GENDER = ?, FATHER_NAME = ? , MOTHER_NAME = ?, ADDRESS= ?, EMAIL = ?, PHONE_NO=?, SECONDARY_PHONE_NO=?, BRANCH_ID = ?, REGISTERED_STANDARD = ?, REGISTERED_SECTION = ?,  LAST_UPDATED_BY = ? ,  LAST_UPDATE_DATE = ? , ROLL_NO =?  WHERE STUDENT_ID = ? ;");
 				
 				stmt.setString(1, studentPojo.getStudentFirstName());
@@ -92,9 +93,11 @@ public class UpdateCommonUtil {
 				
 				if(studentPojo.getStudentEmailNotAvail() == null || (studentPojo.getStudentEmailNotAvail()!= null && studentPojo.getStudentEmailNotAvail().length==0) || (studentPojo.getStudentEmailNotAvail()!= null && studentPojo.getStudentEmailNotAvail().length==0 && !studentPojo.getStudentEmailNotAvail()[0].equals("1"))){
 					stmt.setString(7, studentPojo.getStudentEmail());
+					studentEmail=studentPojo.getStudentEmail();
 				}
 				else{
 					stmt.setString(7, "N");
+					studentEmail="N";
 				}
 
 				
@@ -111,6 +114,18 @@ public class UpdateCommonUtil {
 				int out=stmt.executeUpdate();
 				
 		        if(out == 0){
+		        	status="false";
+		        }
+		        
+		        
+		        stmt1 = con.prepareStatement("UPDATE LOGIN_DETAILS SET EMAIL = ?, PHONE_NO =? WHERE LOGIN_DETAILS_ID = ?;");
+		        stmt1.setString(1, studentEmail);
+		        stmt1.setString(2, studentPojo.getPhoneNumber());
+		        stmt1.setString(3, "ST"+studentPojo.getKey());
+		        
+		        int out1=stmt1.executeUpdate();
+				
+		        if(out1 == 0){
 		        	status="false";
 		        }
 		        
@@ -149,9 +164,10 @@ public class UpdateCommonUtil {
 			DatabaseUtility databaseUtility =new DatabaseUtility();
 			Connection con=databaseUtility.getConnection();
 			PreparedStatement stmt = null;
+			PreparedStatement stmt1 = null;
 			java.sql.Date date = new java.sql.Date(new Date().getTime());
 			try{
-				
+				String teacherEmail =null;
 				stmt = con.prepareStatement("UPDATE TEACHER_DETAILS SET  TEACHER_FIRST_NAME=?, TEACHER_LAST_NAME=?, DOB=?, GENDER=?, ADDRESS=?, SPECIALIZATION=?, EMAIL=?, PHONE_NO=?, SECONDARY_PHONE_NO=?, BRANCH_ID=?,LAST_UPDATED_BY = ? ,  LAST_UPDATE_DATE = ? WHERE TEACHER_ID = ? ;");
 				
 				stmt.setString(1, teacherRegisterPojo.getTeacherFirstName());
@@ -181,7 +197,19 @@ public class UpdateCommonUtil {
 		        	status="false";
 		        }
 		        
+		        stmt1 = con.prepareStatement("UPDATE LOGIN_DETAILS SET EMAIL = ?, PHONE_NO =? WHERE LOGIN_DETAILS_ID = ?;");
+		        stmt1.setString(1, teacherEmail);
+		        stmt1.setString(2, teacherRegisterPojo.getPhoneNumber());
+		        stmt1.setString(3, "TE"+teacherRegisterPojo.getKey());
+		        
+		        int out1=stmt1.executeUpdate();
+				
+		        if(out1 == 0){
+		        	status="false";
+		        }
+		        
 		        con.commit();
+		        
 			}
 			catch(Exception e){
 				status="false";

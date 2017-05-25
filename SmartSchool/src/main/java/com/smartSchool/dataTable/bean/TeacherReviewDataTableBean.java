@@ -37,8 +37,8 @@ public class TeacherReviewDataTableBean  implements Serializable {
 	
 	@PostConstruct
 	   public void init() {
-		   String defaultSelectQuery="select TEACHER_ID, TEACHER_FIRST_NAME, TEACHER_LAST_NAME, DOB, GENDER, ADDRESS, SPECIALIZATION, EMAIL, PHONE_NO, SECONDARY_PHONE_NO, teach.BRANCH_ID, BRANCH_NAME from TEACHER_DETAILS teach, SCHOOL_BRANCHES bran WHERE teach.BRANCH_ID = bran.BRANCH_ID";
-		   String defaultCountQuery="select count(*) as range FROM TEACHER_DETAILS teach ,SCHOOL_BRANCHES bran WHERE teach.BRANCH_ID = bran.BRANCH_ID";
+		   String defaultSelectQuery="select TEACHER_ID, TEACHER_FIRST_NAME, TEACHER_LAST_NAME, DOB, GENDER, ADDRESS, SPECIALIZATION, EMAIL, PHONE_NO, SECONDARY_PHONE_NO, teach.BRANCH_ID, BRANCH_NAME from TEACHER_DETAILS teach, SCHOOL_BRANCHES bran WHERE teach.BRANCH_ID = bran.BRANCH_ID  AND teach.ACTIVE_FLAG='Y'";
+		   String defaultCountQuery="select count(*) as range FROM TEACHER_DETAILS teach ,SCHOOL_BRANCHES bran WHERE teach.BRANCH_ID = bran.BRANCH_ID AND teach.ACTIVE_FLAG='Y'";
 		   //SmartSchoolFacade smartSchoolFacade = new SmartSchoolFacade();
 		   //int rowCount=smartSchoolFacade.getRowCountForDataTable(defaultCountQuery+";");
 		   //list=smartSchoolFacade.getAvailableBranchesListForDataTable(0, 10,defaultSelectQuery);

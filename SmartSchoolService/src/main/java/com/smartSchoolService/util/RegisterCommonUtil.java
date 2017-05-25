@@ -120,7 +120,7 @@ public class RegisterCommonUtil {
 		        String randomPwd=randomPasswordGenerator.generateNewPassword();
 		        String hashedPassword=SmartSchoolHash.customHashing(randomPwd);
 		        
-		        st1 = con.prepareStatement("INSERT INTO LOGIN_DETAILS(USER_NAME, PASSWORD, DISPLAY_NAME, USER_ROLE_TYPE,  CREATED_BY,  LAST_UPDATED_BY,PWD_RESET_FLAG) VALUES(?,?,?,?,?,?,?);");
+		        st1 = con.prepareStatement("INSERT INTO LOGIN_DETAILS(USER_NAME, PASSWORD, DISPLAY_NAME, USER_ROLE_TYPE,  CREATED_BY,  LAST_UPDATED_BY, PWD_RESET_FLAG, EMAIL, PHONE_NO, LOGIN_DETAILS_ID ) VALUES(?,?,?,?,?,?,?,?,?,?);");
 		        st1.setString(1, "ST"+currentStudentId);
 		        st1.setString(2, hashedPassword);
 		        st1.setString(3, studentPojo.getStudentFirstName());
@@ -128,6 +128,9 @@ public class RegisterCommonUtil {
 		        st1.setString(5, studentPojo.getCreatedBy());
 		        st1.setString(6, studentPojo.getLastUpdatedBy());
 		        st1.setString(7, "Y");
+		        st1.setString(8, studentPojo.getStudentEmail());
+		        st1.setString(9, studentPojo.getPhoneNumber());
+		        st1.setString(10, "ST"+currentStudentId);
 		        
 		        int out1=st1.executeUpdate();
 				if(out1 == 0){
@@ -141,6 +144,12 @@ public class RegisterCommonUtil {
 			}
 			catch(Exception e){
 				status="false";
+				if(e !=null && e.getLocalizedMessage()!=null){
+					if(e.getLocalizedMessage().contains("violates unique constraint \"student_details_u1\"")){
+						status="Another student exists for this section with the same Roll No.";
+					}
+				}
+				
 				e.printStackTrace();
 			}
 			finally{
@@ -224,9 +233,9 @@ public class RegisterCommonUtil {
 		        con.commit();
 			}
 			catch(Exception e){
-				System.out.println("e.getMessage() "+ e.getMessage());
-				System.out.println("e.getCause() "+e.getCause());
-				System.out.println("e.getLocalizedMessage() "+e.getLocalizedMessage());
+				//System.out.println("e.getMessage() "+ e.getMessage());
+				//System.out.println("e.getCause() "+e.getCause());
+				//System.out.println("e.getLocalizedMessage() "+e.getLocalizedMessage());
 				status=false;
 				e.printStackTrace();
 			}
@@ -290,7 +299,7 @@ public class RegisterCommonUtil {
 		        String randomPwd=randomPasswordGenerator.generateNewPassword();
 		        String hashedPassword=SmartSchoolHash.customHashing(randomPwd);
 		        
-		        st1 = con.prepareStatement("INSERT INTO LOGIN_DETAILS(USER_NAME, PASSWORD, DISPLAY_NAME, USER_ROLE_TYPE, CREATED_BY,  LAST_UPDATED_BY,PWD_RESET_FLAG) VALUES(?,?,?,?,?,?,?);");
+		        st1 = con.prepareStatement("INSERT INTO LOGIN_DETAILS(USER_NAME, PASSWORD, DISPLAY_NAME, USER_ROLE_TYPE, CREATED_BY,  LAST_UPDATED_BY,PWD_RESET_FLAG,  EMAIL, PHONE_NO, LOGIN_DETAILS_ID) VALUES(?,?,?,?,?,?,?,?,?,?);");
 		        st1.setString(1, "TE"+currentTeacherId);
 		        st1.setString(2, hashedPassword);
 		        st1.setString(3, teacherRegisterPojo.getTeacherFirstName());
@@ -298,6 +307,10 @@ public class RegisterCommonUtil {
 		        st1.setString(5, teacherRegisterPojo.getCreatedBy());
 		        st1.setString(6, teacherRegisterPojo.getLastUpdatedBy());
 		        st1.setString(7, "Y");
+		        st1.setString(8, teacherRegisterPojo.getTeacherEmail());
+		        st1.setString(9, teacherRegisterPojo.getPhoneNumber());
+		        st1.setString(10, "TE"+currentTeacherId);
+		        
 		        
 		        int out1=st1.executeUpdate();
 				if(out1 == 0){
@@ -356,7 +369,7 @@ public class RegisterCommonUtil {
 			catch(Exception e){
 				status="false";
 				if(e !=null && e.getLocalizedMessage()!=null){
-					if(e.getLocalizedMessage().contains("violates unique constraint \"subjects_details_branch_id_subject_name_key\"")){
+					if(e.getLocalizedMessage().contains("violates unique constraint \"subjects_details_u1\"")){
 						status="Same subject already exists. Please enter a different Subject Name";
 					}
 				}
@@ -435,7 +448,7 @@ public class RegisterCommonUtil {
 			catch(Exception e){
 				status="false";
 				if(e !=null && e.getLocalizedMessage()!=null){
-					if(e.getLocalizedMessage().contains("violates unique constraint \"time_table_templates_template_name_key\"")){
+					if(e.getLocalizedMessage().contains("violates unique constraint \"time_table_templates_u1\"")){
 						status="Same Template Name already exists. Please enter a different Template Name";
 					}
 				}

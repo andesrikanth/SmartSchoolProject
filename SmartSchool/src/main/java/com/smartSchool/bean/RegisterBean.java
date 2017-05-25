@@ -392,15 +392,21 @@ public class RegisterBean implements Serializable {
 			String status=output.get("DB_STATUS");
 			generatedUserName=output.get("USER_NAME");
 			generatedPwd=output.get("PWD");
+			
 			if(status!= null && status.equalsIgnoreCase("true")){
 				studentRegistrationStatus=true;
 				
 				// Show success message.
 				FacesContext.getCurrentInstance().addMessage("register", new FacesMessage("Student Registration Successful !"));
 			}
-			else {
+			
+			else if(status != null && status.equalsIgnoreCase("false")){
 				// Show failure message.
 				FacesContext.getCurrentInstance().addMessage("register", new FacesMessage("Student Registration Failed!! Please contact product support."));
+			}
+			else {
+				// Show failure message.
+				FacesContext.getCurrentInstance().addMessage("register", new FacesMessage(status));
 			}
 	        
 	        return null;

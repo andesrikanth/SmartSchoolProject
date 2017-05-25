@@ -325,7 +325,7 @@ public class FetchCommonUtil {
 			Statement stmt = null;
 			try{
 				stmt = con.createStatement();
-				ResultSet rs = stmt.executeQuery("select TIME_TABLE_TEMPLATE_ID, TEMPLATE_NAME FROM TIME_TABLE_TEMPLATES;");
+				ResultSet rs = stmt.executeQuery("select TIME_TABLE_TEMPLATE_ID, TEMPLATE_NAME FROM TIME_TABLE_TEMPLATES WHERE ACTIVE_FLAG='Y';");
 		        while(rs.next()){
 		        	ChoiceListPojo.AvailableTimetableTemplates templates= choiceListPojo.new AvailableTimetableTemplates();
 		        	Long templateId = rs.getLong("TIME_TABLE_TEMPLATE_ID");
@@ -364,7 +364,7 @@ public class FetchCommonUtil {
 			try{
 				
 				stmt = con.createStatement();
-				ResultSet rs = stmt.executeQuery("select BRANCH_ID, BRANCH_NAME FROM SCHOOL_BRANCHES;");
+				ResultSet rs = stmt.executeQuery("select BRANCH_ID, BRANCH_NAME FROM SCHOOL_BRANCHES WHERE ACTIVE_FLAG='Y';");
 		        while(rs.next()){
 		        	ChoiceListPojo.AvailableBranches bran= choiceListPojo.new AvailableBranches();
 		        	Long branId = rs.getLong("BRANCH_ID");
@@ -403,7 +403,7 @@ public class FetchCommonUtil {
 			try{
 				
 				stmt = con.createStatement();
-				ResultSet rs = stmt.executeQuery("select STANDARD_ID, STANDARD_NAME FROM CLASS_AVBL_STANDARDS where BRANCH_ID = "+branchId+ ";");
+				ResultSet rs = stmt.executeQuery("select STANDARD_ID, STANDARD_NAME FROM CLASS_AVBL_STANDARDS WHERE ACTIVE_FLAG='Y' and BRANCH_ID = "+branchId+ ";");
 		        while(rs.next()){
 		        	ChoiceListPojo.AvailableStandards stand= choiceListPojo.new AvailableStandards();
 		        	
@@ -444,7 +444,7 @@ public class FetchCommonUtil {
 			try{
 				
 				stmt = con.createStatement();
-				ResultSet rs = stmt.executeQuery("select SECTION_ID,SECTION_NAME from CLASS_AVBL_SECTIONS where BRANCH_ID= "+selectedBranchId+" AND STANDARD_ID="+standardId+";");
+				ResultSet rs = stmt.executeQuery("select SECTION_ID,SECTION_NAME from CLASS_AVBL_SECTIONS  WHERE ACTIVE_FLAG='Y' and BRANCH_ID= "+selectedBranchId+" AND STANDARD_ID="+standardId+";");
 		        while(rs.next()){
 		        	ChoiceListPojo.AvailableSections stand= choiceListPojo.new AvailableSections();
 		        	Long secId = rs.getLong("SECTION_ID");
@@ -483,7 +483,7 @@ public class FetchCommonUtil {
 			try{
 				
 				stmt = con.createStatement();
-				ResultSet rs = stmt.executeQuery("select TEACHER_ID, TEACHER_FIRST_NAME, TEACHER_LAST_NAME  from TEACHER_DETAILS WHERE BRANCH_ID ="+branchId+";");
+				ResultSet rs = stmt.executeQuery("select TEACHER_ID, TEACHER_FIRST_NAME, TEACHER_LAST_NAME  from TEACHER_DETAILS  WHERE ACTIVE_FLAG='Y' and BRANCH_ID ="+branchId+";");
 		        while(rs.next()){
 		        	TeacherRegisterPojo teacherRegisterPojo = new TeacherRegisterPojo();
 		        	teacherRegisterPojo.setKey(rs.getLong("TEACHER_ID"));
@@ -518,7 +518,7 @@ public class FetchCommonUtil {
 			try{
 				
 				stmt = con.createStatement();
-				ResultSet rs = stmt.executeQuery("select SUBJECT_ID , SUBJECT_NAME from SUBJECTS_DETAILS WHERE BRANCH_ID = "+branchId+";");
+				ResultSet rs = stmt.executeQuery("select SUBJECT_ID , SUBJECT_NAME from SUBJECTS_DETAILS  WHERE ACTIVE_FLAG='Y' and BRANCH_ID = "+branchId+";");
 		        while(rs.next()){
 		        	SubjectRegisterPojo subjectRegisterPojo = new SubjectRegisterPojo();
 		        	subjectRegisterPojo.setKey(rs.getLong("SUBJECT_ID"));
@@ -553,7 +553,7 @@ public class FetchCommonUtil {
 			try{
 				
 				stmt = con.createStatement();
-				ResultSet rs = stmt.executeQuery("select * from TIME_TABLE_TEMPLATES WHERE TIME_TABLE_TEMPLATE_ID = "+timeTableTemplateId+";");
+				ResultSet rs = stmt.executeQuery("select * from TIME_TABLE_TEMPLATES  WHERE ACTIVE_FLAG='Y' and TIME_TABLE_TEMPLATE_ID = "+timeTableTemplateId+";");
 		        while(rs.next()){
 		        	Long slotsUsed=rs.getLong("NO_OF_SLOTS_USED");
 		        	for (int i=1;i<=slotsUsed.intValue();i++){
@@ -608,7 +608,7 @@ public class FetchCommonUtil {
 			try{
 				
 				stmt = con.createStatement();
-				ResultSet rs = stmt.executeQuery("select SECTION_SUBJECT_TIME_TABLE_ID from SECTION_SUBJECT_TIME_TABLE where section_id = "+sectionId+" and ACTIVE_FLAG = 'Y';");
+				ResultSet rs = stmt.executeQuery("select SECTION_SUBJECT_TIME_TABLE_ID from SECTION_SUBJECT_TIME_TABLE  WHERE ACTIVE_FLAG='Y' and section_id = "+sectionId+" and ACTIVE_FLAG = 'Y';");
 		        while(rs.next()){
 		        	status = true;
 		        }
@@ -640,7 +640,7 @@ public class FetchCommonUtil {
 			try{
 				
 				stmt = con.createStatement();
-				ResultSet rs = stmt.executeQuery("SELECT NO_OF_SLOTS_USED FROM SECTION_SUBJECT_TIME_TABLE WHERE SECTION_ID = "+sectionId+";");
+				ResultSet rs = stmt.executeQuery("SELECT NO_OF_SLOTS_USED FROM SECTION_SUBJECT_TIME_TABLE  WHERE ACTIVE_FLAG='Y' and SECTION_ID = "+sectionId+";");
 				Long noOfSlotsUsed = null;
 						
 				while(rs.next()){
@@ -711,7 +711,7 @@ public class FetchCommonUtil {
 			try{
 				
 				stmt = con.createStatement();
-				ResultSet rs = stmt.executeQuery("select STUDENT_ID, STUDENT_FIRST_NAME, STUDENT_LAST_NAME from STUDENT_DETAILS WHERE REGISTERED_SECTION = "+sectionId+";");
+				ResultSet rs = stmt.executeQuery("select STUDENT_ID, STUDENT_FIRST_NAME, STUDENT_LAST_NAME from STUDENT_DETAILS  WHERE ACTIVE_FLAG='Y' and REGISTERED_SECTION = "+sectionId+";");
 		        while(rs.next()){
 		        	StudentPojo studentPojo = new StudentPojo();
 		        	studentPojo.setKey(rs.getLong("STUDENT_ID"));
@@ -745,7 +745,7 @@ public class FetchCommonUtil {
 			try{
 				
 				stmt = con.createStatement();
-				ResultSet rs = stmt.executeQuery("select SCHOOL_EXAMS_ID, EXAM_DETAILS from SCHOOL_EXAMS WHERE SECTION_ID = "+sectionId+";");
+				ResultSet rs = stmt.executeQuery("select SCHOOL_EXAMS_ID, EXAM_DETAILS from SCHOOL_EXAMS  WHERE ACTIVE_FLAG='Y' and SECTION_ID = "+sectionId+";");
 		        while(rs.next()){
 		        	ExamSchedulePojo examPojo = new ExamSchedulePojo();
 		        	examPojo.setKey(rs.getLong("SCHOOL_EXAMS_ID"));
@@ -779,7 +779,7 @@ public class FetchCommonUtil {
 				PreparedStatement stmt = null;
 				
 				try{
-					stmt = con.prepareStatement("select EXAM_DETAILS, EXAM_START_DATE, EXAM_END_DATE from SCHOOL_EXAMS where section_id = ? and ((? BETWEEN EXAM_START_DATE AND EXAM_END_DATE or ? BETWEEN EXAM_START_DATE AND EXAM_END_DATE) or   (? <= EXAM_START_DATE and ? >= EXAM_END_DATE)  ) ;");
+					stmt = con.prepareStatement("select EXAM_DETAILS, EXAM_START_DATE, EXAM_END_DATE from SCHOOL_EXAMS  WHERE ACTIVE_FLAG='Y'and section_id = ? and ((? BETWEEN EXAM_START_DATE AND EXAM_END_DATE or ? BETWEEN EXAM_START_DATE AND EXAM_END_DATE) or   (? <= EXAM_START_DATE and ? >= EXAM_END_DATE)  ) ;");
 					
 					stmt.setLong(1, sectionIds);
 					stmt.setDate(2, startDate);

@@ -30,7 +30,7 @@ public class LoginBean implements Serializable {
 	//Forgot password
 	private String registeredEmailId;
 	private String registeredPhoneNo;
-	
+	private boolean forgotPasswordStatus;
 	
 	public String getLoginAuthStatus() {
 		return loginAuthStatus;
@@ -90,6 +90,13 @@ public class LoginBean implements Serializable {
 		return resetPasswordStatus;
 		
 	}
+
+	public boolean isForgotPasswordStatus() {
+		return forgotPasswordStatus;
+	}
+	public void setForgotPasswordStatus(boolean forgotPasswordStatus) {
+		this.forgotPasswordStatus = forgotPasswordStatus;
+	}
 	
 	public void SubmitLogin(ActionEvent event){
 		
@@ -100,6 +107,9 @@ public class LoginBean implements Serializable {
 		session.setMaxInactiveInterval(500);
 		
 		SmartSchoolFacade smartSchoolFacade = new SmartSchoolFacade();
+		if(userName != null){
+			userName=userName.toUpperCase();
+		}
 		LoginPojo status=smartSchoolFacade.validateUserLogin(userName, password);
 		if(status != null && !status.getLoginValidationStatus().equals("fail")){
 			
@@ -162,14 +172,21 @@ public class LoginBean implements Serializable {
 	}
 	
 	public void SubmitForgotPassword(ActionEvent event){
-		
+		forgotPasswordStatus =false;
 		if((registeredEmailId == null && registeredPhoneNo == null) || ((registeredEmailId != null && registeredEmailId.equals("")) && (registeredPhoneNo != null && registeredPhoneNo.equals(""))) ){
 			FacesContext.getCurrentInstance().addMessage("validationMessages", new FacesMessage(FacesMessage.SEVERITY_ERROR, "Either Registered Email Id or Registered Phone Number is required for changing the password.", "Info"));
 		}
 		else {
 			SmartSchoolFacade smartSchoolFacade = new SmartSchoolFacade();
+			
+			if(userName != null){
+				userName=userName.toUpperCase();
+			}
+			
 			String status = smartSchoolFacade.submitForgotPassword(userName,registeredEmailId,registeredPhoneNo);
+			
 			if(status != null && status.contains("Temporary Password has been sent to your registered email id")){
+				forgotPasswordStatus=true;
 				FacesContext.getCurrentInstance().addMessage("validationMessages", new FacesMessage(FacesMessage.SEVERITY_INFO, status, "Info"));
 			}
 			else {

@@ -22,6 +22,11 @@
 				<br></br>
 						
 		        <h:form id="register">
+		        
+		            <h:message for="register" style="color: green;" rendered="#{registerBean.studentRegistrationStatus}"/>
+					<h:message for="register" style="color: red;" rendered="#{!registerBean.studentRegistrationStatus}"/>
+					<br></br>
+					<br></br>
 				    <h:panelGrid id="panel" columns="3" border="1" cellpadding="100" cellspacing="10" rendered="#{!registerBean.studentRegistrationStatus}" >
 						
 						
@@ -128,10 +133,6 @@
 						   </h:panelGroup>
 						</f:facet>
 					</h:panelGrid>
-					<h:message for="register" style="color: green;" rendered="#{registerBean.studentRegistrationStatus}"/>
-					<h:message for="register" style="color: red;" rendered="#{!registerBean.studentRegistrationStatus}"/>
-					<br></br>
-					<br></br>
 					
 					<h:panelGroup id="loginDetails" rendered="#{registerBean.studentRegistrationStatus}" >
 					

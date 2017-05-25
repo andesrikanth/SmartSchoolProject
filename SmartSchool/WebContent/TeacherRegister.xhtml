@@ -37,7 +37,7 @@
 			           	<h:message for="teacherLastName" style="color:red" />
 						
 						<h:outputText id="o4" value="&nbsp; Date of Birth" escape="false" style="margin-right:15px;font-weight:bold;"></h:outputText>
-			             <p:calendar id="dob" value="#{teacherBean.dateOfBirth}"  required="true" requiredMessage="Please provide valid Date of Birth.>
+			             <p:calendar id="dob" value="#{teacherBean.dateOfBirth}"  required="true" requiredMessage="Please provide valid Date of Birth.">
         			    	<p:ajax event="dateSelect" listener="#{teacherBean.onDateSelect}"/>
         				</p:calendar>
         				<h:message for="dob" style="color:red" />

@@ -42,9 +42,9 @@ public class SectionReviewDataTableBean  implements Serializable {
 		   
 		 sectionUpdateStatus=false;
 		   
-		   String defaultSelectQuery="select SECTION_ID , SECTION_NAME, sec.BRANCH_ID, sec.DESCRIPTION, bran.BRANCH_NAME, sec.STANDARD_ID, std.STANDARD_NAME FROM CLASS_AVBL_SECTIONS sec, CLASS_AVBL_STANDARDS std, SCHOOL_BRANCHES bran WHERE sec.BRANCH_ID = bran.BRANCH_ID AND sec.STANDARD_ID = std.STANDARD_ID ";
+		   String defaultSelectQuery="select SECTION_ID , SECTION_NAME, sec.BRANCH_ID, sec.DESCRIPTION, bran.BRANCH_NAME, sec.STANDARD_ID, std.STANDARD_NAME FROM CLASS_AVBL_SECTIONS sec, CLASS_AVBL_STANDARDS std, SCHOOL_BRANCHES bran WHERE sec.BRANCH_ID = bran.BRANCH_ID AND sec.STANDARD_ID = std.STANDARD_ID AND sec.ACTIVE_FLAG='Y'  ";
 		   
-		   String defaultCountQuery="select count(*) as range FROM CLASS_AVBL_SECTIONS";
+		   String defaultCountQuery="select count(*) as range FROM CLASS_AVBL_SECTIONS  WHERE ACTIVE_FLAG='Y'";
 		   //SmartSchoolFacade smartSchoolFacade = new SmartSchoolFacade();
 		   //int rowCount=smartSchoolFacade.getRowCountForDataTable(defaultCountQuery+";");
 		   //list=smartSchoolFacade.getAvailableBranchesListForDataTable(0, 10,defaultSelectQuery);

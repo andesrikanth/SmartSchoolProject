@@ -38,8 +38,8 @@ public class StudentReviewDataTableBean implements Serializable {
 	
 	 @PostConstruct
 	   public void init() {
-		   String defaultSelectQuery="select STUDENT_ID,STUDENT_FIRST_NAME, STUDENT_LAST_NAME, ROLL_NO, GENDER, FATHER_NAME, MOTHER_NAME, ADDRESS, EMAIL, PHONE_NO, SECONDARY_PHONE_NO, st.BRANCH_ID, st.REGISTERED_STANDARD, st.REGISTERED_SECTION, BRANCH_NAME, STANDARD_NAME, SECTION_NAME from STUDENT_DETAILS st ,SCHOOL_BRANCHES bran,CLASS_AVBL_STANDARDS stand,CLASS_AVBL_SECTIONS sec  where st.BRANCH_ID = bran.BRANCH_ID  and st.REGISTERED_STANDARD = stand.STANDARD_ID  and st.REGISTERED_SECTION = sec.section_id";
-		   String defaultCountQuery="select count(*) as range FROM STUDENT_DETAILS st ,SCHOOL_BRANCHES bran,CLASS_AVBL_STANDARDS stand,CLASS_AVBL_SECTIONS sec  where st.BRANCH_ID = bran.BRANCH_ID  and st.REGISTERED_STANDARD = stand.STANDARD_ID  and st.REGISTERED_SECTION = sec.section_id";
+		   String defaultSelectQuery="select STUDENT_ID,STUDENT_FIRST_NAME, STUDENT_LAST_NAME, ROLL_NO, GENDER, FATHER_NAME, MOTHER_NAME, ADDRESS, EMAIL, PHONE_NO, SECONDARY_PHONE_NO, st.BRANCH_ID, st.REGISTERED_STANDARD, st.REGISTERED_SECTION, BRANCH_NAME, STANDARD_NAME, SECTION_NAME from STUDENT_DETAILS st ,SCHOOL_BRANCHES bran,CLASS_AVBL_STANDARDS stand,CLASS_AVBL_SECTIONS sec  where st.BRANCH_ID = bran.BRANCH_ID  and st.REGISTERED_STANDARD = stand.STANDARD_ID  and st.REGISTERED_SECTION = sec.section_id  and st.ACTIVE_FLAG='Y'";
+		   String defaultCountQuery="select count(*) as range FROM STUDENT_DETAILS st ,SCHOOL_BRANCHES bran,CLASS_AVBL_STANDARDS stand,CLASS_AVBL_SECTIONS sec  where st.BRANCH_ID = bran.BRANCH_ID  and st.REGISTERED_STANDARD = stand.STANDARD_ID  and st.REGISTERED_SECTION = sec.section_id and st.ACTIVE_FLAG='Y'";
 		   //SmartSchoolFacade smartSchoolFacade = new SmartSchoolFacade();
 		   //int rowCount=smartSchoolFacade.getRowCountForDataTable(defaultCountQuery+";");
 		   //list=smartSchoolFacade.getAvailableBranchesListForDataTable(0, 10,defaultSelectQuery);

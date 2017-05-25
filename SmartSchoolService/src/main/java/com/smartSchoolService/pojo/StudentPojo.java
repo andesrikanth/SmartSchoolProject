@@ -45,14 +45,14 @@ public class StudentPojo implements Cloneable{
 		return selectedStudentGender;
 	}
 	public void setSelectedStudentGender(String selectedStudentGender) {
-		if(selectedStudentGender != null){
+		/*if(selectedStudentGender != null){
 			if(selectedStudentGender.equals("Male")){
 				selectedStudentGender="M";
 			}
 			else {
 				selectedStudentGender="F";
 			}
-		}
+		}*/
 		this.selectedStudentGender = selectedStudentGender;
 	}
 	public Long getSelectedBranchId() {

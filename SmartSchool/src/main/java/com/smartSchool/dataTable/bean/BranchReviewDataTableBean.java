@@ -42,8 +42,8 @@ public class BranchReviewDataTableBean  implements Serializable {
 		   
 		 branchUpdateStatus=false;
 		   
-		   String defaultSelectQuery="select BRANCH_ID , BRANCH_NAME, BRANCH_ADDRESS FROM SCHOOL_BRANCHES";
-		   String defaultCountQuery="select count(*) as range FROM SCHOOL_BRANCHES";
+		   String defaultSelectQuery="select BRANCH_ID , BRANCH_NAME, BRANCH_ADDRESS FROM SCHOOL_BRANCHES  WHERE ACTIVE_FLAG='Y'";
+		   String defaultCountQuery="select count(*) as range FROM SCHOOL_BRANCHES WHERE ACTIVE_FLAG='Y'";
 		   //SmartSchoolFacade smartSchoolFacade = new SmartSchoolFacade();
 		   //int rowCount=smartSchoolFacade.getRowCountForDataTable(defaultCountQuery+";");
 		   //list=smartSchoolFacade.getAvailableBranchesListForDataTable(0, 10,defaultSelectQuery);
