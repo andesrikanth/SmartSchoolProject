@@ -24,7 +24,7 @@ public class LoginHelper {
 			Connection con=databaseUtility.getConnection();
 			Statement stmt = null;
 			try{
-				
+				status.setCurrentFiscalYear(null);
 				stmt = con.createStatement();
 		        ResultSet rs = stmt.executeQuery( "SELECT DISPLAY_NAME, USER_ROLE_TYPE, PWD_RESET_FLAG FROM LOGIN_DETAILS where USER_NAME='"+userName+"' and PASSWORD = '"+hashedPassword+"';" );
 		        while ( rs.next() ) {
@@ -60,8 +60,12 @@ public class LoginHelper {
 			}
 			catch(Exception e){
 				e.printStackTrace();
+				status.setLoginValidationStatus("fail");
 			}
 			finally{
+				if(status!=null && status.getCurrentFiscalYear() == null){
+					status.setLoginValidationStatus("fail");
+				}
 				databaseUtility.closeConnection(con);
 			}
 			

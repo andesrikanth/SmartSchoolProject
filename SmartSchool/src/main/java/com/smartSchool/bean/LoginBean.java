@@ -118,7 +118,11 @@ public class LoginBean implements Serializable {
 				session.setAttribute("cur_user_role_type", status.getCurrentUserRoleType());
 				session.setAttribute("cur_user_pwd_reset", status.getUserPasswordResetFlag());
 				session.setAttribute("current_fiscal_year", status.getCurrentFiscalYear());
-				this.setLoginAuthStatus(status.getLoginValidationStatus());
+				
+				if(status.getLoginValidationStatus()!= null && status.getLoginValidationStatus().equals("success")){
+					this.setLoginAuthStatus(status.getCurrentUserRoleType());
+				}
+				
 		}
 		else {
 			FacesContext.getCurrentInstance().addMessage("validationMessages", new FacesMessage(FacesMessage.SEVERITY_ERROR, "Login failed. Invalid credentials.", "Info"));

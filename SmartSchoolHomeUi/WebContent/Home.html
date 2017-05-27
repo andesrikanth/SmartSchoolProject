@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+	<title>SmartSchool Application</title>
+
+	<!-- Meta -->
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="SmartSchoolApplication - All rights Reserved">
+	<meta name="author" content="Srikanth Ande">
+	
+	<!-- Web Fonts -->
+	<link rel='stylesheet' type='text/css' href='//fonts.googleapis.com/css?family=Open+Sans:400,300,600&amp;subset=cyrillic,latin'>
+
+	<!-- CSS Global-->
+	<link rel="stylesheet" href="assets//bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" href="assets/css/custom-style.css">
+
+	<!-- CSS Header and Footer -->
+	<link rel="stylesheet" href="assets/css/header.css">
+	<link rel="stylesheet" href="assets/css/footer.css">
+	
+	<!-- CSS Implementing Plugins -->
+	<link rel="stylesheet" href="assets/css/animate.css">
+	<link rel="stylesheet" href="assets/line-icons/line-icons.css">
+	<link rel="stylesheet" href="assets/font-awesome/css/font-awesome.min.css">
+	<!-- Slider CSS -->
+	<link rel="stylesheet" href="assets/slider/css/parallax-slider.css">
+	<link rel="stylesheet" href="assets/slider/owl.carousel.css">
+	
+	<!-- CSS Theme -->
+	<link rel="stylesheet" href="assets/css/theme-colors/default.css" id="style_color"> <!-- Theme color can be changed here by selecting the css corresponding to the color. for example, use blue.css for blue color theme -->
+	<link rel="stylesheet" href="assets/css/theme-skins/dark.css">
+
+	<!-- CSS Customization -->
+	<link rel="stylesheet" href="assets/css/custom.css">
+	
+</head>
+
+<body class="boxed-layout container">  <!-- keep 'class="dark"' for the body tag to change the entire background to dark -->
+<!-- Also keep class="boxed-layout container" to make the slider part into small boxed shape rather stretching it all the way for the entire page. -->
+  <div class="wrapper">
+		<!--=== Header ===-->
+		<div class="header">
+			<div class="container">
+			 
+			 <!-- Comments : Logo & Title size will automatically change based on the screen size of the device. These settings are controlled in 'custom.css' file.  -->
+			 <!-- For example, "@media (max-width: 991px) {" will define the settings when the max width of screen is 991px. -->
+				<!-- Logo -->
+				<a class="logo" href="Home.html" ><img src="assets/TreeVision.jpg" alt="Logo"/>Vision Public School</a>
+				<!-- End Logo -->
+
+				<!-- Topmenu -->
+				<div class="topmenu">
+					<ul class="helpmenu pull-right">
+						<li><a href="#">Help</a></li>
+						<li class="topmenu-devider"></li>
+						<li><a href="#">Contact Us</a></li>
+					</ul>
+				</div>
+				<!-- End Topmenu -->
+
+				<!-- Toggle get grouped for better mobile display -->
+				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="fa fa-bars"></span>
+				</button>
+				<!-- End Toggle -->
+				
+			</div><!--/end container-->
+			
+			<!-- Collect the nav links, forms, and other content for toggling -->
+			<div class="collapse navbar-collapse mega-menu navbar-responsive-collapse">
+				<div class="container">
+					<ul class="nav navbar-nav">
+						
+						<!-- Home -->
+						<li class="dropdown active">
+							<a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown">
+								Home
+							</a>
+							<ul class="dropdown-menu">
+								<li><a href="$">About School</a></li>
+ 								<li><a href="#">Founder's Message</a></li>
+ 								<li><a href="#">Principal's Message</a></li>
+
+								 <!-- Campuses Template -->
+								 <li class="dropdown-submenu">
+									<a href="javascript:void(0);">Campuses</a>
+									<ul class="dropdown-menu">
+										<li><a  href="#">Sandy</a></li>
+										<li><a  href="#">Salt Lake City</a></li>
+									</ul>
+								</li> 
+								<!--End Campuses Template -->
+								
+								<!-- Sub Level Menu -->
+								<!-- <li class="dropdown-submenu">
+									<a href="javascript:void(0);">Sub Level 1</a>
+									<ul class="dropdown-menu no-bottom-space">
+										<li><a href="index.hmtl">Sub Level 2</a></li>
+										<li class="dropdown-submenu">
+											<a href="javascript:void(0);">Sub Level 2</a>
+											<ul class="dropdown-menu">
+												<li><a href="index.hmtl">Sub Level 3</a></li>
+												<li><a href="index.hmtl">Sub Level 3</a></li>
+												<li><a href="index.hmtl">Sub Level 3</a></li>
+												<li><a href="index.hmtl">Sub Level 3</a></li>
+											</ul>
+										</li>
+										<li><a href="index.hmtl">Sub Level 2</a></li>
+										<li class="dropdown-submenu">
+											<a href="javascript:void(0);">Sub Level 2</a>
+											<ul class="dropdown-menu no-bottom-space">
+												<li><a href="index.hmtl">Sub Level 3</a></li>
+												<li><a href="index.hmtl">Sub Level 3</a></li>
+												<li><a href="index.hmtl">Sub Level 3</a></li>
+											</ul>
+										</li>
+									</ul>
+								</li> -->
+								<!-- End Sub Level Menu -->
+							</ul>
+						</li>
+						<!-- End Home -->
+						
+						<!-- Academics -->
+						<li class="dropdown">
+							<a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown">
+								Academics
+							</a>
+							<ul class="dropdown-menu">
+								<li><a href="#">Faculty & Staff</a></li>
+ 								<li><a href="#">Courses Offered</a></li>
+							</ul>
+						</li>
+						<!-- End Academics -->
+
+						
+						<!-- Shortcodes -->
+						<li class="dropdown mega-menu-fullwidth">
+							<a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown">
+								Shortcodes
+							</a>
+							<ul class="dropdown-menu">
+								<li>
+									<div class="mega-menu-content disable-icons">
+										<div class="container">
+											<div class="row equal-height">
+												<div class="col-md-3 equal-height-in">
+													<ul class="list-unstyled equal-height-list">
+														<li><h3>Typography &amp; Components</h3></li>
+
+														<!-- Typography -->
+														<li><a href="shortcode_typo_general.html"><i class="fa fa-sort-alpha-asc"></i> General Typography</a></li>
+														<li><a href="shortcode_typo_headings.html"><i class="fa fa-magic"></i> Headings Options</a></li>
+														<li><a href="shortcode_typo_dividers.html"><i class="fa fa-ellipsis-h"></i> Dividers</a></li>
+														<li><a href="shortcode_typo_blockquote.html"><i class="fa fa-quote-left"></i> Blockquote Blocks</a></li>
+														<li><a href="shortcode_typo_boxshadows.html"><i class="fa fa-asterisk"></i> Box Shadows</a></li>
+														<li><a href="shortcode_typo_testimonials.html"><i class="fa fa-comments"></i> Testimonials</a></li>
+														<li><a href="shortcode_typo_tagline_boxes.html"><i class="fa fa-tasks"></i> Tagline Boxes</a></li>
+														<li><a href="shortcode_typo_grid.html"><i class="fa fa-align-justify"></i> Grid Layouts</a></li>
+														<!-- End Typography -->
+
+														<!-- Components -->
+														<li><a href="shortcode_compo_messages.html"><i class="fa fa-comment"></i> Alerts &amp; Messages</a></li>
+														<li><a href="shortcode_compo_labels.html"><i class="fa fa-tags"></i> Labels &amp; Badges</a></li>
+														<li><a href="shortcode_compo_media.html"><i class="fa fa-volume-down"></i> Audio/Videos &amp; Images</a></li>
+														<li><a href="shortcode_compo_pagination.html"><i class="fa fa-arrows-h"></i> Paginations</a></li>
+														<!-- End Components -->
+													</ul>
+												</div>
+												<div class="col-md-3 equal-height-in">
+													<ul class="list-unstyled equal-height-list">
+														<li><h3>Buttons &amp; Icons</h3></li>
+
+														<!-- Buttons -->
+														<li><a href="shortcode_btn_general.html"><i class="fa fa-flask"></i> General Buttons</a></li>
+														<li><a href="shortcode_btn_brands.html"><i class="fa fa-html5"></i> Brand &amp; Social Buttons</a></li>
+														<li><a href="shortcode_btn_effects.html"><i class="fa fa-bolt"></i> Loading &amp; Hover Effects</a></li>
+														<!-- End Buttons -->
+
+														<!-- Icons -->
+														<li><a href="shortcode_icon_general.html"><i class="fa fa-chevron-circle-right"></i> General Icons</a></li>
+														<!-- End Icons -->
+													</ul>
+												</div>
+												<div class="col-md-3 equal-height-in">
+													<ul class="list-unstyled equal-height-list">
+														<li><h3>Common elements</h3></li>
+
+														<!-- Common Elements -->
+														<li><a href="shortcode_thumbnails.html"><i class="fa fa-image"></i> Thumbnails</a></li>
+														<li><a href="shortcode_accordion_and_tabs.html"><i class="fa fa-list-ol"></i> Accordion &amp; Tabs</a></li>
+														<li><a href="shortcode_timeline1.html"><i class="fa fa-dot-circle-o"></i> Timeline Option 1</a></li>
+														<li><a href="shortcode_table_general.html"><i class="fa fa-table"></i> Tables</a></li>
+														<li><a href="shortcode_compo_progress_bars.html"><i class="fa fa-align-left"></i> Progress Bars</a></li>
+														<li><a href="shortcode_compo_panels.html"><i class="fa fa-columns"></i> Panels</a></li>
+														<li><a href="shortcode_carousels.html"><i class="fa fa-sliders"></i> Carousel Examples</a></li>
+														<li><a href="shortcode_maps_google.html"><i class="fa fa-map-marker"></i> Google Maps</a></li>
+														<li><a href="shortcode_maps_vector.html"><i class="fa fa-align-center"></i> Vector Maps</a></li>
+														<!-- End Common Elements -->
+													</ul>
+												</div>
+												<div class="col-md-3 equal-height-in">
+													<ul class="list-unstyled equal-height-list">
+														<li><h3>Forms</h3></li>
+
+														<!-- Forms -->
+														<li><a href="shortcode_form_general.html"><i class="fa fa-bars"></i> Common Bootstrap Forms</a></li>
+														<!-- End Forms -->
+
+														<!-- Infographics -->
+														<li><a href="shortcode_compo_charts.html"><i class="fa fa-pie-chart"></i> Charts &amp; Countdowns</a></li>
+														<!-- End Infographics -->
+													</ul>
+												</div>
+											</div>
+										</div>
+									</div>
+								</li>
+							</ul>
+						</li>
+						<!-- End Shortcodes -->
+						
+					<!-- Login -->
+						<li>
+							<a href="http://localhost:8080/SmartSchool/LoginPage.jsf" target="_blank">
+								Login
+							</a>
+						</li>
+						<!-- End Login -->
+			</ul>
+			</div>
+			</div>
+	   </div>
+	   
+	   	<!--=== Slider ===-->
+		<div class="slider-inner">
+			<div id="da-slider" class="da-slider">
+			   <div class="da-slide" style="background-image: url(assets/maths.jpg);">
+					<h2><i>Innovation</i> <br /> <i>is our</i> <br /> <i>main focus</i></h2>
+					<p><i>Check out</i> <br /> <i>our R&D Labs</i> <br /> <i>for encouraging student's innovative ideas</i></p>
+                    <!-- <div class="da-img"><img src="assets/plugins/parallax-slider/img/html5andcss3.png" alt="image01" /></div> -->
+				</div>
+				<div class="da-slide" style="background-image: url(assets/board.jpg);">
+					<h2><i>Education &amp; Sports</i> <br /> <i>Under Same</i> <br /> <i>Roof</i></h2>
+					<p><i>We treat education & other activities</i> <br /> <i>equally.</i> <br/></p>
+					<!-- <div class="da-img"><img class="img-responsive" src="assets/plugins/parallax-slider/img/1.png" alt=""></div> -->
+				</div>
+				<div class="da-slide" style="background-image: url(assets/learning.jpg);">
+					<h2><i>Learning has</i> <br /> <i>never been</i> <br /> <i>so easy</i></h2>
+					<p><i>Come &amp; Join us</i> <br /> <!-- <i>tempor incididunt ut</i> --></p>
+					<!-- <div class="da-img">
+   					    <iframe width="300" height="200" src="https://www.youtube.com/embed/68QDZAl29oE?autoplay=1&loop=1&&playlist=68QDZAl29oE&controls=0&showinfo=0" frameborder="0" allowFullScreen></iframe> 
+					</div> -->
+				</div>
+				
+				<div class="da-arrows">
+					<span class="da-arrows-prev"></span>
+					<span class="da-arrows-next"></span>
+				</div>
+			</div>
+		</div><!--/slider-->
+		<!--=== End Slider ===-->
+		
+	   
+		<!--=== News & Updates ===-->
+		
+		<div class="news-updates">
+			<div class="news-updates-child">
+				<div class="container">
+					<div class="col-sm-4 news-updates-child-heading">
+								<span style="color: #fff;">News & Updates</span><a> </a><img src="assets/img/News-Updates-Icon.png"/>
+						</div>
+						<div class="col-sm-4 news-updates-child-content">
+							<marquee direction="left" scrollamount="4" onmouseover="this.stop();" onmouseout="this.start();">
+	 		                   <a>Vision School is ranked No.1 in United States.</a>
+ 			                   <a>Vision School is now sponsoring free education for backward students.</a>
+ 		                    </marquee>
+						</div>
+					
+					</div>
+			</div>
+		</div>
+		<!--=== End News & Updates ===-->
+		
+		<!--=== School Message ===-->
+		<div class="school-message">
+			<div class="container overflow-h">
+				<div class="row">
+					<div class="col-md-9 animated fadeInLeft">
+						<span><a>DIRECTOR'S MESSAGE</a> </span>
+						<p>Vision Public School was started with an aim to make our students a better citizens and to utilize their education in building a better society. At Vision Public School, we teach our students to follow their heart and encouraging them to achieve their goal. Along with education, we want our students to get involved in sports, extra curricular activities etc. Innovation is another important focus of our school and we encourage students to convert their ideas into real time applications.</p>
+					</div>
+					<div class="col-md-3 animated fadeInRight">
+						<a href="#"><img src="assets/director.png" style="width:150px;height:170px;" alt="Logo"/></a>
+					</div>
+				</div>
+			</div>
+		</div><!--/row-->
+		<!-- End Purchase Block -->
+		
+		<div class="footer-main">
+			<div class="footer">
+				<div class="container">
+					<div class="row">
+					
+					 <div class="col-md-3">
+							<div >
+							</div>
+						</div> 
+						
+						<!-- Address -->
+						<div class="col-md-3">
+							<div class="headline"><h2>Address</h2></div>
+							<address>
+							    Vision Public School <br />
+								South State Street <br />
+								Sandy, UT 84070 <br />
+								Phone: 123 456 7890 <br />
+								Fax: 123 456 7890 <br />
+								Email: <a href="mailto:info@visionpublicschool.com" class="">info@visionpublicschool.com</a>
+							</address>
+						</div><!--/col-md-3-->
+						<!-- End Address -->
+						
+						
+						<!-- Link List -->
+						<div class="col-md-3">
+							<div class="headline"><h2>Useful Links</h2></div>
+							<ul class="list-unstyled link-list">
+								<li><a href="#">About us</a><i class="fa fa-angle-right"></i></li>
+								<li><a href="#">Latest News & Updates</a><i class="fa fa-angle-right"></i></li>
+								<li><a href="#">Contact us</a><i class="fa fa-angle-right"></i></li>
+							</ul>
+						</div>
+						<!-- End Link List -->
+					</div>
+				</div>
+			</div><!--/footer-->
+
+			<div class="copyright">
+				<div class="container">
+					<div class="row">
+							<p align="center">
+								<a></a><a style="text-decoration: none;">Designed & Developed by Srikanth Ande</a> | 2016 &copy; All Rights Reserved.
+								<a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a>
+							</p>
+						
+					</div>
+				</div>
+			</div><!--/copyright-->
+		</div>
+		<!--=== End Footer Version 1 ===-->
+		
+      </div> <!-- End Wrapper -->
+	<!-- JS Global Compulsory -->
+	<script type="text/javascript" src="assets/jquery/jquery.min.js"></script>
+	<script type="text/javascript" src="assets/jquery/jquery-migrate.min.js"></script>
+	<script type="text/javascript" src="assets/bootstrap/js/bootstrap.min.js"></script>
+	 <!-- JS Implementing Plugins -->
+	<script type="text/javascript" src="assets/slider/js/back-to-top.js"></script>
+	<script type="text/javascript" src="assets/slider/js/smoothScroll.js"></script>
+	<script type="text/javascript" src="assets/slider/js/modernizr.js"></script>
+	<script type="text/javascript" src="assets/slider/js/jquery.cslider.js"></script>
+	<script type="text/javascript" src="assets/slider/js/owl.carousel.js"></script>
+	<!-- JS Customization -->
+	<script type="text/javascript" src="assets/custom/custom.js"></script>
+	<!-- JS Page Level -->
+	<script type="text/javascript" src="assets/custom/app.js"></script>
+	<script type="text/javascript" src="assets/slider/js/owl-carousel.js"></script>
+	<script type="text/javascript" src="assets/slider/js/style-switcher.js"></script>
+	<script type="text/javascript" src="assets/slider/js/parallax-slider.js"></script>
+	<script type="text/javascript">
+		jQuery(document).ready(function() {
+			App.init();
+			OwlCarousel.initOwlCarousel();
+			StyleSwitcher.initStyleSwitcher();
+			ParallaxSlider.initParallaxSlider();
+		});
+	</script>
+	
+</body>
+</html>

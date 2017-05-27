@@ -1,0 +1,211 @@
+/* Add here all your css styles (customizations) */
+
+/* Start :=========  CSS for new-updates scroll*/
+.news-updates {
+    overflow: hidden;
+    position: relative;
+    min-height: 60px;
+    background-size: cover;
+    background-position: center center
+}
+
+
+.news-updates .news-updates-child {
+    left: 0;
+    right: 0;
+    bottom: -7px;
+    padding: 20px 0;
+    position: absolute;
+    background: rgba(0,0,0,0.9);
+}
+
+.news-updates .news-updates-child-heading{
+	width: 17%;
+	padding-right: 0px; 
+     padding-left: 0px; 
+}
+
+.news-updates .news-updates-child-content{
+	width: 83%;
+}
+
+.news-updates-child-heading span {
+	font-size: 16px;
+    font-style: normal;
+    text-transform: uppercase;
+}
+
+.news-updates-child-heading img {
+	width:40px;
+	vertical-align: bottom;
+}
+
+.news-updates-child-content marquee{
+	font-size: 16px;
+    font-style: normal;
+    text-transform: uppercase;
+}
+
+.news-updates-child-content a{
+	padding-right: 15px;
+	text-decoration: none;
+}
+
+/* The below two settings is to control the logo & title dimensions when UI is opened on a larger screen*/
+.header a{
+	font-size: xx-large;
+	text-decoration: none;
+}
+.header img{
+	width:60px;
+	height:50px;
+}
+
+
+/*The below conditions will check whether the UI is open from mobile or not. We can control the CSS setting based on the max-width */
+@media  screen and (min-device-width: 100px) and (max-device-width: 400px){
+  .header a{
+	font-size: small;
+	text-decoration: none;
+  }
+  
+  .header img{
+	 width: 25px;
+    height: 30px;
+   }
+   
+   
+   .news-updates .news-updates-child-heading{
+	width: 55%;
+	padding-right: 0px; 
+     padding-left: 0px; 
+   }
+   
+   .news-updates-child-heading span {
+	font-size: 9px;
+    font-style: normal;
+    text-transform: uppercase;
+   }
+   
+   .news-updates-child-heading img {
+	width:30px;
+	vertical-align: bottom;
+  }
+  .news-updates .news-updates-child-content{
+	width: 95%;
+  }
+  .news-updates-child-content marquee{
+	font-size: 12px;
+    font-style: normal;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+  .news-updates {
+    overflow: hidden;
+    position: relative;
+    min-height: 70px;
+    background-size: cover;
+    background-position: center center
+  }
+   
+
+}
+
+@media  screen and (min-device-width: 400px) and (max-device-width: 900px) {
+  .header a{
+	font-size: large;
+	text-decoration: none;
+  }
+  
+  .header img{
+	 width: 35px;
+    height: 40px;
+   }
+   
+   .news-updates .news-updates-child-heading{
+	width: 55%;
+	padding-right: 0px; 
+     padding-left: 0px; 
+   }
+   
+   .news-updates-child-heading span {
+	font-size: 9px;
+    font-style: normal;
+    text-transform: uppercase;
+   }
+   
+   .news-updates-child-heading img {
+	width:30px;
+	vertical-align: bottom;
+  }
+  .news-updates .news-updates-child-content{
+	width: 95%;
+  }
+  .news-updates-child-content marquee{
+	font-size: 12px;
+    font-style: normal;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+  .news-updates {
+    overflow: hidden;
+    position: relative;
+    min-height: 70px;
+    background-size: cover;
+    background-position: center center
+  }
+ 
+}
+/* End :=========  CSS for new-updates scroll*/
+
+/* Start :=========  CSS for School Message*/
+
+.school-message {
+	padding: 10px 0 10px;
+	border-bottom: solid 1px #eee;
+	background: url(../img/message-background.png) repeat;
+}
+
+.school-message p {
+	margin-bottom: 0;
+}
+
+.school-message span {
+	color: #666;
+	display: block;
+	font-size: 24px;
+	line-height: 35px;
+	font-weight: normal;
+	margin-bottom: 12px;
+	font-family: "Open Sans", Arial, sans-serif;
+}
+
+.school-message .btn-buy {
+	text-align: center;
+}
+
+.school-message .btn-buy a {
+	margin-top: 27px;
+}
+
+.school-message .btn-buy a i {
+	margin-right: 5px;
+}
+
+@media (max-width: 992px) {
+	.school-message {
+		text-align: center;
+	}
+
+	.school-message span {
+		font-size: 22px;
+		line-height: 29px;
+	}
+
+	.school-message .btn-buy a {
+		margin-top: 25px;
+		font-size: 16px;
+	}
+}
+
+/* End :=========  CSS for School Message*/

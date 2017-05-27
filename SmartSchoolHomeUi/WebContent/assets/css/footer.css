@@ -1,0 +1,78 @@
+/*footer-main
+------------------------------------*/
+.footer-main .footer {
+	padding: 10px 0;	
+	background: #272727;
+}
+
+.footer-main .footer p {
+	color: #eee;
+}
+
+.footer-main .footer h2 {
+	color: #eee;
+	font-size: 18px;
+	font-weight: 200;
+}
+
+/*Link List*/
+.footer-main .link-list li {
+	border-top: solid 1px #353535;
+}
+
+.footer-main address,
+.footer-main .link-list a,
+.footer-main .link-list i {
+	color: #eee;
+}
+
+.footer-main address {
+	line-height: 23px;
+}
+
+/*Dotted Map*/
+.footer-main .footer .map-img {
+	background: url(../../img/map-img.png) 5px 60px no-repeat;
+}
+
+/*Blog Posts (with images)*/
+.footer-main .footer .posts .dl-horizontal a {
+ color: #dadada;
+}
+
+.footer-main .footer .dl-horizontal a:hover {
+ color: #5fb611 !important;
+}
+
+/*Copyright*/
+.footer-main .copyright {
+	background: #222;
+	border-top: none;
+	/* padding: 10px 0 5px; */
+}
+
+.footer-main .copyright p {
+	color: #eee;
+	margin-top: 14px;
+}
+
+.footer-main .copyright a {
+	margin: 0 2px;
+}
+
+.footer-main .footer-socials {
+	margin-top: 12px;
+	text-align: right;
+}
+
+.footer-main .footer-socials li a {
+	color: #777;
+	font-size: 16px;
+}
+
+@media (max-width: 991px) {
+	.footer-main .copyright,
+	.footer-main .footer-socials {
+		text-align: left;
+	}
+}

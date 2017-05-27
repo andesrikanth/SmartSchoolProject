@@ -24,15 +24,15 @@
 		</navigation-case>
 	 </navigation-rule>
 	 
-	  <navigation-rule>
+	 <!--  <navigation-rule>
 		<from-view-id>/SchoolHome.xhtml</from-view-id>
 		<navigation-case>
-		 <!-- <from-action>#{commonBean.loginNavigation}</from-action> -->
+		 <from-action>#{commonBean.loginNavigation}</from-action>
 		   <from-outcome>register</from-outcome>
 			<to-view-id>/StudentRegister.xhtml</to-view-id>
 		</navigation-case>
 	 </navigation-rule>
-	
+	 -->
 	<navigation-rule>
 		<from-view-id>/PasswordReset.xhtml</from-view-id>
 		<navigation-case>
@@ -48,8 +48,8 @@
 		<from-view-id>/LoginPage.xhtml</from-view-id>
 		<navigation-case>
 		 <!--  <from-action>#{testBean.status}</from-action> -->
-		   <from-outcome>success</from-outcome>
-			<to-view-id>/Welcome.xhtml</to-view-id>
+		   <from-outcome>Admin</from-outcome>
+			<to-view-id>/Admin.xhtml</to-view-id>
 			<redirect />
 		</navigation-case>
 	 </navigation-rule>
