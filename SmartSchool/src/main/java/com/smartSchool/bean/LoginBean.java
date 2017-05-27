@@ -122,6 +122,9 @@ public class LoginBean implements Serializable {
 				if(status.getLoginValidationStatus()!= null && status.getLoginValidationStatus().equals("success")){
 					this.setLoginAuthStatus(status.getCurrentUserRoleType());
 				}
+				else if(status.getLoginValidationStatus()!= null && status.getLoginValidationStatus().equals("reset")){
+					this.setLoginAuthStatus("reset");
+				}
 				
 		}
 		else {
