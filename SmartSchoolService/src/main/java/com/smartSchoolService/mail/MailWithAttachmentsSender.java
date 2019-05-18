@@ -21,8 +21,8 @@ package com.smartSchoolService.mail;
 	    @SuppressWarnings("static-access")
 	    public static void main(String args[]) {
 	    	
-	    	final String username = "javaprojects2013@gmail.com";
-	    	final String password = "Srikanth$005";
+	    	final String username = "test123@gmail.com";
+	    	final String password = "Test$123";
 
 	    	
 	        Properties props = new Properties();
@@ -45,8 +45,8 @@ package com.smartSchoolService.mail;
 	                return new PasswordAuthentication(username,password); 
 	            }
 	        });
-	        String[] to = {"srikanthande1990@gmail.com","lovelysrikanthande@gmail.com","srikanth_ande2007@yahoo.com"};
-	        String from = "javaprojects2013@gmail.com";
+	        String[] to = {"test123@gmail.com"};
+	        String from = "test123@gmail.com";
 	        String subject = "Testing...";
 	        MimeMessage msg = new MimeMessage(session);
 	        try {
