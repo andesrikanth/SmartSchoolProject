@@ -19,10 +19,10 @@ public class MailSender {
                 /*
     	
     	// Recipient's email ID needs to be mentioned.
-        String to = "loveysrikanthande@gmail.com";
+        String to = "test@gmail.com";
 
         // Sender's email ID needs to be mentioned
-        String from = "srikanthande1990@gmail.com";
+        String from = "test@gmail.com";
 
         // Assuming you are sending email from localhost
         String host = "localhost";
@@ -60,8 +60,8 @@ public class MailSender {
         }
 */        
         
-    	final String username = "javaprojects2013@gmail.com";
-    	final String password = "Srikanth$005";
+    	final String username = "test@gmail.com";
+    	final String password = "test$2019";
 
     	//support : https://support.google.com/accounts/answer/6010255
 
@@ -94,12 +94,12 @@ public class MailSender {
     	try {
     	                
     	        ArrayList<String> arr = new ArrayList<String>();
-    	        arr.add("srikanthande1990@gmail.com");
-    	        arr.add("lovelysrikanthande@gmail.com");
+    	        arr.add("test@gmail.com");
+    	        arr.add("test@gmail.com");
     	                
     	        for(String mail : arr){
     	            Message message = new MimeMessage(session);
-    	            message.setFrom(new InternetAddress("lovelysrikanthande@gmail.com"));
+    	            message.setFrom(new InternetAddress("test@gmail.com"));
     	            message.setRecipients(Message.RecipientType.TO,
     	                                                InternetAddress.parse(mail));
     	            message.setSubject("Testing Subject");
@@ -125,8 +125,8 @@ public class MailSender {
     	
     	boolean status =false;
     	
-    	final String username = "javaprojects2013@gmail.com";
-    	final String password = "Srikanth$005";
+    	final String username = "test@gmail.com";
+    	final String password = "test$005";
 
     	//support : https://support.google.com/accounts/answer/6010255
 
@@ -169,7 +169,7 @@ public class MailSender {
         	         
                 }
     			
-    	           message.setFrom(new InternetAddress("lovelysrikanthande@gmail.com"));
+    	           message.setFrom(new InternetAddress("test@gmail.com"));
     	            message.setSubject("Testing Subject");
     	            message.setText("My Mail Body");
 
